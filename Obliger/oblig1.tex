@@ -1,0 +1,116 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1.8cm]{geometry}
+\usepackage{amsmath, amssymb, amsthm}  % Essential math packages
+\usepackage{graphicx}                   % For figures
+\usepackage{hyperref}                   % Clickable links
+\usepackage{parskip} % cleaner spacing
+\usepackage{enumitem}
+\usepackage{amssymb}
+\documentclass{article}
+\usepackage{blindtext}
+\usepackage{titlesec}
+\title{Sections and Chapters}
+
+\newtheorem{definition}{Definisjon}
+
+\title{Oblig 1}
+\author{Oliver Ekeberg}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+
+\tableofcontents
+
+
+\section{1.4}
+
+\subsection{1.4.2}
+
+Vis at standardbasisen $(e_1, ..., e_n)$ er en basis for $\mathbb{K}^n$
+
+pf:
+
+En 
+
+\vspace{1em}
+Først viser jeg at $(e_1,...,e_n)$ er lineært uavhengig. Dette skjer når likningen
+
+\begin{align*}
+    0 = \alpha_1 e_1 + ... + \alpha_n e_n     
+\end{align*}
+
+har eneste løsning at $\alpha_1=...=\alpha_n=0$. Vi vet videre at $e_j &= (\delta_{jk})^{n}_{k=1}$ hvor j er da posisjonen til 
+vektoren inne i listen, og k er da den k´te posisjonen i n-tuppelen. 
+
+I nesten enhver situasjon så har vi en liste med n-tupler
+
+\begin{align*}
+    0 &= \alpha_1 e_1 + ... + \alpha_n e_n \\
+    &= \sum_{j=1}^{n} \alpha_j * e_j \\
+    &= \sum_{j=1}^{n} \alpha_j * (\delta_{jk})^{n}_{k=1} \\
+    &= (\sum_{j=1}^{n} \alpha_j \delta_{jk})^n_{k=1} \\
+    &= (\alpha_k)
+\end{align*}
+hvis og bare hvis $\alpha_1= ... = \alpha_n = 0$  
+
+Så $(e_1,...e_n)$ er lineært uavhengig
+
+\vspace{1em}
+Deretter må jeg vise at listen $(e_1,...e_n)$ utspenner heel $\mathbb{K}^n$
+
+Definisjonen på spennet av en liste med vektorer er definert som
+
+$$
+span(\mathbb{K}^n) = \{ \alpha_1 e_1 + ... + \alpha_n e_n  : \alpha_1,...,\alpha_n \in \mathbb{K} \}
+$$
+
+Siden $(e_1,...,e_n)$ er lineært uavhengig, så vet vi at det finnes n uavhengige vektorer, og de må av den grunn utspenne hele $\mathbb{K}^n$
+
+
+
+
+\subsection{1.4.6}
+\subsubsection{a)}
+
+La $C = (e_1,..., e_n)$ være standardbasisen til $\mathbb{K}^n$. Vis at $[ x ]_C = x, \forall x \in \mathbb{K}^n$.
+
+pf:
+
+Vi vet at $e_j = (\delta_{jk})$ som er den j-te n-tuppelen, som er 0 overalt enn i den k-te posisjonen.
+
+Da er enhver $x \in \mathbb{K}^n$ en lineær kombinasjon av standardbasisen, og kan skrives som
+
+\begin{align*}
+    x = \sum_{j=1}^{n} x_j e_j \\
+    &= \sum_{j=1}^{n} x_j (\delta_{jk}) \\
+    &= (x_k)
+\end{align*}
+
+\vspace{1em}
+
+Da vil av teorem $1.4.5$, som sier at hvis $u = x_1 u_1+...+x_n u_n => [u]_B = (x_1,...,x_n)$ gitt at basisen til et vektorrom $U$ over $\mathbb{K}$ er gitt ved at $B=(u_1,...,u_n)$, kunne si at
+$[x]_C = x,  \forall x \in \mathbb{K}^n$
+
+
+
+\subsubsection{b)}
+
+La $U$ være et vektorrom over $\mathbb{K}$ med en basis $B=(u_1,...,u_n)$. Vis at 
+
+$$
+[u_j]_B = e_j, \forall j =1,...,n
+$$
+
+Vi vet at vi kan uttrykke $u_j$ som $0 * u_1 + ... + 1 * u_j + ... + 0 * u_n$.
+
+Da vet vi fra teorem $1.4.5$  at $[u_j]_B = (0,...,1,...,0)$. Dette er det samme som å skrive $e_j = (0,...,1,...,0)$ hvor $1$ er i den j-te plassen, som viser at
+
+$[u_j]_B = e_j, \forall j = 1,...,n$
+
+
+
+
+
+\end{document}
