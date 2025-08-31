@@ -1,0 +1,118 @@
+{
+  "Placeholder Snippet": {
+    "prefix": "desc",
+    "body": [
+      "\\begin{description}",
+      "\t\\item[$1] $0",
+      "\\end{description}"
+    ],
+    "description": "Create a description environment"
+  },
+  "Figure Environment": {
+    "prefix": "fig",
+    "body": [
+      "\\begin{figure}[ht]",
+      "\t\\centering",
+      "\t\\includegraphics[width=0.8\\linewidth]{$1}",
+      "\t\\caption{${2:Caption}}",
+      "\t\\label{fig:${3:label}}",
+      "\\end{figure}"
+    ],
+    "description": "Insert a figure environment"
+  },
+  "Equation Environment": {
+    "prefix": "eq",
+    "body": [
+      "\\begin{equation}",
+      "\t$0",
+      "\\end{equation}"
+    ],
+    "description": "Insert an equation environment"
+  },
+  "Inline Math": {
+    "prefix": "mm",
+    "body": ["\\( $1 \\)"],
+    "description": "Inline math mode \\( ... \\)"
+  },
+  "Display Math": {
+    "prefix": "dm",
+    "body": ["\\[",
+    "\t $1",
+    "\\] $0"],
+    "description": "Display math mode \\[ ... \\]"
+  },
+  "Bold and Italic": {
+    "prefix": "bi",
+    "body": ["\\textbf{\\textit{$1}}$0"],
+    "description": "Bold and italic text"
+  },
+  "Section": {
+    "prefix": "sec",
+    "body": ["\\section{${1:Section Name}}", "$0"],
+    "description": "Create a new section"
+  },
+  "Subsection": {
+    "prefix": "subsec",
+    "body": ["\\subsection{${1:Section Name}}", "$0"],
+    "description": "Create a new subsection"
+  },
+  "Subsubsection": {
+    "prefix": "subsubsec",
+    "body": ["\\subsubsection{${1:Section Name}}", "$0"],
+    "description": "Create a new subsubsection"
+  },
+
+
+  "Unordered List": {
+    "prefix": "itemize",
+    "body": [
+      "\\begin{itemize}",
+      "\t\\item $0",
+      "\\end{itemize}"
+    ],
+    "description": "Create an itemize environment"
+  },
+  "Ordered List": {
+    "prefix": "enumerate",
+    "body": [
+        "\\begin{enumerate}",
+        "\t\\item $0",
+        "\\end{enumerate}"
+    ]
+  },
+
+
+  "Fractions": {
+    "prefix": "frac",
+    "body": "\\frac{$1} {$2} $0",
+    "description": "Create a fraction with frac",
+    "scope": "meta.environment.math.latex, meta.math.*.latex"
+  },
+
+  "nth Square Root": {
+    "prefix": "sqrtn",
+    "body": "\\( $1 \\)^{ \\frac{$2} {$3} } $0",
+    "description": "Make nth square root",
+    "scope":"meta.environment.math.latex, meta.math.*.latex"
+  },
+
+
+
+
+
+  "Math R": {
+    "prefix": "R",
+    "body": "\\mathbb{R}",
+    "description": "Get the R for real numbers",
+    "scope": "meta.environment.math.latex, meta.math.*.latex"
+  },
+
+  "Math K": {
+    "prefix": "K",
+    "body": "\\mathbb{K}",
+    "description": "Get the K for all bodies",
+    "scope": "meta.environment.math.latex, meta.math.*.latex"
+  }
+
+  
+}

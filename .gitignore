@@ -10,6 +10,7 @@
 *.fls
 *.lof
 *.lot
+*.code-workspace    
 
 # LaTeX-Workshop output directory
 /out/
