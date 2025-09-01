@@ -1,11 +1,6 @@
 {
-    "latex-workshop.latex.outDir": "%WORKSPACE_FOLDER%/out",
-    "latex-workshop.latex.autoBuild.run": "onSave",
-    "latex-workshop.view.pdf.viewer": "tab",
-    "cSpell.words": [
-        "includegraphics",
-        "mathbb",
-        "textbf",
-        "textit"
-    ]
+  "extends": [
+    "./.vscode/settings.json",
+    "./.vscode/settings.platform.json"
+  ]
 }
