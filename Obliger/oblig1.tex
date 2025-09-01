@@ -24,7 +24,7 @@
 
 \section{1.4}
 
-\subsection{1.4.2}
+\subsection{Oppgave 1.4.2}
 
 Vis at standardbasisen $(e_1, ..., e_n)$ er en basis for $\mathbb{K}^n$
 
@@ -69,8 +69,8 @@ Siden $(e_1,...,e_n)$ er lineært uavhengig, så vet vi at det finnes n uavhengi
 
 
 
-\subsection{1.4.6}
-\subsubsection*{1.4.6 a)}
+\subsection{Oppgave 1.4.6}
+\subsubsection{1.4.6 a)}
 
 La $C = (e_1,..., e_n)$ være standardbasisen til $\mathbb{K}^n$. Vis at $[ x ]_C = x, \forall x \in \mathbb{K}^n$.
 
@@ -93,7 +93,7 @@ $[x]_C = x,  \forall x \in \mathbb{K}^n$
 
 
 
-\subsubsection*{1.4.6 b)}
+\subsubsection{1.4.6 b)}
 
 La $U$ være et vektorrom over $\mathbb{K}$ med en basis $B=(u_1,...,u_n)$. Vis at 
 
@@ -109,17 +109,144 @@ $[u_j]_B = e_j, \forall j = 1,...,n$
 
 
 
-\[
-     1^{ \frac{1} {2} } 
-\] 
+
+
+\section{1.5}
+
+\subsection{Oppgave 1.5.2}
+
+
+\subsubsection{1.5.2 a)}
+ 
+Vis at dim \( P_n = n + 1 \)
+
+pf: Siden dimensjonen til en basis er lik antall vektorer i den basisen, må jeg vise at basisen $ P_n $  = \{ alle reelle polynomer av grad høyst n \} har \( n+1 \) vektorer.
+
+Videre er ethvert polynom av grad n formulert som
+
+\begin{align*}
+    p(t) &= \alpha_{0}^{} + \alpha_{1}^{} t + ... + \alpha_{n}^{} t^n \\
+    &= \alpha_{0}^{} p_0(t) + \alpha_{1}^{} p_1(t) + ... + \alpha_{n}^{} p_n(t) 
+\end{align*}
+
+
+Så lineær kombinasjonen av enhver p(t) $\in P_n$ inneholder da $ n+1 $ vektorer, og $ span(p_0, ..., p_n) = P_n $ . Logikken er det samme som at settet $C_4 = {0, 1, 2, 3, 4} $ inneholder  5 tall, men har input lik 4
+
+Må nå bare vise at $ p(t) = 0 $ hvis $ \alpha_{0}^{} = .. = \alpha_{n}^{} = 0 $. Hvis det ikke er slik, betyr det at noen av $ p_0, ..., p_n $ er lineært uavhengige, og da er dimensjonen mindre. enn n+1.
 
 \[
-     x + y = z
+     0 = \sum_{ j=0 }^{ n } \alpha_{j}^{} p_j
 \] 
+Hvis alle $ p_j = 0 $, så er ikke basisen som $ P_n $ består av lin. uavh. Derfor må alle $ \alpha_{j}^{} = 0 for j=1,..., n  $
+
+
+
+\subsubsection{1.5.2 b)}
+
+
+Vis at dim $ P = \infty $ 
+
+pf:
+
+P := (alle reelle polynomer)
+
+Anta at P har en endeligdimensjonal, med basis $ B := (p_0(t), ..., p_n(t)) $ . Det vil si at for en $ p(t) \in P $, så er $ p(t) = t^n = \alpha_{0}^{} p_0(t) + \alpha_{1}^{} p_1(t) + ... + \alpha_{n}^{} p_n(t)$. Men siden $ p(t) \in P $, så vil også $ p(t) = t^{n+1} \in P $, og $ t^{n+1} = \alpha_{0}^{} p_0 + .. + \alpha_{n}^{} p_n $ .  .Dette motsier argumentet om at P skal være endelig dim. fordi basisen til P skal utspenne hele P. Altså $ span(B) = P $. Av den grunn, er P uendelig dim., og dim P = $ \infty $.
+
+
+\subsubsection{1.5.2 c)}
+
+$ C^0 (\mathbb{R}, \mathbb{R})$ er rommet som inneholder alle kontinuerlige funksjoner s.a. $ f: \mathbb{R} \rightarrow \mathbb{R} $  
+
+pf:
+
+P er et underrom av $ C^0 (\mathbb{R}, \mathbb{R})$ fordi ethvert polynom er en kontinuerlig funksjon. Men P inneholder ikke alle kontinuerlige funksjoner, for eksempel er ikke $ f(x) = sin(x) $ et polynom. Derfor er P et ekte underrom av $ C^0 (\mathbb{R}, \mathbb{R})$. Og siden dim P = $ \infty $, så må dim $ C^0 (\mathbb{R}, \mathbb{R})$ også være uendelig.
+
+
+
+\section{1.6}
+
+\subsection{Oppgave 1.6.5}
+
+\subsubsection{1.6.5 a)}
+
+$ V \oplus W := \{ (v,w) : v \in V, w \in W \} $ 
+
+pf:
+
+Vi sier at $ V \oplus W $ er et vektorrom fordi 
+
+
+\begin{itemize}
+    \item vi utstyrer det med nullelementet $ 0_{V \oplus W} = (0_V, 0_W) $
+    \item for to elementer $ (v_1, w_1), (v_2, w_2) \in V \oplus W $ , så definerer vi addisjon som $ (v_1, w_1) + (v_2, w_2) = (v_1 + v_2, w_1 + w_2) $
+    \item skalar multiplikasjon som $ \alpha_{}^{} (v, w) = (\alpha_{}^{}  v, \alpha_{}^{}  w) $ for en skalar $ \alpha_{}^{}  $ 
+\end{itemize}
+
+Fra disse operasjonene kan vi se at alle åtte aksiomene for et vektorrom er oppfylt, fordi både V og W er vektorrom. Derfor er $ V \oplus W $ et vektorrom.
+
+
+Eksempel: Punkt 5:
+
+
+For en $ u \in V \oplus W $, og en $ \alpha_{}^{} , \beta \in \mathbb{K} $ (V og W er vektorrom over $ \mathbb{K} $ ), så er 
+
+\begin{align*}
+    \alpha_{}^{} (\beta u) = \alpha_{}^{} (\beta (v, w)) = \alpha_{}^{} (\beta v, \beta w) \\
+    &= (\alpha_{}^{} (\beta v), \alpha_{}^{} (\beta w)) \\
+    &= ((\alpha_{}^{} \beta) v, (\alpha_{}^{} \beta) w) \\
+    &= (\alpha_{}^{} \beta)(v, w)
+\end{align*}
+
+\subsubsection{1.6.5 b)}
+
+
+Siden $ (v_1, 0_W), ... , (v_n, 0_W) \in V $ og $ (0_V, w_1), ... , (0_V, w_m) \in W$, så er enhver $ (v, w) \in V \oplus W $ en lineær kombinasjon av disse vektorene. Derfor spenner de opp hele $ V \oplus W $. Og $ ((v_1, 0_W), ..., (v_n, 0_W), (0_V, w_1, ..., (0_V, w_m))) $ blir da en basis for $ V \oplus W $.    
+
+
+\subsubsection{1.6.5 c)}
+
+Dimensjonen til et vektorrom er lik antall vektorer i en basis for det rommet. Fra oppgave b) så vet vi at en basis for $ V \oplus W $ er gitt ved $ ((v_1, 0_W), ..., (v_n, 0_W), (0_V, w_1, ..., (0_V, w_m))) $. Denne listen inneholder n + m vektorer. Derfor er dim $ V \oplus W = n + m = dim V + dim W $
+
+
+\section{1.8}
+
+\subsection{Oppgave 1.8.2}
+
+\subsubsection{1.8.2 a)}
+
+Vis at vektorrommet $ \mathbb{K}^n $ har dim n. 
+
+
+pf:
+
+Standardbasisen til $ \mathbb{K} ^n$ er $ C = (e_1, ..., e_n) $ . Må vise at denne listen er linært uavhengig.
+
+En liste er linært uavhengig hvis likningen 
 
 \[
-     123
+     0 = \sum_{ j=1 }^{ n } \alpha_{j}^{} e_j
 \] 
+
+Vet fra tidligere av at $ e_j := (\delta_{jk})_{k=1}^n $ 
+
+\[
+     0 = \sum_{ j=1 }^{ n } \alpha_{j}^{} (\delta_{jk})_{k=1}^n = (\sum_{ j=1 }^{ n } \alpha_{j}^{} \delta_{jk})_{k=1}^n = (\alpha_k)_{k=1}^n
+\] 
+
+Alle $ \alpha_k $ må være lik 0. Videre må jeg vise at listen spenner opp hele $ \mathbb{K}^n $.
+
+
+Ta en $ x = (x_1, ..., x_n) \in \mathbb{K}$. Da er $ x = x_1e_1 + ... + x_n e_n $. Av dette, er da $ span(C) = \mathbb{K}^n $, og dim $ \mathbb{K}^n = n$   
+
+
+
+\subsubsection{1.8.2 b)}
+
+$ M_{mxn}(\mathbb{K})  = (M_{jk})_{j=1,..m, k=1,..n}$. er mengden av alle $ mxn $ matriser med elementer i $ \mathbb{K} $. Siden $ M_{jk} $ er ethvert element i matrisen, så vil en lin. komb. av $ M_{mxn} (\mathbb{K}) $ være 0 iff. $ 0 = (\alpha_{}^{} M)_{jk} $ har eneste løsning at $ \alpha_{jk}^{} =0 \forall j=1,...,m$ og $ k=1,...,n $. Så lenge $ \alpha_{jk}^{} \in \mathbb{K} $
+
+
+\subsection{Oppgave 1.8.3}
+
 
 
 \end{document}
