@@ -11,7 +11,7 @@
 
 \newtheorem{definition}{Definisjon}
 
-\title{Oblig 1}
+\title{Oblig 1 \\ MAT1100 - Lineær Algebra}
 \author{Oliver Ekeberg}
 \date{\today}
 
@@ -29,8 +29,6 @@
 Vis at standardbasisen $(e_1, ..., e_n)$ er en basis for $\mathbb{K}^n$
 
 pf:
-
-En 
 
 \vspace{1em}
 Først viser jeg at $(e_1,...,e_n)$ er lineært uavhengig. Dette skjer når likningen
@@ -247,6 +245,37 @@ $ M_{mxn}(\mathbb{K})  = (M_{jk})_{j=1,..m, k=1,..n}$. er mengden av alle $ mxn 
 
 \subsection{Oppgave 1.8.3}
 
+$ i) \rightarrow ii) $   
 
+Anta at $ dim U = \infty $ 
+
+For enhver n $ \in  \mathbb{N}$ finnes et underrom $ U_n $ av U med dimensjon n. 
+
+pf: 
+For en vilkårlig $ n \in \mathbb{N} $ så har vi et underrom $ U_n $ av U fordi for $ k=2,...,n $ så vil vi ha følgende utsagn til å være sant;
+
+\[
+     u_k \notin span(u_1, ..., u_{k-1})
+\] 
+
+som sier at listen $ (u_1, ..., u_n) $ er lineært uavhengig. Om vi tar $ U_{n+1} $ istendenfor, så vil $ dim U_{n+1} = n+1$. Vi finner at
+
+\[
+     u_{k+1} \notin span(u_1, ..., u_k)
+\] 
+
+Siden $ dim U = \infty $, som betyr at U ikke har en endeligdimensjonal basis, vil vi ha lov til å fortsette i evigheten 
+
+Vi vet at listen er uavhengig fordi for at et vektorrom skal ha dimensjon n, så må det være n vektorer i basisen. 
+
+
+$ ii) \rightarrow i)$
+
+Anta at for enhver $ n \in \mathbb{N} $, finnes det et underrom $ U_n $ av U med dimensjon n.
+
+
+pf:
+
+Skal vise at dim $ U=\infty $. Skal bruke motbevis. Anta at dim $ U=d < \infty $ . Da er det en endelig dimensjonal basis  $ (u_1, ..., u_d) $. Sett nå $ n=d+1 $. Vi har antatt at det finner et underrom $ U_n $ av U uansett hvilken n vi velger. Ta nå dim $ U_{d+1} = d+1 $. Dette er vårt motbevis, fordi hvis et vektorrom U er endeligdim. og $ U_n $ er et underrom av U, så må dim $ U_n \leq dim U $. Derfor er dim $ U = \infty $. Dette argumentet er formulert i proposisjon 1.4.11
 
 \end{document}
