@@ -5,13 +5,16 @@
 \usepackage{hyperref}                   % Clickable links
 \usepackage{parskip} % cleaner spacing
 \usepackage{enumitem}
-\usepackage{amssymb}
+\usepackage{mdframed}
 
-\title{Sections and Chapters}
+% Define a solution environment with a box
+\newenvironment{solbox}
+  {\begin{mdframed}[linewidth=1pt,linecolor=black,roundcorner=5pt]
+   \noindent\textbf{Ans: }\enspace}
+  {\end{mdframed}}
 
-\newtheorem{definition}{Definisjon}
 
-\title{Oblig 1 \\ MAT1100 - Lineær Algebra}
+\title{Oblig 1 \\ MAT1125 - Lineær Algebra}
 \author{Oliver Ekeberg}
 \date{\today}
 
@@ -26,23 +29,348 @@
 
 \subsection{oppgave 2.5.2}
 
-Om vi har alle n-dim vektor rom over $ \mathbb{K} $, så finnes det en $ T \in \mathcal{L}(U, V) $  
+\begin{solbox}
+  Alle transformasjoner til. alle n-dim vektorrom over $ \mathbb{K} $ kan beskrives som $ \mathcal{ L }(U) $. Det vil si at 
+  
+  \begin{align*}
+    T(\sum_{ i=1 }^{ n } \alpha_{i}^{} u_i) &= T( \alpha_{1}^{}  u_1+...+ \alpha_{n}^{}  u_n) \\
+    &= T( \alpha_{1}^{} u_1) + ... + T(\alpha_{n}^{} u_n) \\
+    &= \alpha_{1}^{} T(u_1) + ... + \alpha_{n}^{} T(u_n) \\
+    &= \alpha_{1}^{} v_1 + ... + \alpha_{n}^{} v_n \\
+    &= \sum_{ i }^{ n } \alpha_{i=1}^{} v_i \text{ $\forall \alpha_{i}^{} \in \mathbb{K} $}
+  \end{align*}
+
+  Hvor $ B= \left( u_1, ..., u_n \right)  $ og $ C = \left( v_1, ..., v_n \right)  $ er av samme dimensjon. T er derfor bijektiv og lineær, altså en isomorfi.
+  
+\end{solbox}
 
 
 \subsection{oppgave 2.5.3}
 
+\begin{solbox}
 Har at $ \mathcal{P}_2 $ har basis $ \mathcal{B} = (p_0, p_1,p_2)$ den kanoniske basisen og $ \mathcal{C}=(q_0,q_1,q_2) $ newton basisen over punktene $ t_0=0,t_1=1,t_2=2 $
 
 hvor $ p(t)=2-t+3t^2 $ 
 
 Da er 
-
 \begin{align*}
-    \left[ p \right]_{\mathcal{B}} &=2p_0 + (-1)p_1+3p_2 \\
-    &= (2,-1,3)
+    p(t) &=2p_0 + (-1)p_1+3p_2 \\
+    &= 2-t+3t^2 \\
+    \left[ p \right]_{\mathcal{B}} &= (2,-1,3)
 \end{align*}
 
+Kan så finne $ \left[ p \right] _{\mathcal{C}} $. 
+
+Vet forresten at 
+\begin{itemize}
+  \item $ q_0(t) = 1  $
+  \item $ q_k(t) = \prod_{k=1}^n t-t_{k-1} $  
+\end{itemize}
+
+altså, at $ q_1(t) = \left( t-t_0 \right)  $ og $ q_2(t) = \left( t-t_0 \right) \left( t-t_1 \right)  $ 
+
+\[
+   p(t):= \alpha_{0}^{} + \alpha_{1}^{} \left( t-t_0 \right) + \alpha_{2}^{} \left( t-t_0 \right) \left( t-t_1 \right) 
+\] 
+
+\begin{align*}
+  p(t) &= \alpha_{0}^{} + \alpha_{1}^{}  \left( t-0 \right) + \alpha_{2}^{} \left( t-0 \right) \left( t-1 \right)  \\
+  &= \alpha_{0}^{} + \alpha_{1}^{} t + \alpha_{2}^{} t(t-1) \\
+  &= \alpha_{0}^{} + t \left( \alpha_{1}^{} - \alpha_{2}^{}  \right) + \alpha_{2}^{} t^2 
+\end{align*}
+
+Kan lett se her at 
+
+\begin{itemize}
+  \item $\alpha_{0}^{} =2$
+  \item $\alpha_{2}^{} =3$
+  \item $\alpha_{1}^{} - 3 =-1 = 2$
+\end{itemize}
+
+Dermed får vi at 
+
+\[
+   \left[ p \right] _{\mathcal{C}} = \left( 2,2,3 \right) 
+\] 
+
+Kan også løse koeffisientene ved å sette at 
+
+\[
+   \alpha_{k}^{} = f \left[ t_0,..., t_k \right]
+\] 
+
+der 
+
+\[
+c_0 = f(t_0),
+\qquad
+c_k = f[t_0, t_1, \dots, t_k]
+= \frac{ f[t_1, \dots, t_k] - f[t_0, \dots, t_{k-1}] }{ t_k - t_0 }, 
+\quad k=1,2,\dots,n.
+\]
 
 
+\end{solbox}
+
+
+\subsection{oppgave 2.5.6}
+
+\begin{solbox}
+
+  For å vise at $ \left[ T \right]_{ \mathcal{C} }^{ \mathcal{B} } = A $.
+
+  Fra oppgave $1.4.6$ får vi at $ \left[ u \right]_{ \mathcal{B} } = e_j $.
+  
+  og fra teorem $ 2.5.4 $ har vi at $ \left[ Tu \right] _C=A \left[ u \right] _B $  
+  \begin{align*}
+    \left[ T \right]_{ \mathcal{C} }^{ \mathcal{B} }
+      &= \left( \left[ Tu_1 \right]_{ \mathcal{C} }, \dots, \left[ Tu_n \right]_{ \mathcal{C} } \right) \\
+      &= \left( A\left[ u_1 \right] _B, ...,A \left[ u_n \right] _B \right) \\
+      &= \left( Ae_1, ..., Ae_n \right) \\
+      &= \left( a_1, ..., a_n \right) \\
+      &= A
+  \end{align*}
+  Og det er bevist
+
+\end{solbox}
+
+
+\subsection{oppgave 2.5.9}
+
+\begin{solbox}
+  Må vise at $ i) \rightarrow ii) $ og at $ ii) \rightarrow i) $  hvor
+  \begin{itemize}
+    \item i) T er en isomorfi
+    \item ii) $ \left[ T \right] _C^B $ er inverterbar 
+  \end{itemize} 
+
+  Vi vet at U og V har samme dimensjon, og at $ B = \left( u_1, ..., u_n \right)  $ og $ C = \left( v_1, ..., v_n \right)  $ er hhv. basis for U og V. $ i) \rightarrow  ii)$  Anta så at T er en isomorfi, det betyr at 
+
+  \[
+      T:U \rightarrow V
+  \]
+  er lineær og bijektiv. Da kan vi skrive 
+  
+
+  \begin{align*}
+    \left[ T \right] _C^B &= \left( \left[ Tu_1 \right] _C, ..., \left[ Tu_n \right] _c \right) \\
+  \end{align*}
+  Fra Lemma 2.3.3, vet vi at om $ \left( u_1, ..., u_n \right)  $ er lin. uavh. så er også $ \left( Tu_1, ..., Tu_n \right)  $ lin. uavh. Siden $ \left( u_1, ..., u_n \right)  $ er en basis, vet vi at den er lin. uavh. og $ \left( Tu_1, ..., Tu_n \right) $ formerer da også en basis for vektorrommet V
+
+
+  $ ii) \rightarrow i) $ Anta så at $ \left[ T \right] _C^B $ er inverterbar, skal så vise at T er en isomorfi. Trenger da at $ \left[ T \right] _C^B $ er lineær og bijektiv. Siden U og V er samme dim,  så er 
+  
+  \[
+      dimU = dimV
+  \]
+  Har da også at $ ImT = \left( Tu_1, ..., Tu_n \right) $ (fordi $ \left( \left[ Tu_1 \right] _C, ..., \left[ Tu_n \right] _C \right)  $ er kolonnene til $ \left[ K \right] _C^B $)   er en basis for V. Fra dimensjonssatsen, er da $ dimV = dim(ImT) + dim(\ker T) $. Og $ dim \ker T = 0 $, så T er både injektiv og surjektiv. Vi kan så gå andre vei fra proposisjon 2.3.6 og konkludere med at $ \left[ T \right] _C^B $ er bijektiv og linær, og er derfor en isomorfi. 
+
+\end{solbox}
+
+\subsection{oppgave 2.5.10}
+
+
+\subsubsection{2.5.10 a)}
+
+\begin{solbox}
+  Vet at basis representasjonen er $ \left[ T \right]_{C}^{B} = \left( \left[ Tu_1 \right] _C, ..., \left[ Tu_n \right] _C \right)  $ 
+
+
+  \[
+      Tp := \frac{dp} {dt}  \forall p \in \mathcal{ P } _3
+  \]
+
+  \begin{enumerate}
+    \item $ \left[ Tp_0 \right] _C = \frac{d1} {dt} = 0 = 0*p_0+0*p_1+0*p_2 = \left( 0,0,0 \right) $
+    \item $ \left[ Tp_1 \right] _C = \frac{dt} {dt} =1 =1*p_0+0*p_1+0*p_2 = \left( 1,0,0 \right) $ 
+    \item $ \left[ Tp_2 \right] _C = \frac{dt^2} {dt} = 2t = 0*p_0+2*p_1+0*p_2 = \left( 0,2,0 \right) $
+    \item $ \left[ Tp_3 \right] _C = \frac{dt^3} {dt} = 3t^2 = 0*p_0+0*p_1+3*p_2  = \left( 0,0,3 \right) $    
+  \end{enumerate} 
+
+  Så
+  \[
+      \left[ T \right] _C^B = \begin{bmatrix}
+        0&1&0&0 \\
+        0&0&2&0 \\
+        0&0&0&3
+      \end{bmatrix}
+  \]
+  
+  
+\end{solbox}
+
+\subsubsection{2.5.10 b)}
+
+\begin{solbox}
+  For basiser $ \mathcal{ B } = \left( p_0, ..., p_n \right)  $ og $ \mathcal{ C } = \left( p_0, ..., p_{n-1} \right)   $ og $ Tp=\frac{dp} {dt}  $ så har vi at for en vilkårlig $ k=1,...,n $ 
+  
+  \[
+      Tp_k =  \frac{dt^k} {dt}  = kt^{k-1}
+  \]
+  Dermed vil 
+
+  \[
+      \left[ Tp_k \right]_C = \left[ kt^{k-1} \right]_C = \left( 0,..., k, ..., 0 \right)
+  \]
+
+  hvor lengden er $ n-1 $
+  Vi får dermed en n X n+1 matrise 
+  
+  \[
+  [T]_C^B =
+  \begin{bmatrix}
+  0 & 1 & 0 & 0 & 0 & \cdots & 0 \\
+  0 & 0 & 2 & 0 & 0 & \cdots & 0 \\
+  0 & 0 & 0 & 3 & 0 & \cdots & 0 \\
+  \vdots & \vdots & \vdots & \ddots & \ddots & \ddots & \vdots \\
+  0 & 0 & 0 & \cdots & 0 & 0 & n \\
+  \end{bmatrix}_{n \times (n+1)}.
+  \]
+  
+  
+\end{solbox}
+
+\section{2.6}
+
+\subsection{2.6.4}
+
+\begin{solbox}
+
+  Vi har at 
+  \begin{itemize}
+    \item $ u_1 = 1e_1+2e_2 $ 
+    \item $ u_2 = -2e_1 + 2e_2 $ 
+  \end{itemize}
+
+  dermed er 
+
+  \begin{itemize}
+    \item $ \left[ u_1 \right] _C = \left( 1, 2 \right)  $ 
+    \item $ \left[ u_2 \right] _C = \left( -2, 2 \right)  $ 
+  \end{itemize}
+
+  $ \left[ id \right] _B^C = \left( \left[ u_1 \right] _C, \left[ u_2 \right] _C \right)  $ 
+  \[
+      \left[ id \right] _B^C = \begin{bmatrix}
+        1&-2\\
+        2&2
+      \end{bmatrix}
+  \]
+
+  Denne basisskiftematrisen kan tolkes som en oversettelse fra en vektor i B koordinater til en vektor i C koordinater
+  
+
+  Skal nå finne oversettelsen av en vektor i C koordinater til B koordinater
+
+  \begin{itemize}
+    \item $e_1 = \alpha_{1}^{}  b_1 + \alpha_{2}^{}  b_2$
+    \item $e_2 = \beta_1 b_1 + \beta_2 b_2$ 
+  \end{itemize}
+
+  Etter litt regning, får jeg at 
+
+  \begin{align*}
+    2 \alpha_{1}^{} + 2 \alpha_{2}^{} &= 0 \\
+    \alpha_{1}^{} &= -\alpha_{2}^{} \\
+    \alpha_{1}^{} -2 \alpha_{2}^{} &= 1  \\
+    \alpha_{1}^{}  = \frac{1} {3} \text{og} \alpha_{2}^{} = \frac{-1} {3}  
+  \end{align*}
+
+  Dermed er 
+   \[
+      \left[ id \right] _C^B = \begin{bmatrix}
+        \alpha_{1}^{} &\beta_{1}^{} \\
+        \alpha_{2}^{} &\beta_2
+      \end{bmatrix} = \begin{bmatrix}
+        \frac{1} {3}  & \frac{1} {3}  \\
+        \frac{-1} {3}  & \frac{1} {6} 
+      \end{bmatrix}
+  \]
+  
+\end{solbox}
+
+\subsection{2.6.5}
+
+
+\begin{solbox}
+  Har her at for basisen $ \mathcal{ B }  = \left( p_0,p_1,p_2 \right)  $ 
+
+  \begin{itemize}
+    \item $ p_0=1 $
+    \item $ p_1=t $
+    \item $ p_2=t^2 $   
+  \end{itemize}
+
+  og for basisen $ \mathcal{ C } = \left( q_0,q_1,q_2 \right)  $ 
+
+  har vi at 
+
+  \begin{itemize}
+    \item $ q_0=1 $
+    \item $ q_1=t $
+    \item $ q_2=t^2-t $   
+  \end{itemize}
+
+  Løser så for $ \left[ id \right] _B^C $ 
+
+ \begin{itemize}
+    \item $ p_0=1q_0+0q_1+0q_2 $
+    \item $ p_1=0q_0+1q_1+0q_2 $
+    \item $ p_2=0q_0+1q_1+1q_2 $   
+  \end{itemize}
+
+  fordi i $ p_2 $ må vi legge på en t, grunnet at $ q_2=t^2-t $ 
+
+  Dermed får vi at koordinatene i $ \mathcal{ C }$ blir
+  
+  \begin{itemize}
+    \item $ \left[ q_0 \right]_C= \left( 1,0,0 \right)   $ 
+    \item $ \left[ q_1 \right] _C = \left( 0,1,0 \right)  $ 
+    \item $ \left[ q_2 \right] _C= \left( 0,1,1 \right)  $ 
+  \end{itemize}
+
+  Og vi får at 
+
+  \[
+      \left[ id \right] _B^C = \begin{bmatrix}
+        1&0&0\\
+        0&1&1\\
+        0&0&1
+      \end{bmatrix}
+  \]
+
+  Repeter samme prosess for $ \left[ id \right] _C^B $
+  
+ 
+
+  \begin{itemize}
+    \item $ q_0=1p_0+0p_1+0p_2 $
+    \item $ q_1=0p_0+1p_1+0p_2 $
+    \item $ q_2=0p_0-1p_1+1p_2 $   
+  \end{itemize}
+
+
+  Dermed får vi at koordinatene i $ \mathcal{ B }$ blir
+  
+  \begin{itemize}
+    \item $ \left[ p_0 \right]_B= \left( 1,0,0 \right)   $ 
+    \item $ \left[ p_1 \right] _B = \left( 0,1,0 \right)  $ 
+    \item $ \left[ p_2 \right] _B= \left( 0,-1,1 \right)  $ 
+  \end{itemize}
+
+  Og vi får at 
+
+  \[
+      \left[ id \right] _C^B = \begin{bmatrix}
+        1&0&0\\
+        0&1&-1\\
+        0&0&1
+      \end{bmatrix}
+  \]
+  
+
+  Vi kan sjekke at $ \left[ id \right] _C^B * \left[ id \right] _B^C = I_3 $. Dette kan man eyeballe ganske lett, og har dermed bekreftet at dette er korrekt svar. 
+
+\end{solbox}
 
 \end{document}
