@@ -1,0 +1,85 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1.8cm]{geometry}
+\usepackage{amsmath, amssymb, amsthm}  % Essential math packages
+\usepackage{graphicx}                   % For figures
+\usepackage{hyperref}                   % Clickable links
+\usepackage{parskip} % cleaner spacing
+\usepackage{enumitem}
+\usepackage{mdframed}
+
+% Define a solution environment with a box
+\newenvironment{solbox}
+  {\begin{mdframed}[linewidth=1pt,linecolor=black,roundcorner=5pt]
+   \noindent\textbf{Ans: }\enspace}
+  {\end{mdframed}}
+
+\newcommand{\norm}[1]{\left \lVert #1 \right \rVert}
+
+\title{Oblig 3 \\ MAT1125 - Lineær Algebra}
+\author{Oliver Ekeberg}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+
+\tableofcontents
+
+
+\section{3.5}
+
+\subsection{3.5.8}
+
+\begin{solbox}
+
+    Vet allerede at $ A_{jk} \neq 0 $ for $ j=k $. Så antar bare en liste $ \left( A \right) _{jj} $ for $ j=1,..., min(m,n) $ 
+    Fra definisjonen av matrisenormen er 
+
+    \[
+        \norm{A}_\mathcal{L} = sup_{x \in \mathcal{ K } ^n ,\norm{x}=1} \norm{Ax}_{l^2}
+    \]
+
+    fra thm 3.5.6 er $ \norm{Ax}_{l^2} \leq \norm{A}_\mathcal{L}  \norm{x}_{l^2}$
+    
+    Og siden 
+
+    \[
+        \norm{A}_{ \mathcal{L}}^{} := sup_{x \in \mathbb{K}^n, x \neq 0} \frac{ \norm{Ax}_{l^2}^{} }{ \norm{x}_{l^2}^{} } = sup_{x \in \mathbb{K}^n, \norm{x}_{}^{} =1} \norm{Ax}_{l^2}^{} 
+    \]
+    
+    Vi kan da skrive om 
+
+    \begin{align*}
+        \norm{A}_{ \mathcal{L}}^{} \leq sup_{x \in \mathbb{K}^n, \norm{x}_{}^{} =1} \norm{A}_{ \mathcal{L}}^{} \norm{x}_{l^2}^{} =  sup_{x \in \mathbb{K}^n, \norm{x}_{}^{} =1} \norm{A}_{ \mathcal{L}}^{}
+    \end{align*}
+
+    Da må $ \norm{A}_{ \mathcal{L}}^{}  = max_j \left| \left( A \right)_{j,j}  \right|  $ 
+    
+
+\end{solbox}
+
+
+\section{4.1}
+
+\subsection{4.1.2}
+
+\subsubsection{a)}
+
+\begin{solbox}
+    \begin{align*}
+        \langle u, v+w \rangle &= \langle u, v \rangle + \langle u,w  \rangle \\
+        &= \langle u, w \rangle + \langle u, v \rangle \\
+        &= 
+    \end{align*}
+    
+
+\end{solbox}
+
+
+
+
+
+
+
+
+\end{document}
