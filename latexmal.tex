@@ -1,0 +1,231 @@
+% !TeX spellcheck = nb_NO
+% Kommentaren ovenfor gir instruks til editoren din om at den skal bruke norsk stavekontroll. Dette fungerer bl.a. i TeXstudio.
+
+\documentclass[a4paper,norsk]{article}
+% Norsk orddeling
+\usepackage[norsk]{babel}
+% AMS-pakkene er nyttige
+\usepackage{amsmath,amsfonts,amssymb,amsthm}
+% For å definere lister, som f.eks. deloppgaver
+\usepackage{enumitem}
+% Inneholder mye nyttig, slik som \coloneqq
+\usepackage{mathtools}
+% Penere kalligrafiske fonter
+\usepackage[scaled=1.1]{BOONDOX-calo}
+
+% Bruk bedre symboler for ≥, ≤, epsilon og phi
+\renewcommand{\geq}{\geqslant}
+\renewcommand{\leq}{\leqslant}
+\newcommand{\eps} {\varepsilon}
+\renewcommand{\epsilon}{\varepsilon}
+\renewcommand{\phi}{\varphi}
+
+% Definer de vanligste mengdene og funksjonene
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+% \L er definert som noe annet fra før av, så vi må redefinere \L
+\renewcommand{\L}{\mathcal{L}}
+% Rommet av polynomer
+\newcommand{\Pol}{{\mathcal{P}}}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\Image}{im}
+\DeclareMathOperator{\Kernel}{ker}
+\DeclareMathOperator{\Span}{span}
+\DeclareMathOperator{\Rank}{rank}
+\DeclareMathOperator{\Diag}{diag}
+\DeclareMathOperator{\Proj}{proj}
+\newcommand{\basis}{{\mathcal{B}}}
+\newcommand{\basiss}{{\mathcal{C}}}
+\newcommand{\basisss}{{\mathcal{D}}}
+
+% $f \from A \to B$ definerer en funksjon f fra A til B
+\newcommand{\from}{\colon}
+
+% \ip{a}{b} er indreproduktet mellom a og b
+\newcommand{\ip}[2]{\langle #1, #2\rangle}
+
+% Transponert
+\newcommand{\transp}{{\mathsf{T}}}
+
+% Vertikale klammer for absoluttverdier kan gi feil mellomrom, så bruk \abs for absoluttverdier.
+\newcommand{\abs}[1]{\mathopen|#1\mathclose|}
+
+% Definer oppgavemiljøet
+\newenvironment{oppgave}[1]%
+	{\trivlist{}\item\relax\textbf{Løsning på #1.}\medspace}%
+	{\endtrivlist}
+% Deloppgavelister
+\newlist{deloppgave}{enumerate}{1}
+\setlist[deloppgave,1]{label=(\textbf{\alph*}),align=left}
+
+
+
+
+\title{Oblig 2 \\ MAT1125, høst 2025}
+\author{Ulrik Skre Fjordholm}
+\begin{document}
+\maketitle
+
+
+\begin{oppgave}{2.5.2}
+La $U$ og $V$ være $n$-dimensjonale vektorrom over $\K$. Av
+% En tilde mellom to ord setter inn et mellomrom, men forhindrer at et linjeskift settes inn.
+Teorem~2.5.1
+finnes isomorfier $S\from U\to \K^n$ og $T\from V\to\K^n$. Da er $\phi\coloneqq T^{-1}\circ S$ en isomorfi fra $U$ til $V$, slik at $U\cong V$.
+
+% Én eller flere blanke linjer lager et nytt avsnitt
+
+(Avbildningen $\phi$ er veldefinert fordi $T^{-1}$ eksisterer og avbilder $\K^n$ til $V$; den er lineær fordi komposisjonen av lineære avbildninger er lineær; og den er bijektiv fordi $S$ og $T^{-1}$ er bijektive, og komposisjonen mellom bijektive funksjoner er bijektiv.)
+\end{oppgave}
+
+
+\begin{oppgave}{2.5.3}
+Vi kan skrive
+\[
+% Tenk på matematiske uttrykk som en del av setningen de forekommer i. Derfor skal tegnsetting (som kommaet her) være med i det matematiske uttrykket.
+p(t)=2-t+3t^2 = 2p_0(t)+(-1)p_1(t)+3p_2(t),
+\]
+så $[p]_\basis = \begin{pmatrix*}[r]
+2 \\ -1 \\ 3
+\end{pmatrix*}$. Vi har $q_0(t)=1$, $q_1(t)=(t-0)=t$ og $q_2(t)=t(t-1)=t^2-t$. Vi forsøker å ``snike inn'' $q_2$ i uttrykket for $p$, deretter $q_1$, og til sist $q_0$:
+% Så langt det er mulig, skal matematiske uttrykk som går over flere linjer justeres horisontalt slik at likhetstegn står rett over hverandre. Bruk "&=" og ikke "=&" (sistnevnte gir feil mellomrom etter likhetstegnet).
+\begin{align*}
+p(t) &= 2-t+3t^2 = 2-t+3\bigl(\underbrace{(t^2-t)}_{=\,q_2(t)}+t\bigr) \\
+&= 2-t+3\bigl(q_2(t)+t\bigr)
+= 2+2t+3q_2(t) \\
+&= 2q_0(t)+2q_1(t)+3q_2(t).
+\end{align*}
+Altså er $[p]_\basiss = \begin{pmatrix}
+2 \\ 2 \\ 3
+\end{pmatrix}$.
+\end{oppgave}
+
+
+\begin{oppgave}{2.5.6}
+Av Oppgave~1.4.6 vet vi at om $x\in\K^n$ og $y\in\K^m$, er $[x]_\basis=x$ og $[y]_\basiss=y$. Dermed er
+\begin{align*}
+Ax &= [Ax]_\basiss = [Tx]_\basiss
+= [T]_\basiss^\basis[x]_\basis
+= [T]_\basiss^\basis x.
+\end{align*}
+Siden dette gjelder for alle $x\in\K^n$, må nødvendigvis $[T]_\basiss^\basis = A$.
+\end{oppgave}
+
+
+\begin{oppgave}{2.5.9}
+La $n\coloneqq\dim U=\dim V$. Funksjonen $T$ er en isomorfi hvis og bare hvis det finnes en $T^{-1}\in\L(V,U)$ slik at $T^{-1}\circ T=\id_U$ og $T\circ T^{-1}=\id_V$. Av Proposisjon~2.5.8 er da
+\[
+I_n = [\id_U]^\basis_\basis = [T^{-1}\circ T]^\basis_\basis = [T^{-1}]^\basiss_\basis [T]^\basis_\basiss
+\]
+og
+\[
+I_n = [\id_V]^\basiss_\basiss = [T\circ T^{-1}]^\basiss_\basiss
+= [T]^\basis_\basiss[T^{-1}]^\basiss_\basis
+\]
+Altså er $[T^{-1}]^\basiss_\basis$ en inversmatrise av $[T]^\basis_\basiss$, så $[T]^\basis_\basiss$ er inverterbar.
+
+Motsatt, om $[T]^\basis_\basiss$ er inverterbar har den en inversmatrise $A\in M_n(\K)$. Definer $S\from V\to U$ som $Sv \coloneqq A[v]_\basiss$. På samme måte som over ser man da at
+\[
+I_n = [S\circ T]^\basis_\basis = [T\circ S]^\basiss_\basiss.
+\]
+Altså er $S\circ T = \id_U$ og $T\circ S=\id_V$, så $S = T^{-1}$.
+\end{oppgave}
+
+
+\begin{oppgave}{2.5.10}
+\begin{deloppgave}
+\item
+For en vilkårlig $k$ er
+\[
+\frac{dp_k}{dt}(t) = \frac{d}{dt}(t^k) = kt^{k-1} = kp_{k-1}(t).
+\]
+Dermed er
+\[
+Tp_0 = 0,\quad Tp_1 = p_0, \quad Tp_2 = 2p_1, \quad Tp_3 = 3p_2.
+\]
+Hver av disse vektorene i $\Pol_2$ har basisrepresentasjon
+\[
+[Tp_0]_\basiss = 0, \quad
+[Tp_1]_\basiss = \begin{pmatrix}1 \\ 0 \\ 0\end{pmatrix}, \quad
+[Tp_2]_\basiss = \begin{pmatrix}0 \\ 2 \\ 0\end{pmatrix}, \quad
+[Tp_3]_\basiss = \begin{pmatrix}0 \\ 0 \\ 3\end{pmatrix}.
+\]
+Vi får dermed basisrepresentasjonen
+\[
+[T]^\basis_\basiss = \begin{pmatrix}
+0 & 1 & 0 & 0 \\
+0 & 0 & 2 & 0 \\
+0 & 0 & 0 & 3
+\end{pmatrix}.
+\]
+\item
+Om $\basis = (p_0,\dots,p_n)$ og $\basiss = (p_0,\dots,p_{n-1})$, får vi som før $Tp_k = kp_{k-1}$ for $k=0,\dots,n$. Dermed er
+\[
+[Tp_0]_\basiss = 0, \qquad
+[Tp_k]_\basiss = ke_{k} \qquad \forall\ k=1,\dots,n
+\]
+(der $e_1,\dots,e_n$ er standardbasisen i $\R^n$; se Seksjon~0.2.8). Vi får da
+\[
+[T]^\basis_\basiss = \begin{pmatrix}
+0 & 1 & 0 & \cdots & 0 \\
+0 & 0 & 2 & \cdots & 0 \\
+& \vdots & & \ddots & \vdots \\
+0 & 0 & 0 & \cdots & n
+\end{pmatrix} \in M_{n\times (n+1)}(\R).
+\]
+\end{deloppgave}
+\end{oppgave}
+
+
+\begin{oppgave}{2.6.4}
+Av Proposisjon~2.6.3 er
+\[
+[\id]_\basiss^\basis = \begin{pmatrix}u_1 & u_2\end{pmatrix}
+= \begin{pmatrix*}[r]
+1 & -2 \\ 2 & 2
+\end{pmatrix*}.
+\]
+Dermed er
+\[
+[\id]_\basis^\basiss = \bigl([\id]_\basiss^\basis\bigr)^{-1}
+= \frac16\begin{pmatrix*}[r]
+2 & 2 \\ -2 & 1
+\end{pmatrix*}.
+\]
+\end{oppgave}
+
+
+\begin{oppgave}{2.6.5}
+Merk først at $q_0(t)=1$, $q_1(t)=t$ og $q_2(t)=t(t-1)$.
+
+Vi finner først $[\id]_\basis^\basiss$. Om $p=\alpha_0q_0+\alpha_1q_1+\alpha_2q_2$ er et vilkårlig polynom uttrykt i Newton-basisen, er
+\begin{align*}
+p(t) &= \alpha_0 + \alpha_1t+\alpha_2 t(t-1)
+= \alpha_0 + (\alpha_1-\alpha_2)t + \alpha_2 t^2 \\
+&= \alpha_0p_0(t) + (\alpha_1-\alpha_2)p_1(t) + \alpha_2 p_2(t).
+\end{align*}
+Dersom $[p]_\basiss = \begin{pmatrix}
+\alpha_0 \\ \alpha_1 \\ \alpha_2
+\end{pmatrix}$, er altså $[p]_\basis = \begin{pmatrix}
+\alpha_0 \\ \alpha_1-\alpha_2 \\ \alpha_2
+\end{pmatrix}$. For at $[p]_\basis = [\id]_\basis^\basiss[p]_\basiss$, må da nødvendigvis
+\[
+[\id]_\basis^\basiss = \begin{pmatrix*}[r]
+1 & 0 & 0 \\ 0 & 1 & -1 \\ 0 & 0 & 1
+\end{pmatrix*}.
+\]
+Dermed er
+\[
+[\id]_\basiss^\basis = \bigl([\id]_\basis^\basiss\bigr)^{-1}
+= \begin{pmatrix*}[r]
+1 & 0 & 0 \\ 0 & 1 & 1 \\ 0 & 0 & 1
+\end{pmatrix*}.
+\]
+\end{oppgave}
+
+
+\end{document}

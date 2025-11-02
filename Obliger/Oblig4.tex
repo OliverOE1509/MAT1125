@@ -1,0 +1,346 @@
+% !TeX spellcheck = nb_NO
+% Kommentaren ovenfor gir instruks til editoren din om at den skal bruke norsk stavekontroll. Dette fungerer bl.a. i TeXstudio.
+
+\documentclass[a4paper,norsk]{article}
+% Norsk orddeling
+\usepackage[norsk]{babel}
+% AMS-pakkene er nyttige
+\usepackage{amsmath,amsfonts,amssymb,amsthm}
+% For å definere lister, som f.eks. deloppgaver
+\usepackage{enumitem}
+% Inneholder mye nyttig, slik som \coloneqq
+\usepackage{mathtools}
+% Penere kalligrafiske fonter
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[a4paper, margin=0.5in]{geometry}
+\usepackage{hyperref}
+
+% Bruk bedre symboler for ≥, ≤, epsilon og phi
+\renewcommand{\geq}{\geqslant}
+\renewcommand{\leq}{\leqslant}
+\newcommand{\eps} {\varepsilon}
+\renewcommand{\epsilon}{\varepsilon}
+\renewcommand{\phi}{\varphi}
+
+% Definer de vanligste mengdene og funksjonene
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+% \L er definert som noe annet fra før av, så vi må redefinere \L
+\renewcommand{\L}{\mathcal{L}}
+% Rommet av polynomer
+\newcommand{\Pol}{{\mathcal{P}}}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\Image}{im}
+\DeclareMathOperator{\Kernel}{ker}
+\DeclareMathOperator{\Span}{span}
+\DeclareMathOperator{\Rank}{rank}
+\DeclareMathOperator{\Diag}{diag}
+\DeclareMathOperator{\Proj}{proj}
+\newcommand{\basis}{{\mathcal{B}}}
+\newcommand{\basiss}{{\mathcal{C}}}
+\newcommand{\basisss}{{\mathcal{D}}}
+
+% Definer oppgavemiljøet
+\newenvironment{oppgave}[1]%
+	{\trivlist{}\item\relax\textbf{Løsning på #1.}\medspace}%
+	{\endtrivlist}
+% Deloppgavelister
+\newlist{deloppgave}{enumerate}{1}
+\setlist[deloppgave,1]{label=(\textbf{\alph*}),align=left}
+
+\title{Oblig 4 \\ MAT1125, høst 2025}
+\author{Oliver Ekeberg}
+\begin{document}
+\maketitle
+
+
+
+\begin{oppgave}{2.5.2}
+Fra oppgave 1.5.7, så er 
+
+\begin{enumerate}
+    \item $ p_0(t) = 1 $
+    \item $ p_1(t) = t$
+    \item $ p_2(t) = \frac{ 3 }{ 2 }t^2 - \frac{ 1 }{ 2 }$   
+\end{enumerate}
+
+Skal vise at de polynomene er ortogonale.
+
+
+
+\end{oppgave}
+
+\begin{oppgave}{4.8.3}
+
+Om $ T $ er normal, så er $ T T^* = T^* T $. 
+
+\begin{align*}
+    \left\lVert Tu \right\rVert  &= \sqrt{ 
+    \langle Tu, Tu \rangle_{  } } \\
+    &= \sqrt{ \langle u, T^*Tu \rangle_{  }  }\\  
+    &= \sqrt{ \langle u, TT^*u \rangle_{  }  } \\
+    &= \sqrt{ \langle T^*u, T^*u \rangle_{  }} \\
+    &= \left\lVert T^*u \right\rVert  
+\end{align*}
+
+Hvor $ \sqrt{ \langle *, * \rangle_{  } } $ er normen indusert av indreproduktrommet.
+ 
+\end{oppgave}
+
+\begin{oppgave}{4.10.7 a)}
+En permutasjonsmatrise er en kvadratisk matrise slik at for hver rad og hver kolonne, så må summen
+
+\[
+    \sum_{ k=1 }^{ n } a_{jk} + \sum_{ j=1 }^{ n } a_{jk} = 1
+\]
+for $ j=1, ..., n $. Vet ikke om det er riktig formulert, men vil få frem at hvis vi plukker et element $ a_{jk} $ i en matrise som er slik at
+
+\[
+    A = \begin{bmatrix}
+        1&0&0\\
+        0&1_{jk}&0\\
+        0&0&1
+    \end{bmatrix} 
+\]
+hvor vi har plukket ut det jk te elementet. Anta også at $ A \in M_n(\mathbb{R}) $. Da kan ingen andre elementer $ a_{jk} $ for $ j=1,...n $ og samtidig for $ a_{jk} $ for $ k=1, ..., n $ være lik 1. Summen av den jte rad og den k te kolonnen må være lik 1, som forlater bare elementer $ a_{jk}=1 $.
+
+For hver rad vi går gjennom, vil vi få en mindre plass og ha en 1 i for den neste raden. Dette fortsetter til vi kommer gjennom alle n radene. Og siden A er kvadratisk, så får vi $ n! $ forskjellige permutasjonsmatriser for en $ n \times  n$  matrisen $ A \in M_n(\mathbb{R}) $  
+
+    
+\end{oppgave}
+
+
+\begin{oppgave}{4.10.7 b)}
+
+Hvis du ganger en vektor $ x \in \mathbb{R}^n $ med en permutasjonsmatrise $ A \in M_n(\mathbb{R}) $ så vil du bare stokke om rekkefølgen på posisjonene til vektoren x. Dette skjer i forhold til hvilken plass i A som har en 1 i seg. Ta en vilkårlig matrise $ A $ med elementer $ a_{kj} $ og en vektor $ x = (x_k)_{k=1,...n} $. Da vil $ Ax $ bli den nye vektoren, bare at $ x_k $ og $ x_j $ (fordi $ A\in M_n(\mathbb{R}) $ og $ x \in \mathbb{R}^n $  ) bytter om element.
+
+Ta for eksempel $ A = \begin{bmatrix}
+    1&0&0\\
+    0&0&1\\
+    0&1&0
+\end{bmatrix}  $ og $ x = \begin{bmatrix}
+    x_1\\
+    x_2\\
+    x_3
+\end{bmatrix}  $ 
+Da vil $ Ax = \begin{bmatrix}
+    x_1\\
+    x_3\\
+    x_2
+\end{bmatrix}  $ 
+    
+\end{oppgave}
+
+\begin{oppgave}{4.10.7 c)}
+Om vi ganger en kvadratisk matrise B med en permutasjonsmatrise fra venstre, så vil rad nr j og k bytte plass, om det er en 1 i posisjon $ a_{jk} $  i permutasjonsmatrisen A
+
+Om vi ganger en kvadratisk matrise B med en permutasjonsmatrise fra høyre side, så vil kolonnene j og k bytte plass, om det er en 1 i posisjon $ a_{jk} $ i permutasjonsmatrisen  
+\end{oppgave}
+
+
+\begin{oppgave}{5.2.1}
+
+Anta først at T er en isomorfi, skal så vise at 0 er ikke en egenverdi som følge av dette.
+
+Siden T er en isomorfi, er den bijektiv, og er også surjektiv og injektiv. Dette betyr at $ Tu = 0 $ kun dersom $ u=0$. Eller $ ker T = \left\{ 0 \right\}  $.
+
+En egenverdi av T er slik at $ Tu = \lambda u $. Men siden $ Tu = 0 $ kun hvis $ u=0 $, som ikke er en egenvektor, så kan ikke 0 være en egenverdi. Anta som en kontradiksjon at $ \lambda = 0 $ er en egenverdi. Det vil si at $ Tu = 0  \cdot u=0$. Men da er $ u \in kerT $ samtidig som at $ u\neq 0 $, som motiser at $ kerT = \left\{ 0 \right\}  $. Dette er en motsigelse.\\
+
+
+
+
+Skal nå vise motsatt vei, at hvis 0 ikke er en egenverdi, så må T være en isomorfi, under forutsetning at $ dimU < \infty $.
+
+Anta at $ dimU < \infty $, og at $ \lambda = 0 $ ikke er en egeverdi. Da er $ kerT = \left\{ 0 \right\}  $ , fordi hvis $ u\neq 0 $ og $ Tu=0 $, så ville 0 vært en egenverdi. Siden T er lineær og $ dimU < \infty $, følger det at T er bijektiv og dermed en isomorfi. Dette gjelder fordi $ dim kerT = 0 $, og $ dimU = dimV $ fra dimensjonssatsen.   
+\end{oppgave}
+
+\begin{oppgave}{5.2.7 a)}
+Vi har polynomrommet $ \mathcal{P}_3 = \{ \text{alle polynomer av grad høyest 3} \}$ og transformasjonen
+
+\[
+    T: \mathcal{P}_3 \rightarrow \mathcal{P}_3
+\]
+definert ved $ Tp := \frac{ dp }{ dt } $
+
+For å vise at den eneeste egeverdien er $ \lambda = 0 $, observerer vi at en egenverdi må tilfredsstille $ Tp_k = \frac{ dp_k }{ dt } = \lambda p_k $. Hvor 
+\[
+    p_k = a_0 + a_1 t + ... + a_k t^k
+\]
+Vi ser at siden $ \frac{ dp_k }{ dt } \in \mathcal{P}_2 $ og $ p_k \in \mathcal{P}_3 $, så kan vi argumentere for at den eneste egenverdien som tilfredsstiller $ Tp =\lambda p $ er at $ \lambda = 0$.
+
+Vi har at
+
+\[
+    \frac{ dp_k }{ dt } = a_1 + 2a_2t+...+ka_kt^{k-1} + 0t^k = \lambda \left( a_0 + a_1t+...+a_kt^k \right) 
+\]
+
+Fra dette får vi at de følgende likningene må tilfredsstilles
+\begin{itemize}
+    \item $ a_1=\lambda a_0 $
+    \item $ 2a_2 = \lambda a_1 $
+    \item ...
+    \item $ 0 = \lambda a_k $   
+\end{itemize}
+
+Anta først utfallet at $ \lambda \neq 0 $. Da må $ a_k=0 $, men da er $ a_k= \lambda a_{k+1} $, så $ a_{k+1}=0 $. Dette følger rekursivt helt til vi kommer tilbake til at $ ...a_2=0, a_1=0, a_0=0 $. Som sier at $ p_k=0 $ og dett er ikke en egenvektor. Den eneste løsningen hvor $ \frac{ dp_k }{ dt } = \lambda p_k $ er hvis k=0, eller $ p_0 = a_0 $ som er alle konstante polynomer. Dermed er 
+
+\[
+    \frac{ dp_0 }{ dt }= \lambda p_0 = 0
+\]
+
+\end{oppgave}
+
+\begin{oppgave}{5.2.7 b)}
+Den geometriske multiplisiteten til egenverdien $ \lambda = 0 $ være lik antall egenvektorer som tilsvarer egenverdien 0. Siden vi håndterer $ p \in \mathcal{P}_3 $ og at egenvektoren til $ \lambda = 0 $ er $ p = a_0 $ som er alle konstanter med i $ \mathcal{P}_3 $, så er egenrommet utspendt av vektren $ p_0 = a_0 $
+
+SPØRSMÅL: Er det da bare en egenvektor? Har hoppet tilbake om det er uendelig (fordi $ a_0 \in P_0 $ ) eller bare en, siden 
+    
+\end{oppgave}
+
+\begin{oppgave}{5.3.2}
+
+Skal vise at en diagonal matrise $ D = diag \left( \alpha_{1}^{} , ..., \alpha_{n}^{}  \right)  $ er inverterbar hvis og bare hvis $ \alpha_{1}^{}, ..., \alpha_{n}^{} \neq 0 $ 
+
+Siden en invertibel matrise må være kvadratisk, dvs. $ A \in M_n( \mathbb{K}) $, så kan elementene $ \alpha_{k}^{}   = De_k$. Hva er kravene for at D skal være invertibel? kolonnene i D må være lineært uavhengige. Vi vet at identitetsmatrisen $ I_n := (\delta_{jk})_{j, k =1, ..., n} $. Da kan vi skrive D som $ D = I_n \alpha_{}^{}  $ hvor $ \alpha_{}^{} = \left( \alpha_{1}^{}, ..., \alpha_{n}^{}  \right)  $. 
+
+\begin{align*}
+    D &= I_n \alpha_{}^{}\\
+    &= \left( \alpha_{k}^{} \delta_{jk} \right)_{j, k = 1, ..., n}  
+\end{align*}
+Og siden har antatt at $ \alpha_{k}^{} \neq 0  $ for $ k=1, ..., n$ og at listen med vektorer $ e_1, ..., e_n $ er lineært uavhengige, så er kolonnene i D lineært uavhengige, og D er dermed inverterbar.
+
+
+Hvis vi nå antar at minst en av $ \alpha_{1}^{}, ..., \alpha_{n}^{} =0 $, har vi fortsatt at $ D = \left( \alpha_{k}^{} \delta_{jk} \right)_{jk=1,...,n} $. Hvis vi plukker en tilfeldig indeks, si $ i \in \left\{ 1, ..., n \right\}  $, så vil $ \left( D \right)_{jk=1,...,n} = 0  $ når $ j=k= i$. Da vil $ De_i = 0 $, og D er ikke inverterbar, fordi den ite kolonnen er en linær kombinasjon av alle vektorer, altså 
+\[
+    (D_{ji})_{j=1,..., n} = 0 = 0e_1 + ... 0 0e_n    
+\]
+
+Kan også bruke faktumet at hvis D er diagonal, så er $ detD = \alpha_{1}^{} \cdot ... \cdot \alpha_{n}^{} \neq 0  $ 
+
+\end{oppgave}
+
+\begin{oppgave}{5.4.1}
+La $ A \in M_n(\mathbb{C}) $ og la $ x \in \mathbb{C}^n $. Vis at differens likningen
+
+
+\[
+    \text{Løsning} = \begin{cases}
+        x_{r+1} = Ax_r\\
+        x_0 = x
+    \end{cases}
+\]
+har løsningen 
+\[
+    x_r = A^r x
+\]
+
+Dette kan vises med induksjon. 
+
+\begin{itemize}
+    \item $ x_1 = Ax $ 
+    \item $ x_2 = Ax_1 = A(Ax) = A^2x $
+    \item $ x_3 = Ax_2 = A(A^2x) = A^3x $   
+\end{itemize}
+
+Da vil for tilfelle k, $ x_k = A^kx $. Og for et tilfelle til, vil 
+\[
+    x_{k+1} = A^k x * A = A^{k+1}x
+\]
+
+
+
+
+Videre for å vise at om $ A = RDR^{-1} $, så er $ A^r= RD^RR{-1} $ fra tidligere i seksjon 5.4, substituerer vi dette inn i likningen for $ x_r $, får vi
+
+\begin{align*}
+    x_r &= A^rx\\
+    &= RD^rR^{-1}x
+\end{align*}
+Og dette gjelder for $ r=0, 1, 2,... $ fordi $ A^0=I_n $, og da vil $ x_0 = Ix $ som bare er initial betingelsen
+ 
+\end{oppgave}
+
+\begin{oppgave}{5.4.2}
+La $ A = \begin{bmatrix}
+    1&3\\
+    2&0
+\end{bmatrix}  $ 
+
+\begin{align*}
+    det(A-\lambda I) &= det \left(  \begin{bmatrix}
+        1-\lambda& 3 \\
+        2 &-\lambda
+    \end{bmatrix}  \right) \\
+    &= \lambda^2 - \lambda - 6 \\
+    \left( \lambda -3 \right) \left( \lambda +2 \right) &=0
+\end{align*}
+
+Vi har da at $ \lambda_1 = 3 $, og $ \lambda_2 =-2 $  
+$ A-3I: $
+\[
+    \begin{bmatrix}
+        -2&3\\
+        2&-3
+    \end{bmatrix} = \begin{bmatrix}
+        -2& 3\\
+        0&0
+    \end{bmatrix} 
+\]
+Så $ -2x_1 = -3x_2 \rightarrow x_1 = 3/2 x_2 \rightarrow v_1 = \left[ 3, 2 \right] $  
+
+ 
+$ A+2I: $
+\[
+    \begin{bmatrix}
+        3&3\\
+        2&2
+    \end{bmatrix} = \begin{bmatrix}
+        1& 1\\
+        0&0
+    \end{bmatrix} 
+\]
+Så $ 1x_1 = -1x_2 \rightarrow x_1 = -x_2 \rightarrow v_1 = \left[ -1, 1 \right] $  
+\[
+    R = \begin{bmatrix}
+        3&-1\\
+        2&1
+    \end{bmatrix}, R^{-1} = \frac{ 1 }{ 5 } \begin{bmatrix}
+        1&1\\
+        -2&3
+    \end{bmatrix} 
+\]
+Så diagonaliseringen er da på formen
+\[
+    A = \begin{bmatrix}
+        3&-1\\
+        2&1
+    \end{bmatrix} \begin{bmatrix}
+        3&0\\
+        0&-2
+    \end{bmatrix} \begin{bmatrix}
+        1&1\\
+        -2&3
+    \end{bmatrix} \frac{ 1 }{ 5 }
+\]
+
+Dermed gitt en vilkårlig vektor $ x \in \mathbb{R} $, vil $ x_r $  ha løsning 
+\[
+    x_r = \frac{ 1 }{ 5 } \begin{bmatrix}
+        3^{r+1}-2^{r+1} & 3^{r+1} + 3*2^r\\
+        2*3^r+(-2)^{r+2} & 2*3^r + 3 (-2)^{r+1}
+    \end{bmatrix} x
+\]
+
+ 
+ 
+
+
+
+\end{oppgave}
+
+\end{document}

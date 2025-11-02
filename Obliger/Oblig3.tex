@@ -100,10 +100,10 @@
     Om $ \mathbb{K} = \mathbb{R} $ så er indreproduktet om $ x, y \in \mathbb{R} $ lik
     
     \begin{align*}
-        \langle x, y \rangle &= x * y \\
+        \langle x, y \rangle &= x^T * y \\
         &= \sum_{ j=1 }^{ n } x_j * y_j \\
         &= \sum_{ j=1 }^{ n } y_j * x_j \\
-        &= y * x \\
+        &= y^T  * x \\
         &= \langle y, x \rangle 
     \end{align*}
     
@@ -382,26 +382,31 @@ Så begge listene $ \mathcal{B} $ og $ \mathcal{C} $ er ortogonale
 \subsection{4.3.3}
 
 \begin{solbox}
-    Vet at en liste med vektorer $ \left( u_1, ..., u_n \right) $ er lin. uavh. om 
-    
+    Vis at en ortogonal liste med vektorer $ \left( u_1,..., u_n \right)  $ er automatisk lineært uavhengig. Vi vet at $ \langle u_j, u_k \rangle_{  } =0   \forall j\neq k $. 
+
+    Anta at $ \left( u_1, ..., u_n \right)  $ er lin. uavh. da er
+
     \[
         0 = \sum_{ k=1 }^{ n } \alpha_{k}^{} u_k
     \]
-    har eneste løsning at $ \alpha_{1}^{} =...= \alpha_{n}^{} =0 $ 
-    
-    Vi setter $ \alpha_{j}^{} = \langle u_j, u_k \rangle_{  } \forall j\neq k$. Hvis vi plukker en vilkårlig u med i $ \left( u_1, ..., u_n \right) $ så har vi at 
-    
-    \begin{align*}
-        \alpha_{j}^{} u_j &= \langle u_j, u_k \rangle_{  } u_j \\
-    \end{align*}
+    sant hvis og bare hvis $ \alpha_{k}^{} =0 \forall k = 1,..., n $. Multipliser $ u_j $  for en $ j \in \left[ 1, n \right]  $ på begge sider og få
 
-    Og siden $ \left( u_1, ..., u_n \right) $ er ortogonal, så er $ \alpha_{j}^{} = 0 \forall j\neq k $. Så vi får bare at
+
+    \begin{align*}
+        \langle u_j, \sum_{ k=1 }^{ n } \alpha_{k}^{} u_k \rangle_{} &= u_j * 0 \\
+        \sum_{ k=1 }^{ n } \alpha_{k}^{}  \langle u_j, u_k \rangle_{  } &= u_j * 0 \\
+    \end{align*}
     
+    Og siden $ \left( u_1, ..., u_n \right)  $ er ortogonal, så er dette lik 0 for alle ulike j og k. Det vil si at vi får
+
     \[
-        \alpha_{j}^{} u_j = \langle u_j, u_j \rangle_{  } u_j
+        \alpha_{j}^{} \langle u_j, u_j \rangle_{  } = 0 
     \]
 
-    Og listen $ \left( u_1, ..., u_n \right)  $ er lin. uavh. automatisk av ortogonalitet 
+    \[
+        \alpha_{j}^{} \norm{u_j}_{}^{2} =0
+    \]
+    som har eneste løsning at $ \alpha_{j}^{} =0 $ og det er bevist at en ortgonal liste også er lineært uavhengig
     
     
 \end{solbox}
