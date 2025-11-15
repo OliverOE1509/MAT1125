@@ -1,0 +1,1102 @@
+% !TeX spellcheck = nb_NO
+% Kommentaren ovenfor gir instruks til editoren din om at den skal bruke norsk stavekontroll. Dette fungerer bl.a. i TeXstudio.
+
+\documentclass[a4paper,norsk]{article}
+% Norsk orddeling
+\usepackage[norsk]{babel}
+% AMS-pakkene er nyttige
+\usepackage{amsmath,amsfonts,amssymb,amsthm}
+% For å definere lister, som f.eks. deloppgaver
+\usepackage{enumitem}
+% Inneholder mye nyttig, slik som \coloneqq
+\usepackage{mathtools}
+% Penere kalligrafiske fonter
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[a4paper, margin=0.5in]{geometry}
+\usepackage{mathabx}
+\usepackage{amsthm}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{ifthen}
+\usepackage{hyperref}
+
+\usepackage[most]{tcolorbox}
+\tcbuselibrary{theorems, breakable}
+\tcbset{before upper=\par, after upper=\par} % allows itemize and enumerate inside boxes
+
+\newtcbtheorem[]{definitionbox}{Definisjon}{
+  colback=blue!3,
+  colframe=blue!70!black,
+  fonttitle=\bfseries\color{white},
+  coltitle=white,
+  boxrule=0.6pt,
+  arc=2mm,
+  enhanced,
+  breakable
+}{def}
+
+\newtcbtheorem[]{theorembox}{Teorem}{
+  colback=green!3,
+  colframe=green!50!black,
+  fonttitle=\bfseries,
+  coltitle=black,
+  boxrule=0.6pt,
+  before upper=\par\ignorespaces,
+  after upper=\par\unskip,
+  arc=2mm,
+  enhanced,
+  breakable
+}{thm}
+
+\newtcbtheorem[]{oppgavebox}{Oppgave}{
+  colback=gray!5,
+  colframe=black!60,
+  fonttitle=\bfseries,
+  coltitle=black,
+  boxrule=0.6pt,
+  arc=2mm,
+  enhanced,
+  breakable
+}{oppg}
+
+\newtcolorbox{sectionbox}[1][]{
+  colback=white,
+  colframe=black!70,
+  boxrule=0.7pt,
+  arc=3mm,
+  top=2mm, bottom=2mm, left=2mm, right=2mm,
+  title=#1,
+  enhanced,
+  breakable
+}
+
+\newtcbtheorem[]{corollarybox}{Korollar}{
+  colback=purple!5,
+  colframe=purple!60!black,
+  fonttitle=\bfseries\color{white},
+  coltitle=white,
+  boxrule=0.6pt,
+  arc=2mm,
+  enhanced,
+  breakable,
+  before upper=\par\ignorespaces,
+  after upper=\par\unskip
+}{cor}
+
+\newtcbtheorem[]{lemmabox}{Lemma}{
+  colback=orange!5,
+  colframe=orange!70!black,
+  fonttitle=\bfseries,
+  boxrule=0.6pt,
+  arc=2mm,
+  enhanced,
+  breakable
+}{lem}
+
+\newtcbtheorem[]{propositionbox}{Proposisjon}{
+  colback=cyan!5,
+  colframe=cyan!60!black,
+  fonttitle=\bfseries,
+  coltitle=black,
+  boxrule=0.6pt,
+  arc=2mm,
+  enhanced,
+  breakable
+}{prop}
+
+\newtcbtheorem[]{proofbox}{Bevis}{
+  colback=white,
+  colframe=black,
+  fonttitle=\bfseries\color{white},
+  coltitle=white,
+  colbacktitle=black,
+  title style={opacity=0.9},
+  boxrule=0.6pt,
+  arc=2mm,
+  enhanced,
+  breakable
+}{proof}
+
+\newlist{suboppgave}{enumerate}{1}
+\setlist[suboppgave,1]{
+  label=\textbf{(\alph*)},
+  ref=\theenumi\alph*,
+  leftmargin=1.5em,
+  itemsep=0.4em,
+  topsep=0.3em,
+  parsep=0pt,
+  partopsep=0pt
+}
+
+
+
+\setcounter{secnumdepth}{2}  % Sections and subsections numbered
+
+% Python style  
+\lstdefinestyle{pythonstyle}{
+    language=Python,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    commentstyle=\color{green},
+    numbers=left,
+    frame=single
+}
+
+% Bruk bedre symboler for ≥, ≤, epsilon og phi
+\renewcommand{\geq}{\geqslant}
+\renewcommand{\leq}{\leqslant}
+\newcommand{\eps} {\varepsilon}
+\renewcommand{\epsilon}{\varepsilon}
+\renewcommand{\phi}{\varphi}
+
+% Definer de vanligste mengdene og funksjonene
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+% \L er definert som noe annet fra før av, så vi må redefinere \L
+\renewcommand{\L}{\mathcal{L}}
+% Rommet av polynomer
+\newcommand{\Pol}{{\mathcal{P}}}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\Image}{im}
+\DeclareMathOperator{\Kernel}{ker}
+\DeclareMathOperator{\Span}{span}
+\DeclareMathOperator{\Rank}{rank}
+\DeclareMathOperator{\Diag}{diag}
+\DeclareMathOperator{\Proj}{proj}
+\newcommand{\basis}{{\mathcal{B}}}
+\newcommand{\basiss}{{\mathcal{C}}}
+\newcommand{\basisss}{{\mathcal{D}}}
+
+\usepackage[most]{tcolorbox}
+\newtcolorbox{algoritme}[1]{
+  title=Algoritme~#1,
+  colback=white,
+  colframe=black,
+  boxrule=0.5pt,
+  arc=2mm,
+  left=3mm,
+  right=3mm,
+  top=1mm,
+  bottom=1mm
+}
+
+% Definer oppgavemiljøet
+\newenvironment{oppgave}[1]%
+	{\trivlist{}\item\relax\textbf{Løsning på #1.}\medspace}%
+	{\endtrivlist}
+% Deloppgavelister
+\newlist{deloppgave}{enumerate}{1}
+\setlist[deloppgave,1]{label=(\textbf{\alph*}),align=left}
+
+\title{Oblig 4 \\ MAT1125, høst 2025}
+\author{Oliver Ekeberg}
+\begin{document}
+\maketitle
+
+\tableofcontents
+
+\section*{2.1 Definisjoner}
+\addcontentsline{toc}{section}{Definisjoner}
+
+\begin{definitionbox}{2.1.1}{}
+La U og V være vektorrom over $ \mathbb{K} $. En $ T: U \rightarrow V $ kalles en \textbf{\textit{lineær avbildning}} hvis 
+\begin{itemize}
+    \item $ T \left( u + v \right) = T u + Tv \forall u, v \in U $ 
+    \item $ T \left( \alpha_{}^{} u \right) = \alpha_{}^{} T u \forall u \in  U $ og $ \alpha_{}^{} \in \mathbb{K} $  
+\end{itemize}
+
+Vi skriver videre at rommet av alle avbildninger fra U til V kalles for
+\[
+    \mathcal{L} \left( U, V \right) := \left\{ \text{Alle lineære avbildninger $ T: \rightarrow V $ } \right\} 
+\]
+Mengden av alle \textbf{\textit{operatorer}} på U er 
+\[
+    \mathcal{L} \left( U \right) := \mathcal{L} \left( U, U \right) 
+\]
+Mengden av alle funksjoner på U, kalles for \textbf{\textit{dualrommet}} til U
+\[
+    U' := \mathcal{L} \left( U, \mathbb{K} \right) 
+\]
+\end{definitionbox}
+
+\begin{oppgavebox}{2.1.2}{}
+Vis at $ T \left( 0_U \right) = 0_V  $ for enhver avbildning $ T: U \rightarrow V $ 
+
+\begin{proofbox}{2.1.2}{}
+Vi fra 1.1 at for et vektorrom U, så er
+\[
+    0_U = u + \left( -1 \right) u \forall u \in U
+\]
+Dermed kan vi si at for et vektorrom V, er
+\begin{align*}
+    T \left( u + \left( -1 \right) u \right) &= T \left( u \right) + T \left( \left( -1 \right) u \right) \\
+    &= T \left( u \right) - T \left( u \right) \\
+    &= 0_V
+\end{align*}
+Der vi har brukt både at $ T \left( u + v  \right) = T \left( u \right) + T \left( v \right)  $ og at $ T \left( \alpha_{}^{} u \right) = \alpha_{}^{} T \left( u \right)  $  
+\end{proofbox}
+\end{oppgavebox}
+
+\begin{oppgavebox}{2.1.3}{}
+Vis at de følgende funksjonene er lineære
+\begin{itemize}
+    \item $ T: \mathbb{R}^n \rightarrow \mathbb{R}^m $ gitt ved $ Tx := Ax $ for en matrise $ A \in M_{m \times n} (\mathbb{R}) $ 
+    \item La $ a, b \in \mathbb{R}, a < b $ og definer $ T: C^0 \left( \left[ a, b \right] , \mathbb{R} \right) \rightarrow \mathbb{R}  $ ved
+    \[
+        Tf := \int_{a}^{b} f(t) dt \forall f \in C^0 \left( \left[ a, b \right], \mathbb{R}  \right)  
+    \]
+    \item La $ g \in C^0 \left(  \left[ 0, 1 \right] , \mathbb{R} \right)  $ være en gitt funksjon og definer $ T: C^0 \left(  \left[ 0, 1 \right] , \mathbb{R} \right) \rightarrow \mathbb{R}  $ ved
+    \[
+        Tf := \int_{0}^{1} f(t) g(t) dt \forall f \in C^0 \left( \left[ 0, 1 \right] , \mathbb{R} \right)       
+    \]
+    \item $ T: \mathcal{P} \rightarrow C^0 \left( \left[ a, b \right] , \mathbb{R} \right)  $ gitt ved
+    \[
+        Tp := p|_{ \left[ a, b \right] }
+    \]
+\end{itemize}
+
+\begin{proofbox}{2.1.3 a)}{}
+La $ x, y \in \mathbb{R}^n $. 
+
+\begin{align*}
+    T \left( x + y \right) &= A \left( x + y \right) \\
+    &= Ax + Ay \\
+    &= Tx + Ty
+\end{align*}
+For en $ \alpha_{}^{} \in  \mathbb{R} $ og en $ x \in \mathbb{R}^n $  
+\begin{align*}
+    T \left( \alpha_{}^{} x \right)  &= A \left( \alpha_{}^{} x \right)    \\
+    &= \alpha_{}^{} A \left( x \right) \\
+    &= \alpha_{}^{} Tx
+\end{align*}
+\end{proofbox}
+
+\begin{proofbox}{2.1.3 b)}{}
+For $ f, g \in C^0 \left( \left[ a, b \right] , \mathbb{R} \right)  $ så er
+\begin{align*}
+    T \left( f + g \right) &= \int_{a}^{b} \left( f + g \right) \left( t \right)  dt \\
+    &= \int_{a}^{b} f(t) dt + \int_{a}^{b} g(t) dt \\
+    &= Tf + Tg   
+\end{align*}
+For en $ \alpha_{}^{} \in \mathbb{R} $ og en $ f \in C^0 \left( \left[ a, b \right] , \mathbb{R} \right) $
+\begin{align*}
+    T \left( \alpha_{}^{} f \right) &= \int_{a}^{b} \left( \alpha_{}^{} f \right) \left( t \right) dt \\
+    &= \alpha_{}^{} \int_{a}^{b} f(t) dt \\
+    &= \alpha_{}^{} Tf  
+\end{align*}
+\end{proofbox}
+
+\begin{proofbox}{2.1.3 c)}{}
+Velg $ h, g \in C^0 \left( \left[ 0, 1 \right] , \mathbb{R} \right)  $ 
+\begin{align*}
+    T \left( g + h \right) &= \int_{0}^{1} f(t) \left( g + h \right) (t) dt \\
+    &= \int_{0}^{1} f(t)g(t) + f(t) h(t) dt  \\
+    &= \int_{0}^{1} f(t)g(t) dt + \int_{0}^{1} f(t) h(t) dt \\
+    &= Tg + Th   
+\end{align*}
+
+Velg nå en $ g \in C^0 \left( \left[ 0, 1 \right] , \mathbb{R} \right) $ og en $ \alpha_{}^{} \in \mathbb{R} $. Får da
+\begin{align*}
+    T \left( \alpha_{}^{} g \right) &= \int_{0}^{1} f(t) \left( \alpha_{}^{} g \right) \left( t \right) dt \\
+    &= \int_{0}^{1} f(t) \alpha_{}^{} g(t) dt \\
+    &= \alpha_{}^{} \int_{0}^{1}  f(t) g(t) dt\\
+    &= \alpha_{}^{} Tg
+\end{align*}
+\end{proofbox}
+
+\begin{proofbox}{2.1.3 d)}{}
+Kjapp notat på restriksjon:
+
+Om $ f: A \rightarrow B $ er en funksjon og $ E \subseteq A $, så er $ f|_E $ den nye funksjonen $ f|_E : E \rightarrow B $ gitt ved 
+\[
+    f|_E (x) := f(x) 
+\]
+for $ x \in E $ 
+
+La $ p, q \in \mathcal{P} $ 
+\begin{align*}
+  T \left( p + q \right) &= \left( p+q \right) |_{ \left[ a, b \right] }\\
+  &= p|_{ \left[ a. b \right] } + q|_{ \left[ a, b \right] }\\
+  &= Tp + Tq
+\end{align*}
+
+La $ p \in  \mathcal{P} $ og $ \alpha_{}^{} \in  \left[ a, b \right]  $ 
+\begin{align*}
+  T \left( \alpha_{}^{} p \right)  &= \left( \alpha_{}^{} p \right) |_{ \left[ a, b \right] } \\
+  &= \alpha_{}^{} p|_{ \left[ a, b \right] } \\
+  &=\alpha_{}^{} T p
+\end{align*}
+\end{proofbox}
+\end{oppgavebox}
+
+\begin{propositionbox}{2.1.4}{}
+$ \mathcal{L} \left( U, V \right)  $ er et vektorrom over $ \mathbb{K} $ 
+
+\begin{proofbox}{2.1.4}{}
+Vi har for $ T, S \in \mathcal{L} \left( U, V \right)  $
+\begin{align*}
+  \left( T + S \right) \left( u \right) &= T \left( u \right) + S \left( u \right) 
+\end{align*}
+
+Og for en $ \alpha_{}^{} \in  \mathbb{K} $ og $ T \in \mathcal{L} \left( U, V \right)  $ er 
+\begin{align*}
+  \left( \alpha_{}^{} T \right) \left( u \right) &= \alpha_{}^{} \left( Tu \right) 
+\end{align*}
+\end{proofbox}
+\end{propositionbox}
+
+
+\begin{propositionbox}{2.1.5}{}
+La U, V være vektorrom over $ \mathbb{K} $, la $ \left( u_1, ..., u_n \right)  $ være en basis for U og la $ w_1, ..., w_n \in V $. Da finnes en unik $ T \in \mathcal{L} \left( U, V \right)  $ som er slik at
+\[
+    Tu_i = w_i \forall i = 1, ..., n
+\]
+\begin{proofbox}{2.1.5}{}
+Siden $ \mathcal{B} $ er en basis, har enhver $ u \in  U $ en unik representasjon
+\[
+    u = \alpha_{1}^{} u_1 + ... + \alpha_{n}^{} u_n
+\]
+Om T er lineær, er da
+\begin{align*}
+  Tu &= T \left(  \alpha_{1}^{} u_1 + ... + \alpha_{n}^{} u_n \right) \\
+  &= \alpha_{1}^{} T u_1 + ... + \alpha_{n}^{} T u_n \\
+  &= \alpha_{1}^{} w_1 + ... + \alpha_{n}^{} w_n
+\end{align*}
+For en vilkårlig $ u \in U $ definerer vi derfor 
+\[
+    Tu := \alpha_{1}^{} w_1 + ... + \alpha_{n}^{} w_n
+\]
+der $ \alpha_{1}^{} , ..., \alpha_{n}^{} \in  \mathbb{K} $. Denne funksjonen er \textbf{\textit{veldefinert}} fordi $ \alpha_{1}^{} , ..., \alpha_{n}^{}  $ er unikt bestemt av u
+
+
+\end{proofbox}
+\end{propositionbox}
+
+\section*{2.2 Bilde og kjerne}
+\addcontentsline{toc}{section}{Bilde og kjerne}
+
+\begin{definitionbox}{2.2.1}{}
+Her er to viktige underrom relatert til en lineær operator
+
+\textbf{\textit{Kjernen}} til en $ T \in \mathcal{L} \left( U, V \right)  $ er definert som
+\[
+    ker \left( T \right) := \left\{ u \in U : T \left( u \right) =0 \right\} 
+\]
+Og vi definerer \textbf{\textit{bildet}} til T som 
+\[
+    im \left( T \right) := \left\{  T \left( u \right) : u \in U \right\} 
+\]
+\textbf{\textit{Rangen}} til T er gitt ved
+\[
+    rank \left( T \right) := dim \left( im \left( T \right)  \right) 
+\]
+\end{definitionbox}
+
+\begin{propositionbox}{2.2.2}{}
+La $ T \in \mathcal{L} \left( U, V \right)  $. Da er 
+\begin{itemize}
+  \item $ ker T $ et underrom av U
+  \item $ im T $ et underrom av V
+  \item $ rank T \leq min \left(  dim U, dim V \right)  $ 
+\end{itemize}
+\begin{proofbox}{2.2.2 i)}{}
+$ ker T $ er et underrom av U fordi $ ker T \subseteq U $. Men $ U \not \subseteq ker T $ 
+\end{proofbox}
+
+\begin{proofbox}{2.2.2 ii)}{}
+$ im T $ er et underrom av V, fordi $ \forall u \in  U $, og $ \forall T \in  \mathcal{L} \left( U, V \right)  $, så er $ T : U \rightarrow V $ og dermed er $ \forall u \in U  \rightarrow T \left( u \right) \in  V$ 
+\end{proofbox}
+
+\begin{proofbox}{2.2.2 iii)}{}
+Om $ \left(  u_1, ..., u_n \right)  $ er en basis for U, så er $ im T = span \left( Tu_1, ..., Tu_n \right)  $ så $ im T $ er utspent av endelig mange vektorer, og er dermed endeligdimensjonalt med dimensjon høyst lik n.
+\end{proofbox}
+\end{propositionbox}
+
+\begin{theorembox}{2.2.3 Dimensjonssatsen}{}
+La U, V være vektorrom over $ \mathbb{K} $ og la $ T \in \mathcal{L} \left( U, V \right)  $. Da er
+\[
+    dim \left( im T \right) + dim \left( ker T \right) = dum U
+\]
+\begin{proofbox}{2.2.3}{}
+Se boken for bevis
+\end{proofbox}
+\end{theorembox}
+
+
+\begin{oppgavebox}{2.2.5}{}
+La $ T: \mathcal{P}_9 \rightarrow \mathbb{R} $ være den lineære avbildninger
+\[
+    Tp := \int_{0}^{1} p(t) dt \; \forall p \in \mathcal{P}_8 
+\]
+
+\begin{itemize}
+  \item a) Vis at $ im T = \mathbb{R} $ 
+  \item b) Bruk dim satsen til å finne $ dim \left( ker T \right)  $. Er kjernen til T stor eller liten?
+\end{itemize}
+
+\begin{proofbox}{2.2.5 a)}{}
+Siden $ T : \mathcal{P}_8 \rightarrow \mathbb{R} $ så er T en funksjonal, og $ T \in \mathcal{L} \left( \mathcal{P}_8, \mathbb{R} \right)  $. Dermed er $ im T = \left\{ T \left( u \right) : u \in  \mathcal{P}_8 \right\}  $ og $ T u \in  \mathbb{R} $  
+\end{proofbox}
+
+\begin{proofbox}{2.2.5 b)}{}
+dimensjonssatsen sier at
+\[
+    dim \left( im T \right) + dim \left( ker T \right) = dim U
+\]
+Her er $ dim U = 9 $, $ dim \left( im T \right)  = 1 $ og dermed er 
+\[
+    dim \left( ker T = 9 - 1 = 8 \right) 
+\]
+\end{proofbox}
+\end{oppgavebox}
+
+\section*{2.3 Injektiv surjektiv og bijektiv}
+\addcontentsline{toc}{section}{Injektiv surjektiv og bijektiv}
+\begin{definitionbox}{2.3.1}{}
+La A og B være mengder, En funksjon $ f: A \rightarrow B $ er \textbf{\textit{injektiv}} hvis $ f(u) = f(u') $ kun når $ u = u' $. Funksjonen er \textbf{\textit{surjektiv}} hvis det for alle $ v \in  B $ finnes en $ u \in  A $ slik at $ f(u) = v $ . Funksjonen er \textbf{\textit{bijektiv}} (eller \textbf{\textit{inverterbar}}) om den både er injektiv og surjektiv
+\end{definitionbox}
+
+\begin{lemmabox}{2.3.2}{}
+La $ T \in \mathcal{L} \left( U, V \right)  $. Da er følgende ekvivalent
+\begin{itemize}
+  \item T er surjektiv
+  \item $ im T = V $ 
+\end{itemize}
+
+\begin{proofbox}{2.3.2}{}
+Anta først at T er surjektiv. For å vise at $ im T = V $ kan vi vise at $ im T\subseteq V $ og at $ V \subseteq im T $, og at dermed er $ im T = V $ \\
+
+Vi vet allerede at $ im T \subseteq V $, så må vise at $ V \subseteq im T $. For $ v_1, v_2 \in  V $, så finnes det siden T er surjektiv, to $ u_1, u_2 \in  U $ som er slik at $ T \left( u_1 + u_1 \right) = Tu_1 + Tu_2 = v_1 + v_2 \in V $. Men $ Tu \in  im T $, dermed er $ v \in im T $ \\
+
+Motsatt, anta at $ im T = V $. Dvs. at alle $ v \in  im T $, så er $ v \in V $. Dvs. at v = Tu, som vil si at T er surjektiv
+\end{proofbox}
+\end{lemmabox}
+
+\begin{lemmabox}{2.3.3}{}
+La $ T \in \mathcal{L} \left( U, V \right)  $. Da er følgende ekvivalent:
+\begin{itemize}
+  \item T er injektiv
+  \item $ Tu = 0 $ kun dersom u = 0
+  \item $ ker T = \left\{ 0 \right\}  $ 
+  \item Om $ \left( u_1, ..., u_n \right)  $ er lineært uavhengig liste i U, er også $ \left( Tu_1, ..., Tu_n \right)  $ også lineært uavhengig
+\end{itemize}
+
+\begin{proofbox}{2.3.3 ii) $ \iff $ iii)}{}
+ii) og iii) er bare en omskrivning av hverandre. 
+\[
+    ker T = \left\{ u \in  U : Tu = 0 \right\} 
+\]
+Om $ Tu = 0 $ kun hvis $ u=0 $, så er $ ker T = \left\{ 0_U \right\}  $ 
+\end{proofbox}
+
+\begin{proofbox}{2.3.3 i) $ \iff $ ii)}{}
+Siden både $ Tu = 0 $ og $ T 0_U = 0_V $, så må $ u = 0 $, siden T er injektiv 
+\end{proofbox}
+\begin{proofbox}{2.3.3 ii) $ \iff  $ iv)}{}
+La $ \alpha_{1}^{} , ..., \alpha_{n}^{} \in \mathbb{K} $ være slik at $ \sum_{ j=1 }^{ n } \alpha_{j}^{} Tu_j = 0 $. Da er 
+\begin{align*}
+  0 &= \sum_{ j=1 }^{ n } \alpha_{j}^{} Tu_j \\
+  &= T \left( \sum_{ j=1 }^{ n } \alpha_{j}^{} u_j \right) 
+\end{align*}
+så $ \sum_{ j=1 }^{ n } \alpha_{j}^{} u_j = 0 $. Men $ \left( u_1, ..., u_n \right)  $ er lineært uavhengig, så $ \alpha_{1}^{} = ... = \alpha_{n}^{} =0  $ 
+\end{proofbox}
+\begin{proofbox}{2.3.3 iv) $ \iff $ ii) }{}
+Anta motsatt at $ Tu = 0 $, men $ u\neq 0 $. Siden $ \left( u \right) $ er lin. uavh. er da også listen $ \left( Tu \right)  $ lin. uavh, som er en motsigelse siden $ Tu = 0 $. Dermed må $ u=0 $ 
+\end{proofbox}
+\end{lemmabox}
+
+\begin{oppgavebox}{2.3.4}{}
+La $ T: \mathcal{P}_2 \rightarrow \mathcal{P}_2 $ være gitt ved
+\[
+    Tp := \frac{ dp }{ dt } \; \forall p \in \mathcal{P}_3
+\]
+\begin{itemize}
+  \item a) Forklar hvorfor T er en veldefinert avbildning
+  \item b) Er T injektiv? surjektiv? invertibel?
+  \item c) Generaliser de foregående oppgavene til avbildningen $ T: \mathcal{P}_n \rightarrow \mathcal{P}_{n-1} $ definert ved $ Tp := \frac{ dp }{ dt } $  for en vilkårlig $ n \in \mathbb{N} $ 
+\end{itemize}
+
+\begin{proofbox}{2.3.4 a)}{}
+T er vel definert fordi ethvert polynom $ p_3 \in \mathcal{P}_3 $ har en unik derivert $ \frac{ dp_3 }{ dt } = p_2 $. Med andre ord, så er T veldefinert om hvert element i definisjonsmengden har et bilde i verdimengden, og at hvert element kun har ett bilde. T er også en lineær operator fordi derivering er lineært
+\end{proofbox}
+
+\begin{proofbox}{2.3.4 b)}{}
+Er T injektiv? T er injektiv hvis $ ker T = \left\{ 0 \right\}  $. 
+\[
+    ker T = \left\{ p \in \mathcal{P}_3 : Tp = 0 \right\} 
+\]
+Det finnes faktisk polynomer $ p \neq 0 \in \mathcal{P}_3  $ som er slik at $ Tp = 0 $. Vi vet at den deriverte av en konstant er null. Derfor er $ ker T \neq \left\{ 0 \right\}  $ og vi har så at T er ikke injektiv. Vi får at $ ker T = \left\{ c | c  \mathbb{R} \right\}  $ alle reelle konstanter\\
+
+
+Er T surjektiv? T er surjektiv hvis det for alle $ p_2 \in \mathcal{P}_2  $ finnes en $ p_3 \in \mathcal{P}_3 $ som er slik at $ Tp_3 = p_2 $. Dette stemmer, fordi vi kan få alle mulige kombinasjoner av andregradspolynomer ved å derivere et tredjegradspolynom. Videre er ethvert tredjegradspolynom på formen
+\[
+    p_3(t) = a_0 + a_1 t + a_2 t^2 + a_3 t^3
+\]
+vi får at for en vilkårlig $ a \in \mathbb{R} $ 
+\begin{align*}
+  Tp_3 &= \frac{ d }{ dt } \left( a_0 + a_1 t + a_2 t^2 + a_3 t^3 \right) \\
+  &= a_1 + 2a_2 t + 3a_3 t^2
+\end{align*}
+Så ethvert polynom $ p_3 \in \mathcal{P}_3 $ har et unikt polynom $ Tp_3 \in \mathcal{P}_2 $ \\
+
+Er T bijektiv? Nei, fordi den må være injektiv og surjektiv
+\end{proofbox}
+
+\begin{proofbox}{2.3.4 c)}{}
+Vi har $ T: \mathcal{P}_n \rightarrow \mathcal{P}_{n-1} $ definert ved $ Tp = \frac{ dp }{ dt } $. Dette er en veldefinert operator fordi hvis vi tar ethvert polynom i $ \mathcal{P}_n $ så er den deriverte av det polynomet $ p \in \mathcal{P}_n \rightarrow \frac{ dp }{ dt } \in \mathcal{P}_{n-1} $ 
+
+En operator er veldefinert om det for hvert input til en operator, er tilegnet et output som ligger i bildet til den operatoren. For eksempel så er $ T: \mathcal{P}_2 \rightarrow \mathcal{P}_2 $ ikke en veldefinert operator, fordi det finnes polynomer i $ p \in \mathcal{P}_2 $ som ikke er i $ Tp \in \mathcal{P}_2 $\\
+
+Videre så er $ ker T = \left\{ c | c \in  \mathbb{R} \right\} \neq \left\{ 0 \right\}  $ så T er fortsatt ikke injektiv. \\
+
+Men T er surjektiv fordi enhver $ q \in \mathcal{P}_2 $ har en $ p \in \mathcal{P}_3  $ som er slik at 
+\[
+    Tp = q
+\]\\
+Derfor er T ikke vertibel fordi den ikke er både injektiv og surjetiv for en vilkårlig n
+\end{proofbox}
+\end{oppgavebox}
+
+\begin{propositionbox}{2.3.5}{}
+La U og V være vektorrom over samme kropp $ \mathbb{K} $ 
+\begin{itemize}
+  \item Om $ \exists $ en surjektiv $ T \in \mathcal{L} \left( U, V \right)  $, er $ dim U \geq dim V $ 
+  \item Om $ \exists  $ en injektiv $ T \in \mathcal{L} \left( U, V \right)  $ er $ dim U \leq dim V $ 
+  \item Om $ \exists  $ en bijektiv $ T \in \mathcal{L} \left( U, V \right)  $  er $ dim U = dim V $ 
+\end{itemize}
+
+\begin{proofbox}{2.3.5}{}
+
+Anta at T er surjektiv, da er $ im T = V $, og det følger da at $ dim \left( im T \right) = dim V $, Dermed er fra dimensjonssatsen
+
+\begin{align*}
+  dim \left( ker T \right) + dim \left( im T \right) &= dim U\\
+  dim \left( ker T \right) + dim V &= dim U
+\end{align*}
+Hvis T er ikke injektiv, så er $ dim V \leq dim U $ 
+
+
+Anta først at T er injektiv, da er $ ker T = \left\{ 0 \right\}  $ og $ dim \left( ker T  \right) = 0 $ . Fra dimensjo er da
+\begin{align*}
+  dim \left( ker T \right) + dim \left( im T \right) &= dim U  \\
+  dim \left( im T \right) &= dim U \\
+  rank T &= dim U
+\end{align*}
+Siden $ rank T \leq min \left( dim U, dim V \right)  $  følger det at $ dim U \leq dim V $ 
+\end{proofbox}
+\end{propositionbox}
+
+\begin{propositionbox}{2.3.6}{}
+Hvis $ T: U \rightarrow V $ er lineær og bijektiv, er dens inversfunksjon $ T^{-1} : V \rightarrow U $ også lineær. Om $ T \in  \mathcal{L} \left(  U, V \right)  $ har en inversfunksjon $ T^{-1} $ , så er $ T^{-1} \in \mathcal{L} \left( V, U \right)  $
+
+\begin{proofbox}{2.3.6}{}
+Siden $ T: U \rightarrow V $ er bijektiv er dens invers $ T^{-1}: V \rightarrow U $ veldefinert. La nå $ u, v \in  U $. Vi vile vise at $ T^{-1} \left( u + v \right) = T^{-1} u + T^{-1} v $ 
+\begin{align*}
+  u + v &= T \left( T^{-1} \left( u \right)  \right) + T \left( T^{-1} \left( v \right)  \right) \\
+  &= T \left( T^{-1} \left( u \right) + T^{-1} \left(  v \right)   \right)
+\end{align*}
+Anvend nå $ T^{-1} $ på begge sider og få
+\begin{align*}
+  u + v &= T \left( T^{-1} \left( u \right) + T^{-1} \left(  v \right)   \right)\\
+  T^{-1} \left( u + v \right) &= T^{-1} \left( u \right) + T^{-1} \left(  v \right)
+\end{align*}
+
+
+Må nå vise at $ T^{-1} \left( \alpha_{}^{} u \right) = \alpha_{}^{} T^{-1} u $. La $ u \in  U $ og $ \alpha_{}^{} \in  \mathbb{K} $ 
+\begin{align*}
+  \alpha_{}^{} u &= \alpha_{}^{} T \left( T^{-1} \left( u \right)  \right) \\
+  &= T \left(  \alpha_{}^{} T^{-1} \left(  u \right)  \right) \\
+  T^{-1} \left( \alpha_{}^{} u \right) &= T^{-1} \left( T \left( \alpha_{}^{} T^{-1} \left( u \right)  \right)  \right) \\
+  &= \alpha_{}^{} T^{-1} u
+\end{align*}
+\end{proofbox}
+\end{propositionbox}
+
+
+\section*{2.4 Isomorfier}
+\addcontentsline{toc}{section}{Isomorfier}
+
+\begin{definitionbox}{2.4.1}{}
+En \textbf{\textit{isomorfi}}er en bijektiv avbildning. Vi ser at to vektorrom er U og V er isomorfe hvis det eksisterer en 
+\end{definitionbox}
+
+\begin{oppgavebox}{2.4.2}{}
+La $ V:= \left\{ x \in  \mathbb{R}^3 : \left( x \right) _3 = 0 \right\}  $ Vis at $ \mathbb{R}^2 \sim V $ 
+
+\begin{proofbox}{2.4.2}{}
+La $ T \in \mathcal{L} \left( \mathbb{R}^2, V \right)  $, så $ T: \mathbb{R}^2 \rightarrow V $  og definer T med 
+\[
+    T \begin{bmatrix}
+        x_1\\
+        x_2
+    \end{bmatrix} = \begin{bmatrix}
+        x_1\\
+        x_2\\
+        0
+    \end{bmatrix}
+\]
+
+Da er T en isomorfi fordi den er både injektiv og surjektiv. Dvs. at $ Tu = 0 \iff u = 0 $. T er surjektiv ved at vi plukker en vilkårlig $ x \in  \mathbb{R}^2 $. Da er 
+\[
+    x = \begin{bmatrix}
+        x_1\\ x_2
+    \end{bmatrix} 
+\]
+Da er det en unik $ u \in  V $ slik at $ Tx = u $ 
+\end{proofbox}
+\end{oppgavebox}
+
+\begin{oppgavebox}{2.4.3}{}
+La U, V og W være vektorrom over $ \mathbb{K} $. Vis at 
+\begin{itemize}
+  \item $ U \sim U $ 
+  \item Hvis $ U \sim V $ er $ V \sim U $ 
+  \item Hvis $ U \sim V  $ og $ V \sim W $  er $ U \sim W $ 
+\end{itemize}
+
+\begin{proofbox}{4.2.3 i)}{}
+En $ T \in \mathcal{L} \left( U \right)  $ er en isomorfi om den er bijektiv. Det vil si at T er injektiv og surjektiv. 
+T er injektiv fordi for en $ u \in  U $, så er $ Tu = 0_U \iff u = 0_U $. da er $ ker T = \left\{ 0 \right\}  $ \\
+
+T er surjektiv fordi for alle $ u \in  U $ finnes det en $ u \in U $ slik at $ Tu = u $. Dette er identitesoperatoren $ id \left( u \right) =u  $ 
+\end{proofbox}
+
+\begin{proofbox}{4.2.3 ii)}{}
+Hvis $ U \sim V $, så er en $ T \in \mathcal{L} \left( U, V \right)  $ en isomorfi. Hvis T er lineær, så er den da også inverterbar, og det finnes da en $ T^{-1} \in \mathcal{L} \left( V, U \right)  $. Da er $ V \sim U $ 
+\end{proofbox}
+
+\begin{proofbox}{4.2.3 iii)}{}
+Hvis $ U \sim V $ og $ V \sim W $, så finnes det bijektive $ T \in  \mathcal{L} \left( U, V \right)  $ og en $ S \in \mathcal{L} \left( V, W \right)  $. Da er det for alle $ w \in W $ en $ u \in  U $ slik at $ S \circ T \left( u \right) = w $ 
+\end{proofbox}
+\end{oppgavebox}
+
+\begin{theorembox}{2.4.4}{}
+La U og V være endeligdimensjonale vektorrom over $ \mathbb{K} $ med lik dimensjon. La $ T \in \mathcal{L} \left( U, V \right)  $. Da er følgende ekvivalent
+\begin{itemize}
+  \item T er en isomorfi
+  \item $ ker T = \left\{ 0 \right\}  $ 
+  \item T er injektiv
+  \item T er surjektiv 
+\end{itemize}
+\begin{proofbox}{2.4.4}{}
+Se boken
+\end{proofbox}
+\end{theorembox}
+
+\begin{oppgavebox}{2.4.5}{}
+Oversettelse til matriser
+Om vi har en matrise $ A \in M_{n \times n} \left( \mathbb{K} \right)  $  som er en transformasjon fra et $ \mathbb{R}^n $ til $ \mathbb{R}^n $, så er følgende ekvivalent
+
+\begin{itemize}
+  \item A er ikke singulær
+  \item Nullrommet er tomt
+  \item Hver kolonne i A er en pivotkolonne
+  \item Om $ Ax = 0 $  så medfører det at $ x=0 $ 
+\end{itemize}
+\end{oppgavebox}
+
+\section*{2.5 Lineære avbildninger i koordinater}
+\addcontentsline{toc}{section}{Lineære avbildninger i koordinater}
+
+\begin{theorembox}{2.5.1}{}
+La $ n \in \mathbb{N} $. ALle n dim vektorrom over $ \mathbb{K} $ er isomorfe med $ \mathbb{K}^n $. Om $ \mathcal{B}  = \left( u_1, ..., u_n \right) $ er en basis for et vektorrom, er avbildningen
+\[
+    u \mapsto \left[ u \right] _{\mathcal{B}}
+\]
+en slik isomorfi
+
+\begin{proofbox}{2.5.1}{}
+Se boken
+\end{proofbox}
+\end{theorembox}
+
+Husk tilbake til en oppgave som sa at for et vektorrom $ U $ med standardbasis $ \mathcal{B} = \left( e_1, ..., e_n \right)  $ så har en vilkårlig vektor i U \textbf{\textit{basisrepresentasjon}}
+
+\[
+    \left[ u \right] _{\mathcal{B}} = u
+\]
+
+Og for et vektorrom U over $ \mathbb{K} $ med basis $ \mathcal{B} = \left( u_1, ..., u_n \right)  $ så er
+\[
+    \left[ u_j \right] _{ \mathcal{B}} = e_j \; \forall j =1, ..., n
+\]
+
+Et annet eksempel er hvis vi har basis $ \mathcal{B} = \left( b_1, ..., b_n \right)  $ for et vektorrom U, så er for en vilkårlig $ u \in U $ 
+\[
+    u = \alpha_{1}^{} b_1 + ... + \alpha_{n}^{} b_n
+\]
+og koordinatvektoren $ \left[ u \right] _{\mathcal{B}} $ er vektoren u relativ til $ \mathcal{B} $   
+\[
+    \left[ u \right] _{\mathcal{B}} := \begin{bmatrix}
+        \alpha_{1}^{} \\ \alpha_{2}^{}\\ \vdots \\ \alpha_{n}^{} 
+    \end{bmatrix} \in  \mathbb{R}^n
+\]
+
+når vi sier $ u \mapsto \left[ u \right] _{\mathcal{B}} $ sier vi at det er en funksjon som mapper vekorer til koordinater. Vi har tidligere ikke sett spesifikt på vektorer med en viss lengde og retning. Vi har sett på vilkårlige vektorer. Alle fysiske vektorer vi ser er bare koordinatvektorer, eller en applikasjon av vektorrom som vi har lært om tidligere. Husk eksemplet mitt om at frukt kan tenkes på et vektorrom, fordi de har til en viss grad samme egenskaper.
+
+\begin{corollarybox}{2.5.3}{}
+Alle n dim vektorrom over $ \mathbb{K} $ er isomorfe med hverandre. merk at dette resultatet er mitsatsen til proposisjon 2.3.5 iii); vi kan dermed si at endeligdimensjonale vektorrom er isomorfe \textit{hvis og bare hvis} de har lik dimensjon
+\end{corollarybox}
+\begin{oppgavebox}{2.5.2}{}
+Bevis korollar 2.5.3
+
+\begin{proofbox}{2.5.3}{}
+Siden alle n dimensjonale vektorrom over $ \mathbb{K} $ er isomorfe med $ \mathbb{K}^n $, vil det si at det finnes to lineære operatorer og to n dimensjonale vektorrom slik at 
+
+\[
+    T \in \mathcal{L} \left( U, \mathbb{K}^n \right) 
+\]
+og \[
+    S \in \mathcal{L} \left( \mathbb{K}^n, V \right) 
+\]
+slik at for alle $ v \in V $ så finnes det en $ u \in U $ slik at $ S \circ T : U, V $. Siden U ov V er begge n dimensjonale, så er $ S \circ T $ bijektiv, og lineær. Dermed er $ S \circ T $ en isomorfi, og U og V er isomorfe
+\end{proofbox}
+\end{oppgavebox}
+
+\begin{oppgavebox}{2.5.3}{}
+I vektorromet $ \mathcal{P}_2 $ lar vi $ \mathcal{B}= \left( p_0, p_1, p_2 \right)  $ være den kanoniske basisen og $ \mathcal{C} = \left( q_0, q_1, q_2 \right)  $ være newtonbasisen over punktene 
+\begin{enumerate}
+  \item $ t_0 = 0 $
+  \item $ t_1 = 1 $
+  \item $ t_2 = 2 $   
+\end{enumerate} 
+Finn $ \left[ p \right] _{\mathcal{B}} $ og $ \left[ p \right] _{\mathcal{B}} $  der 
+\[
+    p(t) = 2 - t + 3t^2
+\]
+\begin{proofbox}{2.5.3}{}
+Det er enkelt å se at
+\[
+    \left[ p \right] _{\mathcal{B}} = \left( 2, -1, 3 \right) 
+\]
+fordi den kanoniske basisen er $ \left( 1, t, t^2 \right)  $ 
+
+
+Er egt ganske enkelt å løse for $ \left[ p \right] _{\mathcal{C}} $. Vi har basisen
+
+\begin{itemize}
+  \item $ p_0(t) = 1 $
+  \item $ p_k(t) = \prod_{j=0}^{k-1} \left( t - t_j \right)  $  
+\end{itemize}
+Får da at $ p_0(t) = 1 $, $ p_1(t) = t $ og $ p_2(t) = t \left( t-1 \right) = t^2 - t  $  . Vi forsøker å snike inn $ q_2 $ 
+\[
+    p(t) = 2 - t + 3 \left( \left( t^2 - t \right) + t  \right) 
+\]
+
+Hvor vi nå har $ 3q_2 $ og vi har plusset på 3 $ q_1 = 3t $.
+
+Da får vi at $ \left[ p \right] _{\mathcal{C}} = \left( 2, -1 + 3, 3 \right) = \left( 2, 2, 3 \right)  $ 
+
+
+ 
+\end{proofbox}
+\end{oppgavebox}
+
+\begin{theorembox}{2.5.4}{}
+La U, V være ikke-trivielle vektorrom over $ \mathbb{K} $ av endelig dimensjon $ n:=dimU $ og $ m:=dimV $, og la $ T \in \mathcal{L} \left( U, V \right)  $. La $ \mathcal{B} $ og $ \mathcal{C} $ være basises for henholdsvis U og V. da finnes en unik matrise $ A \in  M_{m \times n} (\mathbb{K}) $ slik at
+\[
+    \left[ Tu \right] _{\mathcal{C}} = A \left[ u \right] _{\mathcal{B}} \; \forall u  U
+\]
+\begin{proofbox}{2.5.4}{}
+Se boken for bevis
+\end{proofbox}
+\end{theorembox}
+
+\begin{definitionbox}{2.5.5}{}
+Matrisen $ \left[ T \right]_{\mathcal{C}}^{\mathcal{B}}  $ i forrige teorem er \textbf{\textit{basisrepresentasjonen av T i basisene $ \mathcal{B} $ og $ \mathcal{C} $  }}. Også kalt matrisen tilhørende T
+\end{definitionbox}
+
+Vi finner denne matrisen ved følgende.
+\begin{enumerate}
+  \item For hvert basiselement $ u_j $ i $ \mathcal{B} $ , beregner vi $ Tu_j $ 
+  \item Finner basisrepresentasjonen $ \left[ Tu_j \right] _{\mathcal{C}} $ av denne vektoren i basisen $ \mathcal{C} $ 
+  \item setter denne i kolonne j
+  \item Vi får da $ m \times n $ matrisen
+\end{enumerate}
+\[
+    \left[ T \right] _{\mathcal{C}}^{\mathcal{B}} = \left( \left[ Tu_1 \right] _{\mathcal{C}}, \left[ Tu_2 \right] _{\mathcal{C}}, ..., \left[ Tu_n \right] _{\mathcal{C}} \right) 
+\]
+
+\begin{oppgavebox}{2.5.6}{}
+La $ \mathcal{B} $ og $ \mathcal{C} $ være basiser for $ \mathbb{K}^n $ og $ \mathbb{K}^m$, og la $ A \in M_{m \times n}(\mathbb{K}) $. La $ T: \mathbb{K}^n \rightarrow \mathbb{K}^m$ være den tilhørende avbildningen $ Tx:=Ax $. Vis at
+
+\[
+    \left[ T \right] _{\mathcal{C}}^{\mathcal{B}} = A
+\]
+
+\begin{proofbox}{2.5.6}{}
+Hvis $ x \in  \mathbb{K}^n $ og $ y \in \mathbb{K}^m $, så er $ \left[ x \right] _{\mathcal{B}} = x $ og $ \left[ y \right] _{\mathcal{C}} = y $. da har vi
+
+\begin{align*}
+  Ax &= \left[ Ax \right] _{\mathcal{C}} \\
+  &= \left[ Tx \right] _{\mathcal{C}} \\
+  &= \left[ T \right] _{\mathcal{C}}^{\mathcal{B}} \left[ x \right] _\mathcal{B} \\
+  &= \left[ T \right] _{\mathcal{C}}^{\mathcal{B}} x
+\end{align*}
+Siden dette gjelder for alle $ x \in  \mathbb{K}^n $, så er det sikkert å påstå at 
+\[
+    \left[ T \right] _{\mathcal{C}}^{\mathcal{B}} = A
+\]
+
+
+\end{proofbox}
+\end{oppgavebox}
+
+Påstanden 
+\[
+    \left[ T \right] _{\mathcal{C}}^{\mathcal{B}} \left[ x \right] _{\mathcal{B}}
+\]
+kan tolkes som koordinatene til transformasjonen av $ Tx $. Hvor $ \left[ T \right] _{\mathcal{C}}^{\mathcal{B}} $ er en operator som oversetter en vektor i basis $ \mathcal{B} $  til en vektor i basis $ \mathcal{C} $. Huskeregelen er at basisen øverst, er basisen vi vil oversette fra, og den nederste basisen er det vi vil oversette basisen til.
+
+\begin{theorembox}{2.5.7}{}
+Under samme betingelser som i 2.5.4, er avbildningen $ T \mapsto \left[ T \right] _{\mathcal{C}}^{\mathcal{B}} $ en isomorfi. Vekorrommene $ \mathcal{L} \left( U, V\right)  $ og $ M_{m \times n}(\mathbb{K}) $ er dermed isomorfe.
+
+\begin{proofbox}{2.5.7}{}
+Skal bare vise lineæritet.
+
+Siden $ \left[ \cdot \right] _{\mathcal{C}} $ er lineær, er for alle $ u \in  U $ 
+\begin{align*}
+  \left[ T + S \right] _{\mathcal{C}}^{\mathcal{B}} \left[ u \right] _{\mathcal{B}} &= \left[ \left( T + S \right) u  \right] _{\mathcal{C}}^{\mathcal{B}} \\
+  &= \left[ Tu \right] _{\mathcal{C}} + \left[ Su \right] _{\mathcal{C}} \\
+  &= \left[ T \right] _{\mathcal{C}}^{\mathcal{B}} \left[ u \right] _{\mathcal{B}} + \left[ S \right] _{\mathcal{C}}^{\mathcal{B}} + \left[ u \right] _{\mathcal{B}}\\
+\end{align*}
+
+Siden $ U \mapsto \mathbb{K}^n $ er en isometri, er dermed $ \left[ T + S \right]_{\mathcal{C}}^{\mathcal{B}} = \left[ T \right] _{\mathcal{C}}^{\mathcal{B}} + \left[ S \right] _{\mathcal{C}}^{\mathcal{B}}  $. \\
+
+
+For alle $ u \in U $ og $ \alpha_{}^{} \in  \mathbb{K}$ er 
+\begin{align*}
+  \left[ T \right] _{\mathcal{C}}^{\mathcal{B}} \left[ \alpha_{}^{} u \right] _{\mathcal{B}} &= \left[ T \left( \alpha_{}^{} u \right)  \right]_{\mathcal{C}}^{\mathcal{B}} \\
+  &= \left[ \alpha_{}^{} T u \right]  _{\mathcal{C}}^{\mathcal{B}}\\
+  &= \alpha_{}^{} \left[ T \right] _{\mathcal{C}}^{\mathcal{B}} \left[ u \right] _{\mathcal{B}}
+\end{align*}
+\end{proofbox}
+\end{theorembox}
+
+\begin{propositionbox}{2.5.8}{}
+La U, V og W være vektorrom over $ \mathbb{K} $ med basiser $ \mathcal{B}, \mathcal{C}, \mathcal{D} $. La $ S \in \mathcal{L} \left( U, V \right)  $  og $ T \in \mathcal{L} \left( V, W \right)  $. Da er
+\[
+    \left[ TS \right] _{\mathcal{D}}^{\mathcal{B}} = \left[ T \right] _{\mathcal{D}}^{\mathcal{C}} \left[ S \right] _{\mathcal{C}} ^{\mathcal{B}}
+\]
+\end{propositionbox}
+
+\begin{oppgavebox}{2.5.9}{}
+La U og V være endeligdimensjonale vektorrom av lik dimensjon, og la $ T \in  \mathcal{L} \left( U, V \right)  $. La $ \mathcal{B} $ og $ \mathcal{C} $ være hh. basiser for U og V. Vis at T er en isomorfi iff. den kvadratiske matrisen $ \left[ T \right] _{\mathcal{C}}^{\mathcal{B}} $ er inverterbar    
+
+\begin{proofbox}{2.5.9}{}
+Anta først at T er en isomorfi. Skal da vise at $ \left[ T \right] _{ \mathcal{C}}^{\mathcal{B}} $ er inverterbar.  
+
+Siden T er en isomorfi, er T bijektiv, og det finnes en $ T^{-1} \in  \mathcal{L} \left( V, U \right) $ s.a. $ T^{-1} : V \rightarrow U $. Dermed er $ \left[ T^{-1} T \right] _{\mathcal{B}}^{\mathcal{B}} = \left[ T^{-1} \right]_{\mathcal{B}}^{\mathcal{C}} \left[ T \right] _{\mathcal{C}}^{\mathcal{B}}  $   og T er inverterbar. Du kan bruke samme argument for $ \left[ T \right] _{\mathcal{C}}^{\mathcal{B}} $ bare stokk om rekkefølgen.\\
+
+For å vise motsatt vei, vet vi at om $\left[ T \right]_{\mathcal{C}}^{\mathcal{B}}$ er inverterbar, har den en invers matrise $A \in M_{n \times n}(\mathbb{K})$. Av teorem 2.5.4 finnes en unik lineær avbildning $S \in \mathcal{L}(V,U)$ slik at
+\[
+\left[ S \right]_{\mathcal{B}}^{\mathcal{C}} = A
+\]
+Vi vil nå vise at $S = T^{-1}$.
+\[
+    \left[  Tu \right] _ {\mathcal{C}} = A \left[ u \right] _ {\mathcal{B}}
+\]
+Siden vektorrommene $ \mathcal{L} \left( U, V \right)  $ og $ M_ {n \times n} (\mathbb{K}) $  er isomorfe, så er da T en isomorfi
+
+\end{proofbox}
+\end{oppgavebox}
+\begin{oppgavebox}{2.5.10}{}
+La $ T: \mathcal{P_3} \rightarrow \mathcal{P}_2 $ være gitt ved
+\[
+    Tp = \frac{ dp }{ dt }
+\]
+\begin{itemize}
+  \item La $ \mathcal{B} = \left( p_0, p_1, p_2, p_3 \right)  $ og $ \mathcal{C} = \left( p_0, p_1, p_2 \right)  $ være den kanoniske basisen for hhv $ \mathcal{P}_3 $ og $ \mathcal{P}_2 $. Finn basisrepresentasjonen $ \left[ T \right] _ {\mathcal{C}}^ {\mathcal{B}} $
+  \item Generaliser forrige oppgave til avbildningen $ T : \mathcal{P}_n \rightarrow \mathcal{P}_ {n-1} $ definert på samme måte for en vilkårlig n 
+  
+
+\end{itemize}
+
+\begin{proofbox}{2.5.10}{}
+Vi skal finne matrisen $ \left[ T \right] _{\mathcal{C}}^{\mathcal{B}} = \left( \left[ Tp_0 \right] _{\mathcal{C}}, \left[ Tp_1 \right] _{\mathcal{C}}, \left[ Tp_2 \right]_{\mathcal{C}}, \left[ Tp_3 \right] _{\mathcal{C}} \right)  $ 
+
+\begin{enumerate}
+  \item \begin{align*}
+    \left[ Tp_0 \right] _{\mathcal{C}} &= \frac{ dp_0 }{ dt } \\
+    &= 0
+  \end{align*}
+    \item \begin{align*}
+      \left[ Tp_1 \right] _{\mathcal{C}} &= \frac{ dp_1 }{ den }\\
+      &= \frac{ d t }{ dt }\\
+      &= 1 = p_0
+    \end{align*}
+    \item \begin{align*}
+      \left[ Tp_2 \right] _{\mathcal{C}} &= \frac{ dp_2 }{ den } \\
+      &= \frac{ d t^2 }{ dt } \\
+      &= 2t = 2 p_1
+    \end{align*}
+    \item \begin{align*}
+      \left[ Tp_3 \right] _{\mathcal{C}} &= \frac{ dp_3  }{ den }\\
+      &= \frac{ d t^3 }{ dt }\\
+      &= 3t^2 = 3p_2
+    \end{align*}    
+\end{enumerate}
+Derfor kan vi skrive 
+\[
+    \left[ T \right] _{\mathcal{C}}^{\mathcal{B}} = \begin{bmatrix}
+        0&1&0&0\\
+        0&0&2&0\\
+        0&0&0&3
+    \end{bmatrix} 
+\]
+\end{proofbox}
+\end{oppgavebox}
+
+Dette er faktisk ganske kult, fordi si vi har et polynom $ p \in \mathcal{P}_3 $ definert som
+\[
+    p(t) = 3 + 2t - t^2 + 2t^3
+\]
+Og la basisen til $ \mathcal{P}_3, \mathcal{P}_2  $ være som i oppgave 2.5.10\\ 
+Da er $ \left[ Tp \right] _{\mathcal{C}}^{\mathcal{B}} = \left[ T \right] _{\mathcal{C}}^{\mathcal{B}} \left[ p \right] _{\mathcal{B}} = \left[ p \right] _{\mathcal{C}} $, hvor 
+\[
+    \left[ p \right] _{\mathcal{B}} = \begin{bmatrix}
+        3\\ 2\\ -1\\ 2
+    \end{bmatrix} 
+\]
+
+. Vi beregner dette med matrisen vår
+
+\begin{align*}
+  \left[ T \right] _{\mathcal{C}}^{\mathcal{B}} \left[ p \right] _{\mathcal{B}} &=
+      \begin{bmatrix}
+        0&1&0&0\\
+        0&0&2&0\\
+        0&0&0&3
+    \end{bmatrix} \cdot \begin{bmatrix}
+      3\\ 2\\ -1\\ 2
+  \end{bmatrix} \\
+  &= \begin{bmatrix}
+      2\\ -2\\ 6
+  \end{bmatrix} 
+\end{align*}
+
+merk nå at $ \frac{ d }{ dt } \left( 3 + 2t - t^2 + 2t^3 \right) = 2 - 2t + 6t^2  $ og $ \left[ 2 - 2t + 6t^2 \right] {\mathcal{C}} = \begin{bmatrix}
+    2\\ -2\\ 6
+\end{bmatrix}   $ Dermed har vi derivert et polynom ved å bare gjøre lineære operasjoner
+
+\section*{2.6 Basisskifte}
+\addcontentsline{toc}{section}{Basisskifte}
+
+\begin{propositionbox}{2.6.1}{}
+La U være et endeligdimensjonalt vektorrom med to basiser $ \mathcal{B} $ og $ \mathcal{C} $. Da er 
+\[
+    \left[ u \right] _{\mathcal{C}} = \left[ id \right] _{\mathcal{C}}^{\mathcal{B}} \left[ u \right] _{\mathcal{B}}
+\]
+
+der $ id: U \to U $ er identitetsavbildninger $ id \left( u \right) = u $. matrisen $\left[ id \right] _{\mathcal{C}}^{\mathcal{B}} $ er inverterbar med inversmatrise $\left[ id \right] _{\mathcal{B}}^{\mathcal{C}} $
+
+\begin{proofbox}{2.6.1}{}
+Siden U har to basiser, så er begge basisene like store, og dermed er det like mange vektorer i $ \mathcal{B} $ som i $ \mathcal{C} $. Det vil si at for enhver $ \left[ u \right] _{\mathcal{C}} $ finnes det en $ \left[ u \right] _{\mathcal{B}} $ slik at $ \left[ Tu \right] _{\mathcal{C}} = \left[ u \right] _{\mathcal{C}} $. Derfor er 
+\[
+    I_n \left[ u \right] _{\mathcal{C}} = \left[ u \right] _{\mathcal{C}}
+\]
+og $ I_n = \left[ id \right] _{\mathcal{C}}^{\mathcal{B}} \left[ id \right] _{\mathcal{B}}^{\mathcal{C}} $ og samme motsatt.  
+\end{proofbox}
+\end{propositionbox}
+
+
+
+\begin{definitionbox}{2.6.2}{}
+Matrisen $\left[ id \right] _{\mathcal{C}}^{\mathcal{B}} $ er \textbf{\textit{basisskiftematrisen fra $ \mathcal{B} $ til $ \mathcal{C} $  }}
+\end{definitionbox}
+
+\begin{oppgavebox}{2.6.3}{}
+La $ \mathcal{B} = \left( u_1, ..., u_n \right)  $ være en basis for $ \mathbb{K}^n $ og la $ \mathcal{C} = \left( e_1, ..., e_n \right)  $  være standardbasisen på $ \mathbb{K}^n $. Vis at 
+\[
+    \left[ id \right] _{\mathcal{C}}^{\mathcal{B}} = \left( u_1, ..., u_n \right) 
+\]
+
+\begin{proofbox}{2.6.3}{}
+Vi vet at $ \left[ id \right] _{\mathcal{C}}^{\mathcal{B}} = \left( \left[ u_1 \right] _{\mathcal{C}}, ..., \left[ u_n \right] _{\mathcal{C}} \right)  $. Hvis $ \mathcal{B} $ er en basis for $ \mathbb{K}^n $  og $ \mathcal{C} $ er standardbasisen, så kan enhver $ x \in  \mathbb{K}^n $ skrives som
+
+\[
+    x = x_1 e_1 + ... + x_n e_n
+\]
+da er
+\[
+    \left[ x \right] _{\mathcal{C}} = x = \left( x_1, ..., x_n \right) 
+\]
+Det samme kan vi si om hvert element i $ \left[ id \right] _{\mathcal{C}} ^{\mathcal{B}} = \left( \left[ u_1 \right] _{\mathcal{C}}, ..., \left[ u_n \right] _{\mathcal{C}} \right)  $. Vi får da at en vilkårlig vektor $ u \in \mathbb{K}^n $ kan skrives på formen
+
+\[
+    u = u_1 e_1 + ... + u_n e_n
+\]
+og da er
+\[
+    \left[ u \right] _{\mathcal{C}} = u = \left( u_1, ..., u_n \right) 
+\]
+Og derfor er da 
+\begin{align*}
+  \left[ id \right] _{\mathcal{C}} ^{\mathcal{B}} &= \left( \left[ u_1 \right] _{\mathcal{C}}, ..., \left[ u_n \right] _{\mathcal{C}} \right)\\
+  &= \left( u_1, ..., u_n \right) 
+\end{align*}
+\end{proofbox}
+\end{oppgavebox}
+
+Merk at oppgaven over, er det som gjør at vi kan tenke på vektorer som vi har normalt lært. Det at $ u \in \mathbb{K}^n $, betyr ikke noe annet enn at 
+\[
+    \begin{bmatrix}
+        u_1\\ u_2 \\ \vdots\\u_{n-1} \\ u_n
+    \end{bmatrix}  = u_1 \begin{bmatrix}
+        1\\ 0\\ \vdots\\0\\0
+    \end{bmatrix} + ... + u_{n-1} \begin{bmatrix}
+       0 \\ 0\\ \vdots\\1\\0
+    \end{bmatrix} + u_n \begin{bmatrix}
+       0 \\ 0\\ \vdots\\0\\1
+    \end{bmatrix}
+\]
+Derfor er det veldig kult å vite at $ \left( e_1, ..., e_n \right)  $ er en basis for $ \mathbb{K}^n $ 
+
+\begin{oppgavebox}{2.6.4}{}
+I vektorromet $ \mathbb{R}^2 $ lar vi $ \mathcal{B} = \left( u_1, u_2 \right)  $ være basisen gitt ved $ u_1 = \left( 1, 2 \right)  $ og $ u_2 = \left( -2, 2 \right)  $. Og $ \mathcal{C} = \left( e_1, e_2 \right)$, hvor $ e_1 = \left( 1, 0 \right)  $  og $ e_2 = \left( 0, 1 \right)  $ 
+
+Finn $ \left[ id \right] _{\mathcal{C}}^{\mathcal{B}}$ og $ \left[ id \right] _{\mathcal{B}}^{\mathcal{C}}$
+
+\begin{proofbox}{2.6.4}{}
+Vi finner $ \left[ id \right] _{\mathcal{C}}^{\mathcal{B}} $  først
+
+\[
+     \left[ id \right] _{\mathcal{C}}^{\mathcal{B}} = \left( \left[ u_1 \right] _{\mathcal{C}}, \left[ u_2 \right] _{\mathcal{C}} \right) = \begin{bmatrix}
+         1&-2\\
+         2&2
+     \end{bmatrix} 
+\]
+
+Dette er fordi $ u_1 = 1 e_1 + 2 e_2 $ og dermed er $ \left[ u_1 \right] _{\mathcal{C}} = \left( 1, 2 \right)  $. Samme for $ u_2 $ \\
+
+\[
+    \left[ id \right] _{\mathcal{B}}^{\mathcal{C}} = \left(  \left[ e_1 \right] _{\mathcal{B}}, \left[ e_2 \right] _{\mathcal{B}} \right) 
+\]
+
+Vi kan finne $ \left[ id \right]_{\mathcal{B}}^{\mathcal{C}}  $ ved å inverterere $ \left[ id \right] _{\mathcal{C}}^{\mathcal{B}} $ 
+\begin{align*}
+  \left[ id \right]_{\mathcal{B}}^{\mathcal{C}} &=  \begin{bmatrix}
+      1&-1\\ 2&2
+  \end{bmatrix} ^{-1} \\
+  &= \frac{ 1 }{ 2+4 } \begin{bmatrix}
+      2 & 2\\-2 1
+  \end{bmatrix} \\
+  &= \frac{ 1 }{ 6 }\begin{bmatrix}
+      2 & 2\\-2& 1
+  \end{bmatrix}
+\end{align*}
+\end{proofbox}
+\end{oppgavebox}
+
+\begin{oppgavebox}{2.6.5}{}
+Vektorrommet $ \mathcal{P}_2 $ med basis $ \mathcal{B} = \left( p_0, p_1, p_2 \right)  $  være den kanoniske basisen og $ \mathcal{C} = \left( q_0, q_1, q_2 \right)  $ er newton basisen
+\end{oppgavebox}
+
+
+
+\end{document}

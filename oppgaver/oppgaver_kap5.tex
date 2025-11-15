@@ -21,6 +21,115 @@
 \usepackage{ifthen}
 \usepackage{hyperref}
 
+\usepackage[most]{tcolorbox}
+\tcbuselibrary{theorems, breakable}
+\tcbset{before upper=\par, after upper=\par} % allows itemize and enumerate inside boxes
+
+\newtcbtheorem[]{definitionbox}{Definisjon}{
+  colback=blue!3,
+  colframe=blue!70!black,
+  fonttitle=\bfseries\color{white},
+  coltitle=white,
+  boxrule=0.6pt,
+  arc=2mm,
+  enhanced,
+  breakable
+}{def}
+
+\newtcbtheorem[]{theorembox}{Teorem}{
+  colback=green!3,
+  colframe=green!50!black,
+  fonttitle=\bfseries,
+  coltitle=black,
+  boxrule=0.6pt,
+  before upper=\par\ignorespaces,
+  after upper=\par\unskip,
+  arc=2mm,
+  enhanced,
+  breakable
+}{thm}
+
+\newtcbtheorem[]{oppgavebox}{Oppgave}{
+  colback=gray!5,
+  colframe=black!60,
+  fonttitle=\bfseries,
+  coltitle=black,
+  boxrule=0.6pt,
+  arc=2mm,
+  enhanced,
+  breakable
+}{oppg}
+
+\newtcolorbox{sectionbox}[1][]{
+  colback=white,
+  colframe=black!70,
+  boxrule=0.7pt,
+  arc=3mm,
+  top=2mm, bottom=2mm, left=2mm, right=2mm,
+  title=#1,
+  enhanced,
+  breakable
+}
+
+\newtcbtheorem[]{corollarybox}{Korollar}{
+  colback=purple!5,
+  colframe=purple!60!black,
+  fonttitle=\bfseries\color{white},
+  coltitle=white,
+  boxrule=0.6pt,
+  arc=2mm,
+  enhanced,
+  breakable,
+  before upper=\par\ignorespaces,
+  after upper=\par\unskip
+}{cor}
+
+\newtcbtheorem[]{lemmabox}{Lemma}{
+  colback=orange!5,
+  colframe=orange!70!black,
+  fonttitle=\bfseries,
+  boxrule=0.6pt,
+  arc=2mm,
+  enhanced,
+  breakable
+}{lem}
+
+\newtcbtheorem[]{propositionbox}{Proposisjon}{
+  colback=cyan!5,
+  colframe=cyan!60!black,
+  fonttitle=\bfseries,
+  coltitle=black,
+  boxrule=0.6pt,
+  arc=2mm,
+  enhanced,
+  breakable
+}{prop}
+
+\newtcbtheorem[]{proofbox}{Bevis}{
+  colback=white,
+  colframe=black,
+  fonttitle=\bfseries\color{white},
+  coltitle=white,
+  colbacktitle=black,
+  title style={opacity=0.9},
+  boxrule=0.6pt,
+  arc=2mm,
+  enhanced,
+  breakable
+}{proof}
+
+\newlist{suboppgave}{enumerate}{1}
+\setlist[suboppgave,1]{
+  label=\textbf{(\alph*)},
+  ref=\theenumi\alph*,
+  leftmargin=1.5em,
+  itemsep=0.4em,
+  topsep=0.3em,
+  parsep=0pt,
+  partopsep=0pt
+}
+
+
 
 \setcounter{secnumdepth}{2}  % Sections and subsections numbered
 
@@ -62,13 +171,19 @@
 \newcommand{\basis}{{\mathcal{B}}}
 \newcommand{\basiss}{{\mathcal{C}}}
 \newcommand{\basisss}{{\mathcal{D}}}
-\newtheorem*{theorem}{Theorem}
-\newtheorem*{corollary}{Corollary}
-\newtheorem*{lemma}{Lemma}
-\newtheorem*{definition}{Definition}
-\newtheorem*{proposition}{Proposisjon}
 
-
+\usepackage[most]{tcolorbox}
+\newtcolorbox{algoritme}[1]{
+  title=Algoritme~#1,
+  colback=white,
+  colframe=black,
+  boxrule=0.5pt,
+  arc=2mm,
+  left=3mm,
+  right=3mm,
+  top=1mm,
+  bottom=1mm
+}
 
 % Definer oppgavemiljøet
 \newenvironment{oppgave}[1]%
@@ -88,12 +203,12 @@
 \section*{5.1 Egenpar og egenrom}
 \addcontentsline{toc}{section}{5.1 Egenpar og egenrom}
 
-\begin{oppgave}{5.1.2}
+\begin{oppgavebox}{5.1.2}{}
 La $ \lambda $  være en egenverdi for T
 
 a) Vis at hvis u er en tilhørende egenvektor og $ \alpha_{}^{} \in \mathbb{K} \neq 0$  så er også $ \alpha_{}^{} u  $ en egenvektor tilhørende $ \lambda  $
 
-\begin{proof}
+\begin{proofbox}{5.1.2}{}
     $Tu = \lambda u$
     Hvis $ \alpha_{}^{} u $ er en tilhørende egenvektor til $ \lambda  $, så er 
     \[
@@ -105,11 +220,11 @@ a) Vis at hvis u er en tilhørende egenvektor og $ \alpha_{}^{} \in \mathbb{K} \
         &= \lambda \left( \alpha_{}^{} u \right) \\
         &= \alpha_{}^{}  \lambda u
     \end{align*}
-\end{proof}
+\end{proofbox}
 
 b) Vis at hvis u og v er egenvektorer for $ \lambda  $ og $ u+v\neq 0 $, så er $ u+v $ også en egenvektor   
 
-\begin{proof}
+\begin{proofbox}{}
     Hvis $ u+v $ er en egenvektor tilhørende $ \lambda  $, så er 
     \begin{align*}
         T \left( u+v \right) &= \lambda \left( u+v \right)  \\
@@ -117,11 +232,11 @@ b) Vis at hvis u og v er egenvektorer for $ \lambda  $ og $ u+v\neq 0 $, så er 
     \end{align*}
     gitt at $ u+v \neq 0 $
     Egenrommet som består av alle egenvektorer slik at. $ Tu = \lambda u $, inkludert lineær kombinasjoner av egenvektorer. I tillegg så er mengden av alle tilhørende egenverdier til en egenvektor, er ikke helt komplett, fordi den ikke inkluderer $ \lambda =0 $. Og 0 kan være en egenverdi for en matrise. For eksempel, hvis det karakteristiske polynomet $ p_{ \lambda }(t) $ har en felles faktor $ \lambda  $ i alle ledd av polynomet.    
-\end{proof}
-\end{oppgave}
+\end{proofbox}
+\end{oppgavebox}
 
 
-\begin{oppgave}{5.1.3}
+\begin{oppgavebox}{5.1.3}{}
 La T være en operator med egenverdi $ \lambda  $. Forklar hvorfor følgende er ekvivalent. 
 \begin{itemize}
     \item $ \lambda  $ er en egenverdi for T 
@@ -129,7 +244,7 @@ La T være en operator med egenverdi $ \lambda  $. Forklar hvorfor følgende er 
     \item Operatoren $ T - \lambda id $ er ikke injektiv 
 \end{itemize}
 
-\begin{proof}
+\begin{proofbox}{5.1.3 i) $ \rightarrow $ ii) }{}
 Skal først vise at $ i) \rightarrow ii) $ Hvis $ \lambda  $ er en egenverdi for T, så er $ T u = \lambda u $ . Dette er det samme som å si at $ T u = \lambda id u $. Dette kommer av at 
 
 \[
@@ -144,9 +259,9 @@ Da kan vi skrive om å si at
     S(u) = 0
 \end{align*}
 Som sier at med $ \lambda  $ som egenverdi, så er tilhørende egenvektor $ u \in ker \left( S \right) $. En egenvektor har egenskapen at uansett, så  $ u \neq 0 $. Dermed kan ikke $ ker S = \left\{ 0 \right\}  $ og det er bevist
-\end{proof}
+\end{proofbox}
 
-\begin{proof}
+\begin{proofbox}{5.1.3 i) $ \rightarrow $ iii) }{}
 Skal nå vise at $ i) \rightarrow iii) $ Fra Lemma 2.3.3, så vet vi at det er ekvivalent å si at 
 
 \begin{itemize}
@@ -156,21 +271,21 @@ Skal nå vise at $ i) \rightarrow iii) $ Fra Lemma 2.3.3, så vet vi at det er e
 \end{itemize}
 
 Vi begynner med at vi har $ T u = \lambda  u $, og at $ \left( T - \lambda  id \right) u = 0  $ som sier at for operatoren $ S = T -id \lambda  $, så er $ u \in kerS $. Siden en egenvektor $ u \neq 0 $, så vet vi fra lemma 2.3.3 at $ ker S \neq \left\{ 0 \right\}  $. Fordi $ u \in  ker S $ og $ u \neq 0 $  
-\end{proof}
+\end{proofbox}
 
-\begin{proof}
+\begin{proofbox}{5.1.3 ii) $ \rightarrow $ iii) }{}
 Skal nå vise at $ ii) \rightarrow iii) $ Dette er opplagt, fordi en lineær operator T har at $ ker T = \left\{ 0 \right\}  $ hvis og bare hvis $ Tu = 0 $ kun hvis $ u=0 $. Siden dette ikke er en egenvektor, så er   $ ker T \neq \left\{ 0 \right\}  $. bare erstatt T med $ T - \lambda  id $ og du får at $ T - \lambda id $ ikke er injektiv.  
-\end{proof}
+\end{proofbox}
 
-\begin{proof}
+\begin{proofbox}{5.1.3 iii) $ \rightarrow $ i)}{}
 $ iii) \rightarrow i) $ Hvis $ T - \lambda id $ er ikke injektiv, så er ikke $ Tu = 0 $ kun hvis $ u=0 $, og dermed er $ \left( T - \lambda id \right)u = 0  $ for en $ u\neq 0 $ og $ \lambda  $ er dermed er $ \left( \lambda , u \right)  $ et egenpar.
-\end{proof}
+\end{proofbox}
 
-\begin{proof}
+\begin{proofbox}{5.1.3 iii) $ \rightarrow $ ii)}{}
 $ iii) \rightarrow ii) $. Om $ T - \lambda id $ er ikke injektiv, så er da $ \left( T - \lambda id \right)u= 0 $ for en $ u\neq 0 $. Dermed er $ ker \left( T - \lambda id \right) \neq \left\{ 0 \right\}   $ 
-\end{proof}
+\end{proofbox}
 
-\begin{proof}
+\begin{proofbox}{5.1.3 ii) $ \rightarrow $ i)}{}
 $ ii) \rightarrow i) $. Hvis $ ker \left( T - \lambda id \right) \neq 0 $, så er det en $ \left( T - \lambda id \right)u = 0  $ for en $ u\neq 0 $. Dermed kan vi skrive 
 \begin{align*}
     \left( T - \lambda id \right)u &= 0 \\
@@ -179,12 +294,20 @@ $ ii) \rightarrow i) $. Hvis $ ker \left( T - \lambda id \right) \neq 0 $, så e
     Tu = \lambda u
 \end{align*}
 som sier at $ \lambda  $ er en egenverdi for T med tilhørende egenvektor $ u $ og egenparet $ \left( \lambda , u \right)  $   
-\end{proof}
-\end{oppgave}
+\end{proofbox}
+\end{oppgavebox}
 
 
-\begin{oppgave}{5.1.7}
-\begin{definition}
+
+\begin{definitionbox}{5.1.6}{}
+La T være en operator på et vektorrom U og la $ \lambda  $ være en egenverdi for T. Den \textbf{\textit{geometriske multiplisiteten til T }} er tallet $ \gamma_T ( \lambda ) := dim \left( E_T ( \lambda ) \right)  $  
+\end{definitionbox}
+
+
+\begin{oppgavebox}{5.1.7}{}
+Forklar hvorfor en egenverdi $ \lambda  $ har nøyaktig $ \gamma_T ( \lambda ) $ antall tilhørende lineært uavhengige egenvektorer.
+
+\begin{proofbox}{5.1.7}{}
 La $ T \in \mathcal{L} (U) $ ha egenverdi $ \lambda  $. Det tilhørende egenrommet til $ \lambda  $ er 
 \[
     E_T( \lambda ) := ker \left( T - \lambda id \right) = \left\{ u \in  U : Tu = \lambda u \right\} 
@@ -203,16 +326,9 @@ Så er
 som sier at $ T0 = \left( \lambda _1 - \lambda _2 \right)u  $. Siden $ u=0 $ ikke kan være en egenvektor, så må $ \lambda _1 - \lambda _2 = 0 \rightarrow \lambda _1 = \lambda _2 $   
 
 Som følger, vil $ E_T(\lambda_1) \cap E_T (\lambda_2) = \left\{ 0 \right\}  $ 
-\end{definition}
+\end{proofbox}
 
-\begin{definition}
-La T være en operator på et vektorrom U og la $ \lambda  $ være en egenverdi for T. Den \textbf{\textit{geometriske multiplisiteten til T }} er tallet $ \gamma_T ( \lambda ) := dim \left( E_T ( \lambda ) \right)  $  
-\end{definition}
-
-
-Forklar hvorfor en egenverdi $ \lambda  $ har nøyaktig $ \gamma_T ( \lambda ) $ antall tilhørende lineært uavhengige egenvektorer.
-
-\begin{proof}
+\begin{proofbox}{5.1.7}{}
 Fra forrige definisjon, så vil en egenverdi $ \lambda $ ha $ dim \left( E_T ( \lambda ) \right)  $  egenvektorer. Dvs. at for to lineært uavhnegige egenvektorer $ u_1, u_2 $, så er  
 \[
     \alpha_{1}^{} u_1 + ... +  \alpha_{n}^{}  u_n = 0
@@ -226,16 +342,19 @@ Siden $ u_1, u_2 \in U $, så er fra definisjonen av egenrommet, så er $ u_1,..
     dim \left( E_T ( \lambda ) \right) = dim \left( u_1,..., u_n \right) = n
 \]
 Så den geometriske multiplisiteten er n
-\end{proof}
-\end{oppgave}
+\end{proofbox}
+\end{oppgavebox}
+
+
+
 
 \section*{5.2 Egenverdier på endeligdimensjonale rom}
 \addcontentsline{toc}{section}{5.2 Egenverdier på endeligdimensjonale rom}
 
 
-\begin{oppgave}{5.2.1}
+\begin{oppgavebox}{5.2.1}{}
 
-\begin{proof}
+\begin{proofbox}{5.2.1}{}
 Anta først at T er en isomorfi, skal så vise at 0 er ikke en egenverdi som følge av dette.
 
 Siden T er en isomorfi, er den bijektiv, og er også surjektiv og injektiv. Dette betyr at $ Tu = 0 $ kun dersom $ u=0$. Eller $ ker T = \left\{ 0 \right\}  $.
@@ -248,59 +367,54 @@ En egenverdi av T er slik at $ Tu = \lambda u $. Men siden $ Tu = 0 $ kun hvis $
 Skal nå vise motsatt vei, at hvis 0 ikke er en egenverdi, så må T være en isomorfi, under forutsetning at $ dimU < \infty $.
 
 Anta at $ dimU < \infty $, og at $ \lambda = 0 $ ikke er en egeverdi. Da er $ kerT = \left\{ 0 \right\}  $ , fordi hvis $ u\neq 0 $ og $ Tu=0 $, så ville 0 vært en egenverdi. Siden T er lineær og $ dimU < \infty $, følger det at T er bijektiv og dermed en isomorfi. Dette gjelder fordi $ dim kerT = 0 $, og $ dimU = dimV $ fra dimensjonssatsen.   
-\end{proof}
-\end{oppgave}
+\end{proofbox}
+\end{oppgavebox}
 
-\begin{proposition}[\textbf{\textit{5.2.2}}]
+\begin{propositionbox}{}
     La T være en operator på et endeligdimensjonalt vektorrom U med basis $ \mathcal{B} $. Da er $ \left( \lambda , u \right)  $  et egenpar for T iff. $ \left( \lambda , \left[ u \right]_{ \mathcal{B}}  \right)  $ er et egenpar for matrisen $ \left[ T \right] _{ \mathcal{B}}^{ \mathcal{B}} $
-\end{proposition}
+\end{propositionbox}
 
-\begin{oppgave}{5.2.2 Proposisjon}
+\begin{oppgavebox}{5.2.2 Proposisjon}{}
 \textbf{\textit{Bevis proposisjon 5.2.2}}
+\end{oppgavebox}
 
-\begin{proof}
-
-\end{proof}
-
-\end{oppgave}
-
-\begin{definition}
+\begin{definitionbox}{5.2.3}{}
     T operator på endeligdim. vektorrom U. \textbf{\textit{Det Karakteristiske polynomet}} er en funksjon 
     \[
         P_T ( \lambda ) := det \left( T - \lambda id \right) \forall \lambda \in \mathbb{K}
     \]
-\end{definition}
+\end{definitionbox}
 
-\begin{proposition}[\textbf{\textit{5.2.4}}]
+\begin{propositionbox}{5.2.4}{}
 La T være en operator på et endeligdim vektorrom U over $ \mathbb{K} $. Da er følgende ekvivalent. 
 
 \begin{itemize}
     \item $ \lambda  $ er en egenverdi for T
     \item $ \lambda  $ er en rot av det karakteristiske polynomet til T. Altså $ p_T( \lambda ) =0 $  
 \end{itemize}
-\end{proposition}
+\end{propositionbox}
 
-\begin{oppgave}{5.2.4}
+\begin{oppgavebox}{5.2.4}{}
 \textbf{\textit{Bevis proposisjon }}
 
-\begin{proof}
+\begin{proofbox}{5.2.4 i)}{}
 $ i \rightarrow ii) $ Anta først at $ \lambda  $ er en egenverdi for T. Da er $ Tu = \lambda u $. En annen måte å si dette på er hvis $ u \in ker \left( T - \lambda id \right)  $. Hvis $ \lambda  $ er slik, så er $ ker \left( T - \lambda id \right) \neq 0  $ fordi $ u \neq 0 $. Dermed er $ T - \lambda id $ ikke injektiv.\\
 
 Et krav for at en operator er invertibel, skjer hvis den er bijektiv. En operator er bijektiv hvis den er injektiv OG surjektiv. Siden $ T - \lambda id $  \textbf{\textit{ikke}} er injektiv, så er ikke $ T - \lambda id $  invertibel. Et annet særtrekk med en invertibel operator, er hvis $ det S \neq 0 $. Dermed vet vi at for en $ \lambda  $ som tilfredsstiller $ Tu= \lambda u $, så må $ det \left( T - \lambda id \right) =0 $ for at $ \lambda  $ skal være en egenverdi. 
-\end{proof}
+\end{proofbox}
 
-\begin{proof}
+\begin{proofbox}{5.2.4 ii)}{}
 $ ii) \rightarrow i) $.  Hvis $ \lambda  $ er en rot av det karakteristiske polynomet, så vet vi at $ det \left(  T - \lambda id \right) = 0 $. Dermed er ikke $ T - \lambda id $ injektiv (fordi den ikke er invertibel). Det vil si at 
 \[
     ker \left( T - \lambda id \right) \neq \left\{ 0 \right\} 
 \]
 Med andre ord, så $ \exists $ en $ u \in ker \left( T - \lambda id \right)  $ hvor $ u \neq 0 $. Med andre ord, så har $ \lambda  $ en egenvektor u. slik at $ \left( \lambda , u \right)  $    er et egenpar
-\end{proof}
-\end{oppgave}
+\end{proofbox}
+\end{oppgavebox}
 
 
-\begin{oppgave}{5.2.8}
-\begin{proof}
+\begin{oppgavebox}{5.2.8}{}
+\begin{proofbox}{5.2.8}{}
 La $ A \in M_2 (\mathbb{R}) $ være en rotasjonsmatrise
 \[
     A = \begin{bmatrix}
@@ -331,17 +445,17 @@ Så vi får da at
 \[
     \lambda_1 = \cos\theta + i \sin\theta, \lambda_2 = \cos\theta - i \sin\theta
 \]
-\end{proof}
-\end{oppgave}
+\end{proofbox}
+\end{oppgavebox}
 
 \section*{5.3 Diagonalisering}
 \addcontentsline{toc}{section}{5.3 Diagonalisering}
 
 
-\begin{oppgave}{5.3.2}
+\begin{oppgavebox}{5.3.2}{}
 La $ D = diag \left(  \alpha_{1}^{}, ..., \alpha_{n}^{}   \right)  $ være en diagonal matrise. Vis at D er inverterbar iff. $ \alpha_{1}^{} , ..., \alpha_{n}^{} \neq 0  $
 
-\begin{proof}
+\begin{proofbox}{}
 Anta først at $ \alpha_{1}^{} , ..., \alpha_{n}^{} \neq 0 $, da $ \exists $  en D slik at 
 \[
     D = diag \left( \alpha_{1}^{} , ..., \alpha_{n}^{} \right) 
@@ -357,25 +471,25 @@ Anta videre at $ \alpha_{k}^{}  = 0 $ for en $ \alpha_{k}^{} \in \left\{ \alpha_
 \[
     D e_k = \alpha_{k}^{} e_k = 0 \cdot e_k = 0
 \]
-\end{proof}
-\end{oppgave}
+\end{proofbox}
+\end{oppgavebox}
 
-\begin{definition}[5.3.3]
+\begin{definitionbox}{5.3.3}{}
     La U være et n dim vektorrom. En operator $ T \in \mathcal{L}(U) $ er diagonaliserbar om $ \exists $ en basis $ \mathcal{B} = \left( u_1, ..., u_n \right) $ for U slik at $ \left[ T \right] _{ \mathcal{B}}^{ \mathcal{B}} $ er en diagonalmatrise
-\end{definition}
+\end{definitionbox}
 
-\begin{proposition}[\textbf{\textit{5.3.4}}]
+\begin{propositionbox}{5.3.4}{}
 La T være en operator på et n dim vektorrom. Da er følgende ekvivalent
 \begin{enumerate}
     \item T er diagonialiserbar
     \item T har n lineært uavhengige egenvektorer
 \end{enumerate}
-\end{proposition}
+\end{propositionbox}
 
-\begin{oppgave}{5.3.5}
+\begin{oppgavebox}{5.3.5}{}
 La T være en operator på et n dim vektorrom U, og anta at T har n forskjellige egenverdier. Vis at de tilhørende egenvektorene er lineært uavhengige. Konkluder med at T er diagonialiserbar
 
-\begin{proof}
+\begin{proofbox}{5.3.5}{}
 Vi har at $ Tu = \lambda u $. Vi har n forksjellige egenverdier. Anta at $ u_k $ har to forskjellige egenverdier, $ \lambda _k', \lambda _k $ . Da må 
 
 \begin{align*}
@@ -399,34 +513,34 @@ være
 spenne ut hele U, som har dimensjon n. Derfor har T n lineært uavhengige egenvektorer.
 
 
-\end{proof}
-\end{oppgave}
+\end{proofbox}
+\end{oppgavebox}
 
 
-\begin{definition}
+\begin{definitionbox}{5.3.6}{}
 En kvadratisk matrise $ A \in M_n (\mathbb{K}) $ er \textbf{\textit{diagonaliserbar}} dersom $ \exists $ en inverterbar matrise $ R \in M_n (\mathbb{K}) $ og en diagonalmatrise $ D \in M_n (\mathbb{K}) $ slik at 
 \[
     A = RDR^{-1}
 \]
-\end{definition}
+\end{definitionbox}
 
-\begin{oppgave}{5.3.7}
+\begin{oppgavebox}{5.3.7}{}
 Hva er sammenhengen mellom diagonaliserbarhet av en lineær operator og diagonaliserbarhet av en kvadratisk matrise?
 
 HINT: Sammenlign definisjonene for en operator T og den tilhørende matrisen $ \left[ T \right] _{ \mathcal{C}}^{ \mathcal{C}} $ der $ \mathcal{C} $ er standardbasisen i $ \mathbb{K}^n $ 
 
-\begin{proof}
+\begin{proofbox}{5.3.7}{}
 Om en $ T \in \mathcal{L}(U) $ er diagonaliserbar, så er det en basis $ \mathcal{B} = \left( u_1, ..., u_n \right)  $ slik at $ \left[ T \right] _{ \mathcal{B}}^{ \mathcal{B}}  $ er en diagonalmatrise. Da er $ \left[ T \right] _{ \mathcal{B}}^{ \mathcal{B}} = \left( \lambda_1, ..., \lambda _n \right)  $. $ \left[ Tu_j \right] _{ \mathcal{B}} = \left[ T \right] _{ \mathcal{B}}^{ \mathcal{B}} \left[ u_j \right] _{ \mathcal{B}} = \left[ T \right] _{ \mathcal{B}}^{ \mathcal{B}} e_j = diag \left( \lambda _1, ..., \lambda _n \right) e_j  = \lambda _j e_j $ 
 
-dermed så er i vårt tilfelle  \textbf{\textit{KOM TILBAKE TIL DENNE OPPGAVEN}}
-\end{proof}
-\end{oppgave}
+dermed så er i vårt tilfelle  \textbf{\textit{KOM TILBAKE TIL DENNE oppgaven}}
+\end{proofbox}
+\end{oppgavebox}
 
 
 \section*{5.4 Anvendelser av diagonalisering}
 \addcontentsline{toc}{section}{5.4 Anvendelser av diagonalisering}
 
-\begin{oppgave}{5.4.1}
+\begin{oppgavebox}{5.4.1}{}
 La $ A \in M_n ( \mathbb{C}) $ og la $ x \in \mathbb{C}^n $. Vis at differenslikningen 
 
 \[
@@ -437,7 +551,7 @@ La $ A \in M_n ( \mathbb{C}) $ og la $ x \in \mathbb{C}^n $. Vis at differenslik
 \]
 har løsningen $ x_r = A^r x $ for  $ r \in \mathbb{N} $. Vis at om A er diagonaliserbar, for en diagonalmatrise D, kan vi skrive $ x_r = RD^r R^{-1} $ for $ r=0, 1, 2,... $  
 
-\begin{proof}
+\begin{proofbox}{5.3.7}{}
 La $ A \in M_n(\mathbb{C}) $ og la $ x \in \mathbb{C}^n $. Vis at differens likningen
 \[
     \text{Løsning} = \begin{cases}
@@ -465,10 +579,10 @@ Videre for å vise at om $ A = RDR^{-1} $, så er $ A^r= RD^RR{-1} $ fra tidlige
     &= RD^rR^{-1}x
 \end{align*}
 Og dette gjelder for $ r=0, 1, 2,... $ fordi $ A^0=I_n $, og da vil $ x_0 = Ix $ som bare er initial betingelsen 
-\end{proof}
-\end{oppgave}
+\end{proofbox}
+\end{oppgavebox}
 
-\begin{oppgave}{5.4.2}
+\begin{oppgavebox}{5.4.2}{}
 
 La $ A = \begin{bmatrix}
     1&3\\
@@ -482,7 +596,7 @@ La $ A = \begin{bmatrix}
     \end{cases}
 \]
 
-\begin{proof}
+\begin{proofbox}{5.4.2}{}
 La $ A = \begin{bmatrix}
     1&3\\
     2&0
@@ -545,24 +659,24 @@ $ A+2I: $
         2*3^r+(-2)^{r+2} & 2*3^r + 3 (-2)^{r+1}
     \end{bmatrix} x
 \]
-\end{proof}
-\end{oppgave}
+\end{proofbox}
+\end{oppgavebox}
 
 \section*{5.5 Spektralteoremet}
 \addcontentsline{toc}{section}{5.5 Spektralteoremet}
 
-\begin{lemma}{5.5.1}
+\begin{lemmabox}{5.5.1}{}
 La U være et endeligdim indreproduktrom over $ \mathbb{K} $, og la $ T \in \mathcal{U} $ være selvadjungert. Da er alle røtter til $ p_T $ reelle. Spesielt har T minst en reell egenverdi.  
-\end{lemma}
+\end{lemmabox}
 
-\begin{lemma}{5.5.2}
+\begin{lemmabox}{5.5.2}{}
 la U være et indreproduktrom over $ \mathbb{K}$, og la $ T \in \mathcal{L}(U) $ være en normal operator. Om $ \left( \lambda , u \right)  $ er et egenpar for T, er $ \left( \overline{ \lambda }, u \right)  $ et egenpar for $ T^* $ 
-\end{lemma}
+\end{lemmabox}
 
-\begin{oppgave}{5.5.2}
+\begin{oppgavebox}{5.5.2}{}
 Bevis Lemma 5.5.2 med teorem 4.8.5
 
-\begin{proof}
+\begin{proofbox}{5.5.2}{}
 Fra teorem 4.8.5 vet vi at for en normal operator T på et indreproduktrom U, så er $ T - \alpha_{}^{} id $ normal for enhver $ \alpha_{}^{} \in \mathbb{K} $. Videre er også $ kerT = ker T^* $
 
 
@@ -589,19 +703,19 @@ Siden $ \left\lVert u \right\rVert \neq 0 $, så kan vi dele på $ \left\lVert u
     T^* u = \lambda u \rightarrow T^* u = \overline{ \lambda }u
 \]
 Og $ \left( \overline{ \lambda }, u \right)  $  er et egenpar for $ T^* $ 
-\end{proof}
-\end{oppgave}
+\end{proofbox}
+\end{oppgavebox}
 
-\begin{theorem}{5.5.3 Spektralteoremet over $ \mathbb{C} $ }
+\begin{theorembox}{5.5.3 Spektralteoremet over $ \mathbb{C} $ }{}
 La U være et endeligdim indreproduktrom over $\mathbb{C} $ av dimensjon n, og la $ T \in \mathcal{L}(U) $ være normal. Da finnes en ortonormal basis $ \mathcal{B} = \left( u_1, ..., u_n \right)  $ for U slik at 
 
 \[
     Tu = \sum_{ k=1 }^{ n } \lambda _k \langle u, u_k \rangle_{  } u_k \forall u \in U
 \]
 Dette kalles for \textbf{\textit{egendekomposisjonen til U}}
-\end{theorem}
+\end{theorembox}
 
-\begin{proof}{\textbf{\textit{theorem 5.5.3 Spektralteoremet over $\mathbb{C}$}}}
+\begin{proofbox}{\textbf{\textit{theorem 5.5.3 Spektralteoremet over $\mathbb{C}$}}}{}
 La $ \left( \lambda , u_1 \right)  $ være et egenpar, normalisert slik at $ \left\lVert u \right\rVert=1  $. Definer nå $ U_2 := span \left( u_1 \right)^{\bot}  $. Vi påstår at om $ w \in U_2 $, så er $ Tw \in U_2 $. Av lemma 5.5.2 så er $ \left( \overline{ \lambda }, u_2 \right)  $ et egenpar for $ T^* $. så 
 
 \begin{align*}
@@ -616,27 +730,27 @@ For å se (5.5.1) skriver vi $ u = \sum_{ k=1 }^{ n } \langle u, u_k \rangle_{  
 \[
     Tu = T \left( \sum_{ k=1 }^{ n } \langle u, u_k \rangle_{  } u_k \right) = \sum_{ k=1 }^{ n } \langle u, u_k \rangle_{  } Tu_k = \sum_{ k=1 }^{ n } \langle u, u_k \rangle_{  } \lambda _k u_k
 \]
-\end{proof}
+\end{proofbox}
 
 
-\begin{theorem}{\textbf{\textit{teorem 5.5.4 Spektralteoremet over $\mathbb{R}$}}}
+\begin{theorembox}{\textbf{\textit{teorem 5.5.4 Spektralteoremet over $\mathbb{R}$}}}{}
 La U være et endelimdim indreproduktrom over $ \mathbb{R} $ av dim n. La $ T \in \mathcal{L}(U) $ være selvadjungert. Da finnes en ortonormal basis $ \mathcal{B} = \left( u_1, ..., u_n \right)  $ for U bestående av egenvektorer for T
-\end{theorem}
+\end{theorembox}
 
-\begin{proof}
+\begin{proofbox}{5.5.4}{}
 Ganske likt som beviset over $ \mathbb{C} $. Fra Lemma 5.5.1 har T minst en reell egenverdi. Bare velg en av røttene til det karakteristiske polynomet med tilhørende egenvektor $ u_1 $ og iterer på samme vis. 
-\end{proof}
+\end{proofbox}
 
-\begin{corollary}{5.5.5 Spektralteoremet for matriser}
+\begin{corollarybox}{5.5.5 Spektralteoremet for matriser}{}
 La $ A \in M_n (\mathbb{C}) $ være en normal matrise. Da finnes en \textbf{\textit{unitær}} matrise $ R \in M_n ( \mathbb{C}) $ og en diagonalmatrise $ D \in M_n( \mathbb{C}) $ slik at \[
     A = RDR^*
 \]
-Kolonnevektorene i R er egenvektorer for A, og diagonalen D inneholder de tilhørende egenverdiene, med hensyn på posisjon.
+Kolonnevektorene i R er egenvektorer for A, og diagonalen D inneholder de tilhørende egenverdiene, med hensyn på posisjon.\\
 
 Altså, om $ \left( \lambda _1, u_1 \right)  $ er et egenpar, så er $ Re_1 = u_1 $ og $ De_1 = \lambda _1 $  
-\end{corollary}
+\end{corollarybox}
 
-\begin{proof}
+\begin{proofbox}{5.5.5}{}
 $ T: \mathbb{C}^n \rightarrow \mathbb{C}^n $ gitt ved $ T(x) := Ax $ er normal. Av spektralteoremet finnes en ortonormal basis av egenvektorer $ \mathcal{B} = \left( u_1, ..., u_n \right)  $. Av teorem 4.3.8 er da 
 
 \[
@@ -649,28 +763,505 @@ diagonalmatrisen med elementer $ \lambda _1, ..., \lambda _n $. Av korollar 4.3.
 Vi brukte i siste steg at R er unitær $ R^{-1} = R^* $ 
 
 
-\end{proof}
+\end{proofbox}
 
-\begin{oppgave}{5.5.6}
+\begin{oppgavebox}{5.5.6}{}
 Forklar hvorfor spektralteoremet for matriser kan omskrives slik:\\
 
 Enhver normal matrise er diagonaliserbar, og egenvektorene kan velges til å være ortonormal
 
-\begin{proof}
-Fra oppgave 4.8.3 fant vi at alle normale matriser er unitære. Dvs. $ A^{-1} = A^* $. Om A er unitær, så er det fra 4.10.2 ekvivalent med å si at kolonnene til A er ortogonale. Det vil si at det er n egenverdier med multiplisitet. Da finnes det en ortogonalmatrise D, og en matrise R slik at $ A = RDR^{-1} $ og A er diagonaliserbar 
-\end{proof}
-\end{oppgave}
+\begin{proofbox}{5.5.6}{}
+Fra oppgavebox 4.8.3 fant vi at alle normale matriser er unitære. Dvs. $ A^{-1} = A^* $. Om A er unitær, så er det fra 4.10.2 ekvivalent med å si at kolonnene til A er ortogonale. Det vil si at det er n egenverdier med multiplisitet. Da finnes det en ortogonalmatrise D, og en matrise R slik at $ A = RDR^{-1} $ og A er diagonaliserbar 
+\end{proofbox}
+\end{oppgavebox}
 
 
-\begin{corollary}{5.5.7}
+\begin{corollarybox}{5.5.7}{}
 La $ A \in M_n ( \mathbb{R}) $ være en symmetrisk matrise. Da finnes en ortgonal $ R \in M_n( \mathbb{R}) $ og en diagonalmatrise $ D \in M_n( \mathbb{R}) $ slik at 
 \[
     A = RDR^T
 \]
-\end{corollary}
+\end{corollarybox}
 
 \section*{5.6 Singulærverdidekomposisjon}
 \addcontentsline{toc}{section}{5.6 Singulærverdidekomposisjon}
+
+SVD er en videre generalisering av spektralteoremet, som sier at alle normale matriser er diagonaliserbare. For en generell avbildning $ T \in \mathcal{L}(U, V) $ hvor U og V er endeligdim indreproduktrom, så kan T ha en SVD, som kan sammenlignes med en diagonalisering
+
+
+\begin{lemmabox}{5.6.1}{}
+    La U og V være endeligdim indreproduktrom, og la $ T \in \mathcal{L}(U, V) $. Operatoren $ T^*T \in \mathcal{L}(U) $
+    
+    \begin{itemize}
+        \item Er selvadjungert $ \left( T = T^* \right)  $ 
+        \item Har relle, ikke negative egenverdier (\textbf{\textit{positiv semidefinitt}})
+        \item $ kerT = ker T^*T $ og $ imT^* = imT^*T $  
+    \end{itemize}
+\end{lemmabox}
+
+\begin{proofbox}{lemma 5.6.1}{}
+Skal vise i) at $ T^* T $ er selvadjungert. Det skjer om
+\[
+    T^*T = \left( T^*T \right) ^*
+\]
+Vi kan skrive om RHS som \begin{align*}
+    \left( T^*T \right) ^* &= T^* \left( T^* \right) ^*\\
+\end{align*}
+Siden $ \left( T^* \right) ^*  = T $, så er
+\[
+    T^*T = \left( T^*T \right) ^*
+\]
+og operatoren $ T^*T $ er selvadjungert (altså symmetrisk for reelle matriser, og $ A^* = \overline{A^T}$ når $ A \in M_n(\mathbb{C}) $ )\\
+
+
+Skal nå vise ii)
+
+Anta først at $ \left( \lambda , u \right)  $ er et egenpar for $ T^*T \in \mathcal{L}(U) $. Og at $ \lambda \in \mathbb{R} $. Da er $ \lambda ^2 \geq 0 $. 
+
+\begin{align*}
+    \left\lVert T^*Tu \right\rVert ^2 &= \langle T^*Tu, T^*Tu \rangle_{  } \\
+    &= \langle \lambda u, \lambda u  \rangle_{  }  \\
+    &= \lambda \overline{\lambda } \langle u, u  \rangle_{  } \\
+    &= \lambda ^2 \left\lVert u \right\rVert ^2 \geq 0
+\end{align*}
+Det er $ \geq 0 $ på grunn av antagelsene vi gjort
+
+
+Bevis for iii)
+
+Vi påstår at $ ker T = ker T^*T $. Hvor $ Tu = 0 $ er det opplagt, fordi 
+\[
+    T^*Tu = T^*0 = 0
+\]
+
+T er normal fordi $ T^*T = TT^* $, og fra teorem 4.8.5, så er for enhver $ T \in \mathcal{L}(U) $ normal, og da gjelder det at
+
+\[
+    kerT = kerT^*
+\]
+
+og det er vist at $ T^* 0 = 0 $ fordi $ Tu = 0 $. Motsatt om $ u \in ker T^*T $ er 
+
+\begin{align*}
+    \left\lVert Tu \right\rVert ^2 &= \langle Tu, Tu \rangle_{  } 
+    &= \langle T^*Tu, u,  \rangle_{  } \\
+    &= \langle 0, u,  \rangle_{  } \\
+    &=0 
+\end{align*}
+
+så $ Tu = 0 $, det vil si at $ u \in ker T $.\\
+
+Vi påstår videre at $ imT^*T = imT^* $. Av proposisjon 4.7.6 (vi) er $ imT^* = \left( kerT \right) ^{\bot} = \left( ker T^* T \right) ^{\bot} $. Siden $ T^*T $ er normal, så er 
+
+\begin{align*}
+    \left( ker T^*T \right)^{\bot} &= \left( \operatorname{im} T^*T \right)^{\bot\bot} \\
+    &= imT^*T   
+\end{align*}
+\end{proofbox}
+
+
+\begin{oppgavebox}{5.6.2}{}
+Bevis de samme (eller tilsvarende) egenskapene for operatoren $ TT^* \in \mathcal{L}(V) $
+\end{oppgavebox}
+
+\begin{proofbox}{5.6.2}{}
+Bevis for i)
+
+Operatoren $ TT^* $ er selvadjungert, om
+\[
+    TT^* = \left( TT^* \right) ^*
+\]
+ 
+\begin{align*}
+    \left( TT^* \right) ^* &= \left( T^* \right) ^* T^* \\
+    &= TT^*
+\end{align*}\\
+
+
+bevis for ii)
+Anta at $ ( \lambda , u )$ er et egenpar for $ TT^* $. Anta også at $ \lambda \in \mathbb{R} $. Da er 
+
+\begin{align*}
+    \left\lVert TT^*u \right\rVert ^2 &= \langle TT^*u, TT^*u  \rangle_{  } \\
+    &= \langle \lambda u, \lambda u  \rangle_{  } \\
+    &= \lambda  \overline{\lambda } \langle u, u \rangle_{  }\\
+    &= \lambda ^2 \left\lVert u \right\rVert ^2 
+\end{align*}
+
+Bevis for iii)
+
+Vi påstår at $ ker TT^* = kerT^* $. Hvis $ T^*u= 0 $, er
+\begin{align*}
+    TT^*u &= T0\\
+    &= 0
+\end{align*}
+Motsatt sier vi at om $ u \in ker TT^* $, er 
+
+\begin{align*}
+    \left\lVert T^*u \right\rVert ^2 &= \langle T^*u, T^*u \rangle_{  }\\
+    &= \langle u, TT^*u \rangle_{  }  \\
+    &= \langle u, 0 \rangle_{  } \\
+    &= 0
+\end{align*}
+Med andre ord, er $ \left\lVert T^*u \right\rVert =0 $, som betyr at $ u \in ker T^* $. Dermed er $ kerTT^* = kerT^* $
+
+
+Vi påstår så at $ imTT^* = imT $ 
+
+\begin{align*}
+    \left( imT \right) ^{\bot} &= kerT^*\\
+    &= kerTT^*
+\end{align*}
+Siden $ TT^*  $ er normal, så er 
+\[
+    kerTT^* = \left( imTT^* \right) ^{\bot}
+\]
+og da er $$ \left( imT \right) ^{\bot} = \left( imTT^* \right)^{\bot}  $$. Da er det bare å komplekskonjugere begge sider, og vi får at $ imT = imTT^* $ 
+\end{proofbox}
+
+
+
+Ifølge tidligere, er $ T^*T $ selvadjungert (symmetrisk) og dermed også normal. Så spektralteoremet garanterer at den har en ortonormal liste av egenvektorer $ \left( u_1, ..., u_n \right)  $ med tilhørende egenverdier $ \left( \lambda _1, ..., \lambda _n \right)  $. Da er 
+
+\begin{align*}
+    \left\lVert Tu_j \right\rVert ^2_V &= \langle Tu_j, Tu_j \rangle_{ U } \\
+    &= \langle u_j, T^*Tu_j \rangle_{ U } \\
+    &= \lambda _j \langle u_j, u_j \rangle_{ U } \\
+    &= \lambda _j
+\end{align*}
+Og vi ser dermed at $ \sqrt{ \left\lVert Tu_j \right\rVert ^2 } = \sqrt{ \lambda _j } $ forteller oss hvor mye T strekker eller krymper hvert element i den ortonormale listen med egenvektorer.
+
+\begin{definitionbox}{5.6.3}{}
+La U og V være endeligdimensjonale indreproduktrom over $ \mathbb{K} $, og la $ T \in \mathcal{L}(U, V) $. \textbf{\textit{Singulæreverdiene til T}} er kvadratrøttene 
+\[
+    \sigma_j := \sqrt{ \lambda _j } (j=1, ..., n
+\]
+til egenverdiene til $ T^*T $. Multiplisiteten til en singulærverdi er $ \mu_{T^*T}(\lambda _j) $  til $ \lambda _j $
+
+
+Listen av alle singulærverdier er $ \left( \sigma_1, ..., \sigma_n \right)  $ der $ n := dimU $ ordnet i synkende rekkefølge, slik at $ \sigma_1 \geq \sigma_2 \geq ... \geq \sigma_n $ der hver singulær verdi er gjentatt $ \mu_{T^*T}(\lambda _j )$ ganger 
+\end{definitionbox}
+
+
+\begin{definitionbox}{5.6.4}{}
+La $ A \in M_{m \times n} (\mathbb{K}) $. \textbf{\textit{Singulærverdiene til A}}  er kvadratrøttene 
+
+\[
+    \sigma_j = \sqrt{ \lambda _j } \left( j=1, ..., n \right) 
+\]
+til egenverdiene til $ A^*A $ \\
+
+En ekvivalent definisjon er at singulæreverdiene til A er singulærverdiene til den lineære avbildningen $ T: \mathbb{K}^m \rightarrow \mathbb{K}^n $ gitt ved $ Tx := Ax\Sigma  $ 
+\end{definitionbox}
+
+\begin{oppgavebox}{5.6.6}{}
+Vi har at $ A = \begin{bmatrix}
+    4&11&14\\
+    8&7&-2
+\end{bmatrix}  $ og at 
+
+\begin{align*}
+    AA^T &= \begin{bmatrix}
+        16 + 11^2 + 14^2 & 32 + 77 - 28\\
+        32 + 77 - 28 & 64 + 49 + 4
+    \end{bmatrix} \\
+    &= \begin{bmatrix}
+        333 & 81\\
+        81& 117
+    \end{bmatrix} 
+\end{align*}
+
+Egenverdiene er
+\begin{align*}
+    det \left( AA^T - \lambda I \right) &= \left( 333- \lambda  \right) \left( 117 - \lambda  \right) \\
+    &= \lambda^2 - 117 \lambda - 333 \lambda  + 32400 \\&=
+    &= \left( \lambda - 360 \right) \left( \lambda  - 90 \right) 
+\end{align*}
+
+Og vi ser åpenbart at løsningen til likningen $ det \left( AA^T - \lambda I \right) = 0  $ er
+\begin{itemize}
+    \item $ lambda_1 = 360  \rightarrow \sigma_1 = \sqrt{ 360 }$
+    \item $ \lambda _2 = 90 \rightarrow \sigma_2 = \sqrt{ 90 } $  
+\end{itemize} 
+\end{oppgavebox}
+
+
+\begin{propositionbox}{5.6.7}{}
+    La U og V være endeligdim indreproduktrom, og la $ T \in \mathcal{L}(U, V) $
+    \begin{itemize}
+        \item T er injektiv $\iff 0$ \textbf{\textit{ikke}} er en singulærverdi
+        \item Antall positive singulærverdier er lik $ dim \left( imT \right)  $ 
+        \item Antall singulærverdier som er lik 0 er lik $ dim \left( kerT \right)  $ 
+        \item T er surjektiv iff atnall singulærverdier er lik dim V
+    \end{itemize} 
+\end{propositionbox}
+
+\begin{proofbox}{bevis for 5.6.7 iii)}{}
+Bevis for iii)
+Siden antall singulærverdier er lik $ n := dimU $, så er av dimensjonssatsen
+\[
+    n = dim \left( imT \right) + dim \left( kerT \right) 
+\]
+Hvis $ dim \left( imT \right) = \# \left\{ j: \sigma_k \neq 0 \right\}  $, så er
+\[
+    n - \# \left\{ j: \sigma_j \neq 0 \right\} = n - dim \left( imT \right) = dim \left( ker T \right) 
+\]
+\end{proofbox}
+
+\begin{proofbox}{5.6.7 i)}{}
+Av Lemma 2.3.3 er T injektiv $ \iff  kerT = \left\{ 0 \right\} $ og av lemma 5.6.1 iii) er $ kerT = kerT^*T = \left\{ 0 \right\} $ $ \iff $ 0 ikke er en egenverdi av $ T^*T $ , som er ekvivalent med at 0 ikke er en singulærverdi av T
+\end{proofbox}
+
+\begin{proofbox}{5.6.7 ii)}{}
+Av spektralteoremet er $ dim \left( imT^*T \right)  $ lik antall ikke-null egenverdier av $ T^*T $. Av lemma 5.6.1 iii) er $ dim \left( imT^*T \right) = dim \left( imT^*0 \right)  $ som av proposisjon 4.7.6 vii) er lik $ dim \left( imT \right)  $ 
+\end{proofbox}
+
+\begin{proofbox}{5.6.7 iv)}{}
+Avbildningen T er surjektiv $ \iff $ $ imT = V $  som av proposisjon 1.4.11 er ekvivalent med at $ dim \left( imT \right) = dimV  $ 
+\end{proofbox}
+
+\begin{oppgavebox}{5.6.8}{}
+La U være et endeligdim indreproduktrom og la $ T \in \mathcal{L}(U) $ være selvadjungert. Forklar hvorfor singulærverdiene til T er lik absolutt verdien av egenverdiene til T 
+
+\begin{proofbox}{5.6.8}{}
+Hvis $ T \in \mathcal{L}(U) $ og er selvadjungert, så er $ T= T^* $. Singulærverdiene til T er lik kvadratrøttene av egenverdiene til $ T^*T $. Det vil si at for $ j = 1, ..., n $, så har alle
+\[
+    \sigma_j = \sqrt{ \lambda _j^2 } = \left| \lambda_j \right| 
+\]
+\end{proofbox}
+\end{oppgavebox}
+
+\begin{theorembox}{5.6.9 Singulærverdidekomposisjonen}{}
+La U og V være indreproduktrom med dimensjin hhv. n og m. La $ T \in \mathcal{L}(U, V) $. Da finnes ortonormale basises $ \mathcal{B} = \left( u_1, ..., u_n \right)  $ for U og $ \mathcal{C} = \left( v_1, ..., v_m \right)  $ for V slik at
+
+\[
+    \left[ T \right] _{\mathcal{C}}^{ \mathcal{B}} = diag_{m \times n} \left( \sigma_1, ..., \sigma_r \right) 
+\]
+eller ekvivalent
+\[
+    Tu = \sum_{ k=1 }^{ r } \sigma_k \langle u, u_k \rangle_{  } v_k \forall u \in U
+\]
+\end{theorembox}
+
+\begin{proofbox}{5.6.9}{}
+Jeg henviser til boken.
+\end{proofbox}
+
+\begin{algoritme}{5.6.10}
+    Vi oppsummerer beviset for SVD, som bare er en algoritme for å finne en SVD til en vilkårlig operator $ T $ . jeg oppsummerer den her
+
+\begin{enumerate}
+    \item Finn $ T^*T $ 
+    \item Finn egenverdiene $ \lambda _1, ..., \lambda _n $ tilhørende $ T^*T $ 
+    \item Beregn singulærverdiene $ \sigma_j := \sqrt{ \lambda _j } $ 
+    \item Finn en ortonormal liste $ \left( u_1, ..., u_n \right)  $ i U bestående av egenvektorer tilhørende $ \lambda _1, ..., \lambda _n $. Gå frem slik:
+    \begin{itemize}
+        \item Finn egenvektorer $ \tilde{u_1}, ..., \tilde{u_n} $ tilhørende egenverdiene $ \lambda _1, ..., lambda_n $ på vanlig mpte. Hvis en singulærverdi har multiplisitet 2 eller høyere, må du velge de tilhørende egenvektorene til å være ortogonale. Vi oppnår automatisk at for ulike singulærverdier, så er de tilhørende egenvektorene ortonormale
+        \item Normaliser egenvektorene
+        \[
+            u_j := \frac{ 1 }{ \left\lVert u_j \right\rVert }u_j
+        \]
+        
+    \end{itemize}
+\end{enumerate}
+\end{algoritme}
+
+\begin{corollarybox}{5.6.11}{}
+La U, V, T og r være som over
+
+\begin{enumerate}
+    \item $ \left( u_{r+1}, ..., u_n \right)  $ er en basis for $ kerT $ 
+    \item $ \left( v_1, ..., v_r \right)  $ er en basis for $ imT $ 
+    \item T har rang r
+    \item $ \left( \sigma_j^2, u_j \right)  $ for $ \left( j=1, ..., n \right)  $ er egenparene til $ T^*T $ 
+    \item $ \left( \sigma_j^2, v_j \right)  $ for $ \left( j=1, ..., m \right)  $ er egenparene til $ TT^* $ 
+\end{enumerate}
+\end{corollarybox}
+
+\begin{proofbox}{5.6.11 i)}{}
+Listen $ \mathcal{B} = \left( u_{r+1}, ..., u_n \right)  $ er ortonormal og ligger i $ kerT^*T  = kerT$ (fra prop. 5.6.1 iii)). Av Prop. 5.6.7 iii) er 
+\[
+    n - r = \# sing. verdier som er lik 0 = dim \left( kerT \right) 
+\]
+Så hele $ \mathcal{B}  $ utspenner hele $ kerT $ 
+\end{proofbox}
+
+\begin{proofbox}{5.6.11 ii)}{}
+Listen $ \mathcal{C} = \left( v_1, ..., v_r \right)  $ er ortonormal og ligger i $ imT $, fordi $ v_j = \frac{ 1 }{ \sigma_j } Tu_j $. Av prop. 5.6.7 ii) er da 
+\[
+    r = \# positive sing. verdier = dim \left( im T \right) 
+\]
+Så $ \mathcal{C} $ utspenner hele $ imT $ 
+\end{proofbox}
+
+\begin{proofbox}{5.6.11 iii)}{}
+Vi vet 
+\[
+    rankT + dim \left( ker T \right) = dim V
+\]
+
+Som kommer fra dimensjonssatsen. Dette er fordi vi vet at $ rank T = dim \left( im T \right)  $ 
+
+Siden vektorene $ \left( v_1, ..., v_r \right)  $ danner en basis for $ imT $, så er $ dim \left( imT \right)  = r \rightarrow rankT = r$. 
+\end{proofbox}
+
+\begin{proofbox}{5.6.11 iv)}{}
+Hvis $ \left( \sigma_j^2, u_j \right)  $ er egenparene til $ T^*T $ for $ j = 1, ..., n $, så er 
+\[
+    Tu_j = \sigma_j^2 u_j = \left( \sqrt{ \lambda _j } \right)^2 u_j = \lambda _j u_j 
+\]
+\end{proofbox}
+
+\begin{proofbox}{5.6.11 v)}{}
+For $ j=1, ..., m $ er 
+\begin{align*}
+    TT^* v_j &= \frac{ 1 }{ \sigma_j } TT^*Tu_j \\
+    &= \frac{ 1 }{ \sigma_j } T \left( \sigma _{ j} ^2 u_j \right) \\
+    &= \sigma _{ j} ^2 u_j
+\end{align*}
+så $ \left( \sigma _{ j} ^2, u_j \right)  $ er et egenpar til $ TT^* $ for $ j=1, ..., r $. For $ j= r+1, ..., m $ er $ \sigma _{ j} = 0 $ og de tilhørende vektorene $ v_j $ ligger i $ \left( imTT^* \right)^{\bot}  $. Siden $ TT^* $ er normal, er $ kerTT^* = \left( imTT^* \right) ^{\bot} $ så vi finner at $ v_r+1, ..., v_m \in ker TT^* $, og derfor at 
+\[
+    TT^* v_j = 0 = \sigma _{ j} v_j \forall j = r+1, ..., m
+\]
+\end{proofbox}
+
+
+\begin{oppgavebox}{5.6.12}{}
+La $ Tu = \sum_{ k=1 }^{ r } \sigma _{ k} \langle u, u_k \rangle_{  } v_k  $ være en SVD av $ T \in \mathcal{L }(U, V) $ . Vis at $ T^* $ har SVD 
+\[
+    T^* v = \sum_{ k=1 }^{ r } \sigma _{ k} \langle v, v_k,  \rangle_{  } u_k \forall v \in V
+\]
+
+
+\begin{proofbox}{5.6.12}{}
+La $ T \in \mathcal{L}(U, V) $ hvor U og V er definert som i teorem 5.6.9. Da har $ TT^* $ ifølge korollar 5.6.11 egenpar $ \left( \sigma _{ j}^2, v_j  \right)  $  for $ j = 1, ..., m $ og
+
+\[
+    TT^*v_j = \sigma _{ j} ^2 v_j
+\]
+Definer nå $ u_j := \frac{ 1 }{ \sigma _{ j}} T^*v_j $  for $ j= 1, ... r $, hvor $ r \leq m $ slik at $ \sigma _{ 1} , ... \sigma _{ r} > 0 $ og $ \sigma _{ r+1} , ... \sigma _{ m} =0 $.
+
+Da er 
+\begin{align*}
+    \langle u_j, u_k \rangle_{  } &= \frac{ 1 }{ \sigma _{ j} \sigma _{ k}  } \langle T^*v_j, T^*v_k \rangle_{  } \\
+    &= \frac{ 1 }{ \sigma _{ j} \sigma _{ k} } \langle TT^* v_j, v_k \rangle_{  } \\
+    &= \frac{ \sigma _{ k} ^2  }{ \sigma _{ k} \sigma _{ j}  } \langle v_k, v_j \rangle_{  } = \delta_{jk}
+\end{align*}
+
+For en vilkårlig $ v \in V $ er da
+
+\begin{align*}
+    T^* v_j &= T^*  \left(  \sum_{ k=1 }^{ m } \langle v, v_k \rangle_{  } v_k  \right) \\
+    &= \sum_{ k=1 }^{ m } \langle v, v_k \rangle_{  } T^*v_k \\
+    &= \sum_{ k=1 }^{ r } \langle v, v_k \rangle_{  } \sigma _{ k} u_k + \sum_{ k=r+1 }^{ m } \langle v, v_k \rangle_{  } \sigma _{ k} T^*v_k  \\
+    &= \sum_{ k=1 }^{ r } \sigma _{ k} \langle v, v_k \rangle_{  } u_k
+\end{align*}
+
+Jeg setter bare en vilkårlig $ v \in V $ som $ v = \sum_{ k=1 }^{ m } \langle v, v_k \rangle_{  } v_k $ 
+\end{proofbox}
+\end{oppgavebox}
+
+\begin{oppgavebox}{5.6.17}{}
+Vis at om $ A \in M_{m \times n}(\mathbb{K}) $ er en diagonalmatrise, er singulær verdiene til A lik absolutt verdien til diagonalelementene til A. 
+\begin{proofbox}{5.6.17}{}
+Om $ A = diag_{m \times n} \left( \sigma _{ 1} , ..., \sigma _{ n}  \right)  $. Da er 
+
+\[
+    A =
+    \begin{bmatrix}
+    \sigma _{ 1}  & 0      & \cdots & 0      \\
+    0      & \sigma _{ 2}  & \cdots & 0      \\
+    \vdots &        & \ddots & \vdots        \\
+    0      & 0      & \cdots & \sigma _{ n}\\
+    \vdots &        &        & \vdots \\
+    0      & \hdots &        & 0
+    \end{bmatrix}_{m \times n}
+\]
+Da er $ A^* A $ 
+\[
+    A^* A =
+    A =
+    \begin{bmatrix}
+    \sigma _{ 1}  & 0      & \cdots & 0      & 0 \\
+    0      & \sigma _{ 2}  & \cdots & 0      & 0 \\
+    \vdots &        & \ddots &        & \vdots \\
+    0      & 0      & \cdots & \sigma _{ n}  & 0
+    \end{bmatrix}_{m \times n}
+    \begin{bmatrix}
+    \sigma _{ 1}  & 0      & \cdots & 0      \\
+    0      & \sigma _{ 2}  & \cdots & 0      \\
+    \vdots &        & \ddots & \vdots        \\
+    0      & 0      & \cdots & \sigma _{ n}\\
+    \vdots &        &        & \vdots \\
+    0      & \hdots &        & 0
+    \end{bmatrix}_{m \times n} = \begin{bmatrix}
+        \sigma _{ 1} ^2 & \hdots & 0\\
+        \vdots & \ddots & \vdots\\
+        0 & \hdots & \sigma _{ n} ^2
+    \end{bmatrix} 
+\]
+Matrisen $ A^*A $ har egenverdier $ \sigma _{ 1}^2, ...,   \sigma _{ n} ^2 $ fordi 
+\[
+    A^* A e_j = \sigma _{ j}^2 e_j
+\]
+Og følgende har den singulære verdier 
+\[
+    \sigma _{ j} := \sqrt{ \sigma _{ j} ^2 }= \left| \sigma _{ j}  \right| 
+\]
+\end{proofbox}
+\end{oppgavebox}
+
+\begin{definitionbox}{5.6.13}{}
+Singulærverdiene til en matrise $ A \in M_{m \times n}(\mathbb{K})  $ er kvadratrøttene til egenverdiene til $ A^*A $ 
+\end{definitionbox}
+
+
+\begin{theorembox}{5.6.14}{}
+For enhver matrise $ A \in M_{m \times n} (\mathbb{K}) $ finnes unitære matriser $ C \in M_m(\mathbb{K}) $ og $ B \in M_n(\mathbb{K}) $  slik at
+\[
+    A = CDB^*
+\]
+der $ D = \operatorname{diag}_{m \times n}\left( \sigma_1, \dots, \sigma_n \right) $. 
+De første $r$ kolonnene i $C$ er en basis for $\operatorname{im} A$, 
+og de siste $n - r$ kolonnene i $B$ er en basis for $\ker A$.
+\end{theorembox}
+
+
+\begin{algoritme}{5.6.15}
+For å beregne SVD av A, lar du T være den tilhørende avbildningen $ T (x) := Ax $, finner SVD av $ Tx = \sum_{ j=1 }^{ r } \sigma _{ j} \left( x \cdot u_j \right) v_j  $  av T og lar
+\[
+    C = \left( v_1, ..., v_m \right), D = diag_{m \times n} \left( \sigma _{ 1} , ..., \sigma _{ n}  \right), B = \left( u_1, ..., u_m \right) 
+\]
+\end{algoritme}
+
+\section*{5.7 Anvendelser av SVD}
+\addcontentsline{toc}{section}{5.7 Anvendelser av SVD}
+
+\begin{oppgavebox}{5.7.5}{}
+La $ A = CDB^* $ være en SVD av A, der A er inverterbar. Vis at SVD en til $ A^{-1} $ er
+
+\[
+    A^{-1} = BD^{-1} C^*
+\]
+der $ D^{-1} = diag \left( 1 / \sigma _{ 1} , ..., 1/ \sigma _{ n}  \right)  $ 
+\begin{proofbox}{5.7.5}{}
+Fra definisjonen av SVD til matriser, så $ \exists $ unitære $ C \in M_n(\mathbb{K}) $ og $ D \in M_n(\mathbb{K}) $  slik at $ A = CDB^* $. Hvis en matrise er unitær, så er
+
+\[
+    A^* = A^{-1}
+\]
+Dette kommer fra 4.10. Dermed så er 
+
+\begin{align*}
+    A^{-1} &= \left( CDB^* \right) ^{-1} \\
+    &= \left( B^* \right) ^{-1} D^{-1} C^{-1} \\
+    &= \left( B^* \right) ^* D^{-1} C^* \\
+    &= B D^{-1} C^*
+\end{align*}
+Der $ D = D^{-1} = diag \left( 1 / \sigma _{ 1} , ..., 1/ \sigma _{ n}  \right) $ 
+\end{proofbox}
+\end{oppgavebox}
+
 
 
 \end{document}

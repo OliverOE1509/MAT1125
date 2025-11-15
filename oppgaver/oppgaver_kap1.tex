@@ -1,0 +1,927 @@
+% !TeX spellcheck = nb_NO
+% Kommentaren ovenfor gir instruks til editoren din om at den skal bruke norsk stavekontroll. Dette fungerer bl.a. i TeXstudio.
+
+\documentclass[a4paper,norsk]{article}
+% Norsk orddeling
+\usepackage[norsk]{babel}
+% AMS-pakkene er nyttige
+\usepackage{amsmath,amsfonts,amssymb,amsthm}
+% For å definere lister, som f.eks. deloppgaver
+\usepackage{enumitem}
+% Inneholder mye nyttig, slik som \coloneqq
+\usepackage{mathtools}
+% Penere kalligrafiske fonter
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[a4paper, margin=0.5in]{geometry}
+\usepackage{mathabx}
+\usepackage{amsthm}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{ifthen}
+\usepackage{hyperref}
+
+\usepackage[most]{tcolorbox}
+\tcbuselibrary{theorems, breakable}
+\tcbset{before upper=\par, after upper=\par} % allows itemize and enumerate inside boxes
+
+\newtcbtheorem[]{definitionbox}{Definisjon}{
+  colback=blue!3,
+  colframe=blue!70!black,
+  fonttitle=\bfseries\color{white},
+  coltitle=white,
+  boxrule=0.6pt,
+  arc=2mm,
+  enhanced,
+  breakable
+}{def}
+
+\newtcbtheorem[]{theorembox}{Teorem}{
+  colback=green!3,
+  colframe=green!50!black,
+  fonttitle=\bfseries,
+  coltitle=black,
+  boxrule=0.6pt,
+  before upper=\par\ignorespaces,
+  after upper=\par\unskip,
+  arc=2mm,
+  enhanced,
+  breakable
+}{thm}
+
+\newtcbtheorem[]{oppgavebox}{Oppgave}{
+  colback=gray!5,
+  colframe=black!60,
+  fonttitle=\bfseries,
+  coltitle=black,
+  boxrule=0.6pt,
+  arc=2mm,
+  enhanced,
+  breakable
+}{oppg}
+
+\newtcolorbox{sectionbox}[1][]{
+  colback=white,
+  colframe=black!70,
+  boxrule=0.7pt,
+  arc=3mm,
+  top=2mm, bottom=2mm, left=2mm, right=2mm,
+  title=#1,
+  enhanced,
+  breakable
+}
+
+\newtcbtheorem[]{corollarybox}{Korollar}{
+  colback=purple!5,
+  colframe=purple!60!black,
+  fonttitle=\bfseries\color{white},
+  coltitle=white,
+  boxrule=0.6pt,
+  arc=2mm,
+  enhanced,
+  breakable,
+  before upper=\par\ignorespaces,
+  after upper=\par\unskip
+}{cor}
+
+\newtcbtheorem[]{lemmabox}{Lemma}{
+  colback=orange!5,
+  colframe=orange!70!black,
+  fonttitle=\bfseries,
+  boxrule=0.6pt,
+  arc=2mm,
+  enhanced,
+  breakable
+}{lem}
+
+\newtcbtheorem[]{propositionbox}{Proposisjon}{
+  colback=cyan!5,
+  colframe=cyan!60!black,
+  fonttitle=\bfseries,
+  coltitle=black,
+  boxrule=0.6pt,
+  arc=2mm,
+  enhanced,
+  breakable
+}{prop}
+
+\newtcbtheorem[]{proofbox}{Bevis}{
+  colback=white,
+  colframe=black,
+  fonttitle=\bfseries\color{white},
+  coltitle=white,
+  colbacktitle=black,
+  title style={opacity=0.9},
+  boxrule=0.6pt,
+  arc=2mm,
+  enhanced,
+  breakable
+}{proof}
+
+\newlist{suboppgave}{enumerate}{1}
+\setlist[suboppgave,1]{
+  label=\textbf{(\alph*)},
+  ref=\theenumi\alph*,
+  leftmargin=1.5em,
+  itemsep=0.4em,
+  topsep=0.3em,
+  parsep=0pt,
+  partopsep=0pt
+}
+
+
+
+\setcounter{secnumdepth}{2}  % Sections and subsections numbered
+
+% Python style  
+\lstdefinestyle{pythonstyle}{
+    language=Python,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    commentstyle=\color{green},
+    numbers=left,
+    frame=single
+}
+
+% Bruk bedre symboler for ≥, ≤, epsilon og phi
+\renewcommand{\geq}{\geqslant}
+\renewcommand{\leq}{\leqslant}
+\newcommand{\eps} {\varepsilon}
+\renewcommand{\epsilon}{\varepsilon}
+\renewcommand{\phi}{\varphi}
+
+% Definer de vanligste mengdene og funksjonene
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+% \L er definert som noe annet fra før av, så vi må redefinere \L
+\renewcommand{\L}{\mathcal{L}}
+% Rommet av polynomer
+\newcommand{\Pol}{{\mathcal{P}}}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\Image}{im}
+\DeclareMathOperator{\Kernel}{ker}
+\DeclareMathOperator{\Span}{span}
+\DeclareMathOperator{\Rank}{rank}
+\DeclareMathOperator{\Diag}{diag}
+\DeclareMathOperator{\Proj}{proj}
+\newcommand{\basis}{{\mathcal{B}}}
+\newcommand{\basiss}{{\mathcal{C}}}
+\newcommand{\basisss}{{\mathcal{D}}}
+
+\usepackage[most]{tcolorbox}
+\newtcolorbox{algoritme}[1]{
+  title=Algoritme~#1,
+  colback=white,
+  colframe=black,
+  boxrule=0.5pt,
+  arc=2mm,
+  left=3mm,
+  right=3mm,
+  top=1mm,
+  bottom=1mm
+}
+
+% Definer oppgavemiljøet
+\newenvironment{oppgave}[1]%
+	{\trivlist{}\item\relax\textbf{Løsning på #1.}\medspace}%
+	{\endtrivlist}
+% Deloppgavelister
+\newlist{deloppgave}{enumerate}{1}
+\setlist[deloppgave,1]{label=(\textbf{\alph*}),align=left}
+
+\title{Oblig 4 \\ MAT1125, høst 2025}
+\author{Oliver Ekeberg}
+\begin{document}
+\maketitle
+
+\tableofcontents
+
+\section*{1.1 Vektorrom og underrom}
+\addcontentsline{toc}{section}{1.1 Vektorrom og underrom}
+
+\begin{definitionbox}{1.1.3}{}
+La $ \mathbb{K}   $ være en kropp. Et \textbf{\textit{vektorrom over $ \mathbb{K} $ }}er en mengde U utstyrt med en operasjon + fra $ U \times U $ til U (vektoraddisjon) og en operasjon $ \cdot $ fra $ \mathbb{K} \times U $ til U (skalarmultiplikasjon) som tilfredsstiller
+
+\begin{itemize}
+    \item $ \left( u+v \right) + w = u + \left( v + w \right) \forall u, v, w \in U$ 
+    \item $ u + v = v + u \forall u, v \in U $ 
+    \item $ \alpha_{}^{} \cdot \left( u + v \right)  = \alpha_{}^{} u + \alpha_{}^{} v \forall \alpha_{}^{} \in \mathbb{K}$ og $ u, v \in U $
+    \item $ \left( \alpha_{}^{} + \beta \right) u = \alpha_{}^{} u + \beta u \forall \alpha_{}^{} , \beta \in \mathbb{K} $ og $ u \in U $    
+    \item $ \left( \alpha_{}^{} \beta \right) u = \alpha_{}^{} \left( \beta u \right)  \forall \alpha_{}^{} , \beta in \mathbb{K}  $ og $ u \in U $
+    \item $ 1 \cdot u  = u \forall u \in U$
+    \item $ \exists 0_U \in U $ s.a. $ u + \left( -u \right) =0_U  \forall u in U$     
+\end{itemize}
+\end{definitionbox}
+
+\begin{propositionbox}{1.1.4}{}
+La U være et vektorrom
+\begin{itemize}
+    \item $ \exists $ kun ett nullelement $ 0_U \in U $ 
+    \item For enhver $ u \in U $ er elementet $ -u  $ unikt
+    \item Om $ u + v = w $ er $ u = w - v $    
+    \item $ \alpha_{}^{} \cdot 0_U = 0_U  \forall \alpha_{}^{} \in \mathbb{K}$ 
+    \item $ 0 \cdot u = 0_U \forall u \in U$ 
+    \item $ \left( -1 \right) \cdot u = -u \forall u \in  U $ 
+\end{itemize}
+\end{propositionbox}
+
+\begin{proofbox}{1.1.4 i)}{}
+Bevis på at det finnes kun ett nullelement
+
+Anta først som motsigelse at $ u + v = u $ hvor  $ v \neq 0 $. Da er $ v = 0 $, men det motsiger antagelsen, så $ v = 0_U $  
+\end{proofbox}
+
+\begin{proofbox}{1.1.4 iv)}{}
+Anta at $ \alpha_{}^{} \neq 0 $. Vi har at $ \alpha_{}^{} u = 0 $. Siden $ \alpha_{}^{} \neq 0 $ må $ u = 0 $. Men da er $ \alpha_{}^{} 0_U = 0_U $    
+\end{proofbox}
+
+\begin{definitionbox}{1.1.6 Underrom}{}
+La U være et vektorrom over $ \mathbb{K} $. En ikke-tom delmengde av $ V \subseteq U $ er et \textbf{\textit{underrom}} av U dersom V er lukket under vektoraddisjon og skalarmultiplikasjon. dvs.
+\begin{itemize}
+    \item $ u + v \in V \forall u, v \in V $ 
+    \item $ \alpha_{}^{} u \in V \forall u \in V  $ og $ \alpha_{}^{} \in  \mathbb{K} $  
+\end{itemize}
+\end{definitionbox}
+
+
+\begin{oppgavebox}{1.1.7}{}
+La 
+\[
+    U:= \mathbb{R}^2
+\]
+og $ V := \left\{ \begin{bmatrix}
+    2r\\
+    r
+\end{bmatrix} : r \in \mathbb{R} \right\}  $ 
+
+\begin{proofbox}{1.1.7}{}
+V består av en vektor med en frihets grad. Det vil si alle vektorer i V er parallelle med $ \begin{bmatrix}
+    2r\\
+    r
+\end{bmatrix}  $ 
+
+la $ c \neq r $ og definer $ v_1 \in V  $ som $ v_1 = \begin{bmatrix}
+    2c\\
+    c
+\end{bmatrix}  $   og $ v_2 \in V $ som $ v_2 = \begin{bmatrix}
+    2r \\
+    r
+\end{bmatrix} $. Da er
+\begin{align*}
+    v_1 + v_2 &= \begin{bmatrix}
+        2c\\
+        c
+    \end{bmatrix} + \begin{bmatrix}
+        2r\\
+        r
+    \end{bmatrix} \\
+    &= \begin{bmatrix}
+        2 \left( c + r \right) \\
+        \left( c+r \right) 
+    \end{bmatrix} \in V
+\end{align*}
+
+Anta videre at vi har $ \alpha_{}^{} \in \mathbb{K} $ og definer $ \alpha_{}^{} v = \alpha_{}^{}  \begin{bmatrix}
+    2r\\
+    r
+\end{bmatrix} = \begin{bmatrix}
+    \alpha_{}^{} 2 r\\
+    \alpha_{}^{} r
+\end{bmatrix} \in V $  
+\end{proofbox}
+\end{oppgavebox}
+
+\begin{oppgavebox}{1.1.8}{}
+La U være et vektorrom
+\begin{itemize}
+    \item La V være et underrom av U. bevis at V i seg selv er et vektorrom
+    \item La $ V_1, V_2 $ være underrom av U og la $ W := V_1 \cap V_2 $. Vis at W også er et underrom av U   
+\end{itemize}
+
+\begin{proofbox}{i)}{}
+V i seg selv er et vektorrom fordi om $ u + v \in V  \forall u, v \in V$, så er også $ u + v \in U \forall u, v \in U $. Videre er også for en $ \alpha_{}^{} \in  \mathbb{K} $ om U er et vektorrom over $ \mathbb{K} $, så er $ \alpha_{}^{} u \in V  $ og $ \alpha_{}^{} u \in U \forall u \in  V$  
+\end{proofbox}
+\end{oppgavebox}
+
+
+\section*{1.2 Lister av vektorer}
+\addcontentsline{toc}{section}{1.2 Lister av vektorer}
+
+\begin{definitionbox}{1.2.1}{}
+La U være et vektorrom. En liste av vektorer er en tuppel $ \left( u_1, ..., u_n \right)  $ av vektorer $ u_1, ..., u_n \in U $. Om $ \mathcal{B}= \left( u_1, ..., u_n \right)  $ og $ \mathcal{C} = \left( v_1, ..., v_m \right)  $ er to lister av vektorer, sier vi at $ \mathcal{B} \subseteq \mathcal{C} $ om 
+\[
+    u_i \in \left\{ v_1, ..., v_m  \forall i = 1, ..., n \right\} 
+\]
+Da er $ \mathcal{C} $ en større liste enn $ \mathcal{B} $. Vi har ikke snakket noe om dimensjon ennå, men hver vektor i listen ligger i samme dimensjon som vektorrommet U
+\end{definitionbox}
+
+\section*{1.3 Lineær uavhengighet}
+\addcontentsline{toc}{section}{1.3 Lineær uavhengighet}
+
+Dette er et meget viktig kapittel. Lineær uavhegighet kan tenkes på som en måte å si at vi kan ikke uttrykke en vektor u uten vektoren u.\\
+
+Ta frukt som et eksempel. En frukt kan ha forskjellige størrelser og former. Men vi kan ikke si at 
+\[
+    banan = eple + pære
+\]
+Uten å si at $ pære = \alpha_{}^{} \cdot banan $ eller $ eple = \alpha_{}^{} \cdot banan $ 
+ 
+\begin{definitionbox}{1.3.1}{}
+U vektorrom over $ K $. La $ \mathcal{B } = \left( u_1, ..., u_n \right)  $ være en liste av vektorer i U. En lineærkombinasjon av $ \mathcal{B} $ er et uttrykk på formen
+
+\[
+    \alpha_{1}^{} u_1 + ... + \alpha_{n}^{} u_n
+\]
+der $ \alpha_{1}^{}, ..., \alpha_{n}^{} \in \mathbb{K}  $. Spennet til $ \mathcal{B} $ er mengden av alle lineærkombinasjoner av $ \mathcal{B} $ 
+\[
+    span \mathcal{B} := \left\{ \alpha_{1}^{} u_1 + ... + \alpha_{n}^{} u_n : \alpha_{1}^{} , ..., \alpha_{n}^{} \in \mathbb{K} \right\} 
+\]
+Om $ V \subseteq U $ er en delmengde sier vi at $ \mathcal{B} $ utspenner V hvis $ Span \mathcal{B}  = V$ 
+\end{definitionbox}
+
+\begin{oppgavebox}{1.3.2}{}
+U vektorrom over $ \mathbb{K} $ og $ \mathcal{B} = \left( u_1, ..., u_n \right)  $ en liste av vektorer i U. Vis at $ Span \mathcal{B}  $ er et underrom av U 
+
+\begin{proofbox}{1.3.2}{}
+Vi har
+\[
+    span \mathcal{B} := \left\{ \alpha_{1}^{} u_1 + ... + \alpha_{n}^{} u_n : \alpha_{1}^{} , ..., \alpha_{n}^{} \in \mathbb{K} \right\} 
+\]
+$ \forall u_j, u_k \in U $ så er $ \alpha_{j}^{} u_j + \alpha_{k}^{} u_k $ en lineærkombinasjon av vektorer i  $ span \left( \mathcal{B} \right)  $. Dermed er $ span \left( \mathcal{B} \right) \subseteq U  $ 
+
+Videre om $ \alpha_{j}^{} \in \mathbb{K} $ , så er $ \alpha_{k}^{} u_k \in  span \left( \mathcal{B} \right)  $. Og for alle $ u_k \in span \left( \mathcal{B} \right)  $ , så er $ \alpha_{k}^{} u_k \in  U $ 
+\end{proofbox}
+\end{oppgavebox}
+
+\begin{definitionbox}{1.3.3}{}
+U vektorrom over $ \mathbb{K} $ og la $ \mathcal{B} = \left( u_1, ..., u_n \right)  $. Vi sier at $ \mathcal{B} $ er \textbf{\textit{lineært uavhengig}} hvis følgende implikasjon er sann $ \forall \alpha_{}^{} \in  \mathbb{K} $ 
+
+\[
+    \alpha_{1}^{} u_1 + ... + \alpha_{n}^{} u_n = 0 \rightarrow \alpha_{1}^{} = ... = \alpha_{n}^{} = 0
+\]
+$ \mathcal{B} $ er \textbf{\textit{lineært avhengig}} om $ \exists  \alpha_{1}^{} , ..., \alpha_{n}^{} \in \mathbb{K}$ som ikke alle er lik 0, og som er slik at 
+\[
+    \alpha_{1}^{} u_1 + ... + \alpha_{n}^{} u_n = 0
+\]
+Det dette sier er at i frukt eksemplet vårt, så er den eneste måte vi kan få ingen frukter i en mengde, er hvis 
+\[
+    \alpha_{1}^{}  banan + \alpha_{2}^{}  eple + \alpha_{3}^{}  pære = 0
+\]
+skjer hvis og bare hvis vi har $ \alpha_{1}^{}  = \alpha_{2}^{}  = \alpha_{3}^{} = 0  $. Vi kan godt si at $ 0 \cdot \left( frukt \right) = 0 $. Men nullelementet kan ikke være en vektor i en lineært uavhengig liste  
+\end{definitionbox}
+
+\begin{oppgavebox}{1.3.4}{}
+La $ \mathbb{K} $ være en kropp. 
+\begin{itemize}
+    \item la $ e_1 := \begin{bmatrix}
+        1\\
+        0
+    \end{bmatrix}  $  og $ e_2 := \begin{bmatrix}
+        0\\
+        1
+    \end{bmatrix}  $ er lineært uavhengig i $ \mathbb{K}^2 $ 
+    \item Generaliser forrige til listen $ \left( e_1, ..., e_n \right) \in \mathbb{K}^n  $ der $ e_j = \left( \delta_{jk} \right)_{k=1}^n  $.
+\end{itemize} 
+
+\begin{proofbox}{i)}{}
+Vi setter at
+
+\begin{align*}
+    0 &= \alpha_{1}^{} e_1 + \alpha_{2}^{} e_2\\
+    &= \alpha_{1}^{} \begin{bmatrix}
+        1\\0
+    \end{bmatrix} + \alpha_{2}^{} \begin{bmatrix}
+        0\\1
+    \end{bmatrix} \\
+    &= \begin{bmatrix}
+        \alpha_{1}^{} \\ \alpha_{2}^{} 
+    \end{bmatrix} 
+\end{align*}
+Som har den eneste løsningen at $ \alpha_{1}^{} = \alpha_{2}^{} =0 $ 
+\end{proofbox}
+
+\begin{proofbox}{ii)}{}
+Vi har at
+\begin{align*}
+    \alpha_{j}^{} e_j &= \left( \alpha_{j}^{} \delta_{jk} \right) 
+\end{align*}
+Av definisjon så er 
+
+\[
+    \left( \delta_{jk} \right) _{k=1}^n = \begin{cases}
+        1, j=k\\
+        0, j \neq k
+    \end{cases}
+\]
+Derfor er $ 0 = \left( \alpha_{j}^{} \delta_{jk} \right)_{k=1}^n  $ sann hvis og bare hvis $ \alpha_{j}^{} =0 \forall j = 1, ..., n $ 
+\end{proofbox}
+\end{oppgavebox}
+
+\begin{oppgavebox}{1.3.5}{}
+La $ \mathcal{P}_1  = \left\{ \text{alle reelle polynomer av grad høyest lik 1} \right\} $ 
+\begin{itemize}
+    \item a) La $ p(t):= 1 , q(t) := t$. Vis at $ \left( p, q \right)  $ er lin. uavh.
+    \item b) La $ p(t) = t+3 $, $ q(t) = t-3 $  
+    \item c) La $ p(t) =t+1 $, $ q(t) = 3t+5 $ og $ r(t) = 2t - 4 $ . Vis at $ \left( p, q, r \right)  $ er linert AVHENGIG
+\end{itemize}
+\end{oppgavebox}
+
+
+\begin{proofbox}{1.3.5 a)}{}
+Vi har at $ p, q $ er lin. uavh. hvis og bare hvis 
+\[
+    0 = \alpha_{1}^{} p(t) + \alpha_{2}^{} q(t)
+\]
+er sann for $ \alpha_{1}^{} =\alpha_{2}^{} =0 $. 
+\begin{align*}
+    0 &= \alpha_{1}^{} p(t) + \alpha_{2}^{} q(t)\\
+    &= \alpha_{1}^{} \cdot 1 + \alpha_{2}^{} \cdot t
+\end{align*}
+Dette skal gjelde for alle $ t \in  \mathbb{R} $. Vi ser at $ p(t) = 1 \neq 0  $ for noen $ t \in  \mathbb{R} $. Derfor kan uttrykket over bare være lik 0 hvis $ \alpha_{1}^{} = \alpha_{2}^{} =0 $ 
+\end{proofbox}
+
+\begin{proofbox}{1.3.5 b)}{}
+Vi har
+$$
+  0 = \alpha_{1} p(t) + \alpha_{2} q(t) = \alpha_{1} \left( t+3 \right)  + \alpha_{2} \left( t-3 \right) 
+$$
+
+Her kan vi prøve forskjellige verdier for $t$. Anta først at $\alpha_{1}, \alpha_{2} \neq 0$.
+
+For $t = 3$:
+\[
+  0 = \alpha_{1} \cdot 6 + \alpha_{2} \cdot 0
+\]
+er ikke sant. For $t = -3$:
+\[
+  0 = \alpha_{1} \cdot 0 - \alpha_{2} \cdot 6
+\]
+er heller ikke sant. Vi har altså at uttrykket er sant bare når $\alpha_{1} = \alpha_{2} = 0$.
+\end{proofbox}
+
+\begin{proofbox}{1.3.5 c)}{}
+Vi har at 
+\[
+    0 = \alpha_{1}^{} \left( t + 1 \right) + \alpha_{2}^{} \left( 3t + 5 \right) + \alpha_{3}^{} \left( 2t -4  \right) 
+\]
+
+må være sann. Vi kan faktorisere ut og få etter noen steg at 
+
+\begin{align*}
+    0 &= t \left( \alpha_{1}^{} + 3 \alpha_{2}^{} + 2 \alpha_{3}^{}  \right) + \alpha_{1}^{} + 5 \alpha_{2}^{} - 4 \alpha_{3}^{} 
+\end{align*}
+For $ t=0 $, så får vi da at hele uttrykket er lik 0 om $ \alpha_{1}^{} + 5 \alpha_{2}^{} - 4 \alpha_{3}^{} =0 $  eller om $ \alpha_{1}^{} + 5 \alpha_{2}^{} = 4 \alpha_{3}^{}  $ 
+Da er $ \alpha_{1}^{} p(t) + \alpha_{2}^{} q(t) + \alpha_{3}^{} r(t) = 0 $ for ikke alle $ \alpha_{1}^{}, \alpha_{2}^{}, \alpha_{3}^{} =0 $, og som fortsatt tilfredsstiller 
+\[
+    0 = \alpha_{1}^{} p(t) + \alpha_{2}^{} q(t) + \alpha_{3}^{} r(t)
+\]
+\end{proofbox}
+
+\begin{oppgavebox}{1.3.6}{}
+Vi sier at to vektorer er parallelle om $ u = \alpha_{}^{} v $. Forklar at dette er ekvivalent med å si at $ \left( u, v \right) $ er lineært avhengige
+\end{oppgavebox}
+
+\begin{proofbox}{1.3.6}{}
+ Vi har at $ u = \alpha_{}^{} v $. Vi kan skrive om og få at 
+
+\begin{align*}
+    u &= \alpha_{}^{} v\\
+    0 &= \alpha_{ }^{} v + \left( -1 \right) \cdot u \\
+    0 &= \alpha_{1}^{} v + \alpha_{2}^{} u
+\end{align*}
+Dette er jo lik null, men $ \alpha_{2}^{} = -1 \neq 0 $ så det finnes skalarer $ \alpha_{1}^{}, \alpha_{2}^{}  $ som ikke alle er lik 0, men som fortsatt tilfredsstiller
+\[
+    0 = \alpha_{1}^{} v + \alpha_{2}^{} u
+\]
+Dermed er det ekvivalent å si at to vektorer er parallelle, og lineært avhengige
+\end{proofbox}
+
+\begin{oppgavebox}{1.3.7}{}
+Oppgaven er
+a) Vis at hvis $ \left( u_1, ..., u_n \right)  $ er lineært uavhengig, er ingen av vektorene $ u_1, ..., u_n $ lik null vektoren
+
+b) Vis at følgende er ekvivalent med at $ \left( u_1, ..., u_n \right)  $ er lineært uavhengig: \\
+
+Minst en av $ \alpha_{1}^{} , ..., \alpha_{n}^{}  $ er ulik 0 $ \rightarrow \alpha_{1}^{} u_1 + ... + \alpha_{n}^{} u_n \neq 0$   
+c) Vis at følgende også er ekvivalent med at $ \left( u_1, ..., u_n \right)  $ er lineært avhengig:\\
+
+En av vektorene  $ u_1, ..., u_n $ er en lineærkombinasjon av de andre
+\end{oppgavebox}
+
+\begin{proofbox}{1.3.7 a)}{}
+Siden $ \left(  u_1, ..., u_n \right)  $ er lineært uavhengig, så er 
+\[
+    0 = \alpha_{1}^{} u_1 + ... + \alpha_{n}^{} u_n
+\]
+Sant hvis og bare hvis $ \alpha_{1}^{} = ... = \alpha_{n}^{} =0 $. Anta nå for motsigelse at $ 0_U $ er et element i listen $ u_1, ..., u_n $. Kall dette elementet for $ u_j $. Da vil tilhørende $ \alpha_{j}^{} = 1 $ gi at 
+\[
+    0 = \alpha_{1}^{} u_1 + ... + \alpha_{j}^{} u_j + ... + \alpha_{n}^{} u_n
+\]
+Hvor alle $ \alpha_{1}^{} , ..., \alpha_{j-1}^{} , \alpha_{j+1}^{} , ..., \alpha_{n}^{}   = 0$. Dette motstrider definisjonen for lineær uavhengighet, og nullementet kan derfor ikke være med i en lineært uavhengig liste.  
+\end{proofbox}
+
+\begin{proofbox}{1.3.7 b)}{}
+Vi har en liste med lineært uavhengige vektorer $ u_1, ..., u_n $. Dette er et faktum vi har. 
+
+Anta nå at vi har en mengde med koeffisienter $ \alpha_{1}^{}, ..., \alpha_{n}^{} $ hvor vi har minst en, si $ \alpha_{j}^{} \neq 0 $  for $ j \in \left\{ 1, ..., n \right\}  $. Da er dette ekvivalent med å si at 
+\[
+    \alpha_{1}^{} u_1 + ... + \alpha_{n}^{} u_n \neq 0
+\]
+Dette er fordi 
+\begin{align*}
+    \alpha_{1}^{} u_1 + ... + \alpha_{n}^{} u_n &= \alpha_{1}^{} u_1 + ... + \alpha_{j}^{} u_j + ... 0 \alpha_{n}^{} u_n \\
+    &= \alpha_{j}^{} u_j
+\end{align*}
+som umulig kan være lik 0. Det er fordi vi har vist at nullelementet ikke kan være i en lineært uavhengig liste med vektorer, i tillegg til at vi har antatt at $ \alpha_{j}^{} \neq 0 $.\\
+
+Anta motsatt at alle $ \alpha_{1}^{} , ..., \alpha_{n}^{} = 0 $. Da vil en  
+\end{proofbox}
+
+\begin{proofbox}{1.3.7 c)}{}
+Vi har en liste med lineært avhengige vektorer $ \left( u_1, ..., u_n \right)  $. Da er det minst en $ \alpha_{j}^{} \neq 0 $ for $ j \in \left\{ 1, ..., n \right\}  $ slik at 
+
+\[
+    0 = \alpha_{1}^{} u_1 + ...+ \alpha_{j}^{} u_j + ...+ \alpha_{n}^{} u_n
+\]
+Dette er det samme som å skrive at 
+\[
+    - \alpha_{j}^{} u_j = \alpha_{1}^{} u_1 + ... + \alpha_{n}^{} u_n
+\]
+som sier at vektoren $ u_j $ er en lineær kombinasjon av de andre vektorene 
+\end{proofbox}
+
+\begin{lemmabox}{1.3.8}{}
+La $ \left( u_1, ..., u_n \right)  $ være en liste av ikke-null vektorer i U. Da er følgende ekvivalent
+\begin{itemize}
+    \item $ \left( u_1, ..., u_n \right)  $ er lineært uavhengig
+    \item $ u_k \notin span \left( u_1, ..., u_{k-1} \right)  $ for $ k=2, ..., n $ 
+\end{itemize}
+Hvis $ n=1 $ er begge utsagn automatisk sanne, derfor antar vi at $ n \geq 2 $ 
+\end{lemmabox}
+
+\begin{proofbox}{1.3.8}{}
+Se i boken
+\end{proofbox}
+
+\begin{propositionbox}{1.3.9}{}
+La $ \mathcal{B}= \left( u_1, ..., u_n \right)  $ være en liste an $  n \geq 2 $ vektorer i U, og anta at en av vektorene er en lin. komb. av de andre: 
+\[
+    u_k \in span \left( \mathcal{B}' \right) 
+\]
+der $ \mathcal{B}' := \left( u_1, ..., u_{k-1}, u_{k+1}, ..., u_n \right)  $. Da er
+
+\[
+    span \left( \mathcal{B}' \right) = span \left( \mathcal{B} \right) 
+\]
+
+Som et korollar gjelder det at for enhver liste med vektorer $ \mathcal{B} $  (uansett om den er lineært uanvhegig eller avhengig) slik at $ span \left( \mathcal{B} \right) \neq \left\{ 0 \right\}   $, finnes det en mindre liste $ \mathcal{C} \subseteq \mathcal{B} $ som er lineært uavhengig og som er slik at $ span \left( \mathcal{B} \right) = span \left( \mathcal{C} \right)   $ 
+
+Se bevis i boken
+\end{propositionbox}
+
+\section*{1.4 Basis og dimensjon}
+\addcontentsline{toc}{section}{1.4 Basis og dimensjon}
+
+\begin{definitionbox}{1.4.1}{}
+La U være et vektorrom. En \textbf{\textit{basis for U}} er en liste $ \left(  u_1, ..., u_n  \right)  $  av vektorer i U som er lineært uavhengig og som utspenner U
+\end{definitionbox}
+
+
+\begin{oppgavebox}{1.4.2}{}
+Vis at standardbasisen $ \left( e_1, ..., e_n \right)  $ er en basis for $ \mathbb{K}^n $ 
+
+\begin{proofbox}{1.4.2}{}
+Vi har fra 1.3.4 at $ 0 = \alpha_{j}^{} e_j $ er sann hvis $ \alpha_{j}^{} = 0 \forall j \in \left\{ 1, ..., n \right\}  $. Derfor er $ \left( e_1, ..., e_n \right)  $ lineært uavhengig, og må bare vise at det utspenner $ \mathbb{K}^n $. 
+
+Lar vi $ x = \left( x_j \right)_{j=1} \in \mathbb{K}^n  $ være vilkårlig, observerer vi at 
+\[
+    x = \sum_{ j=1 }^{ n } x_j e_j
+\]
+Altså ligger x i hele spennet til listen. Og siden x var vilkårlig, spenner hele listen $ \mathbb{K}^n $ 
+\end{proofbox}
+\end{oppgavebox}
+
+\begin{definitionbox}{1.4.3}{}
+Et vektorrom er \textbf{\textit{endeligdimensjonalt}} hvis det utspennes av endelig mange vektorer., ellers er det \textbf{\textit{uendeligdimensjonalt}}. Det trivielle vektorrommet $ \left\{ 0 \right\}  $ defineres som endeligdimensjonalt
+
+Sagt med andre ord, Et vektorrom U er endeligdimensjoalt om $ \exists $ en liste $ \left( u_1, ..., u_n \right)  $ av vektorer i U slik at $ U = span \left( u_1, ..., u_n \right)  $ 
+\end{definitionbox}
+
+\begin{oppgavebox}{1.4.4}{}
+La U være et ikke-trivielt vektorrom. Bevis at følgende er ekvivalent
+\begin{itemize}
+    \item U er endeligdimensjonalt
+    \item U har en basis
+\end{itemize}
+
+\begin{proofbox}{1.4.4}{}
+Anta først at U er endeligdimensjonalt. Det vil si at $ \exists  $ en liste $ \left( u_1, ..., u_n \right)  $ av vektorer i U slik at $ U = span \left( u_1, ..., u_n \right)  $ dvs. at en vektor $ u \in U $ kan skrive som
+\[
+    u = \alpha_{1}^{} u_1 + ... + \alpha_{n}^{} u_n
+\]
+Dette er en måte å si at basisen til U er listen $ \left( u_1, ..., u_n \right)  $ 
+
+Skal nå vise at hvis U har en basis, så er U endeligdimensjonalt
+
+Hvis U har en basis $ \left( u_1, ..., u_n \right)  $ så er listen $ \left( u_1, ..., u_n \right) $ lineært uavhengig, og dermed er en vilkårlig vektor $ u \in U $ uttrykt som
+\[
+    u = \alpha_{1}^{} u_1 + ... + \alpha_{n}^{} u_n
+\]
+Siden dette gjelder for en vilkårlig $ u \in U $ så er hele spennet til basisen lik U. Spennet til U er alle mulige lineærkombinasjoner av basisvektorene til et vektorrom U
+\end{proofbox}
+\end{oppgavebox}
+
+\begin{theorembox}{1.4.5}{}
+La U være et vektorrom over $ \mathbb{K} $ med en basis $ \mathcal{B} = \left( u_1, ..., u_n \right)  $. For enhver $ u \in U $ finnes da en unik n-tupper $ \left( x_1, ..., x_n \right) \in \mathbb{K}^n  $ slik at 
+\[
+    u = x_1 u_1 + ... + x_n u_n
+\]
+Vi betegner da denne n-tuppelen $ \left[ u \right] _{\mathcal{B}} = \left( x_1, ..., x_n \right)  $ som kalles \textbf{\textit{basisrepresentasjonen av u i basisen $ \mathcal{B} $ }}
+\end{theorembox}
+
+\begin{proofbox}{1.4.5}{}
+Siden $ \mathcal{B} $ er en basis, så er $ \left( u_1, ..., u_n \right)  $  lineært uahengig. Anta at vi nå har en n-tuppel $ \left( x_1, ..., x_n \right)  $ som er slik at $ u = x_1 u_1 + ... + x_n u_n $. Anta vi har også en annen n-tuppel $ \left( x_1', ..., x_n' \right)  $  som er slik at $ u = x_1' u_1 + ... + x_n' u_n $. Da vil
+
+\begin{align*}
+    u - u &= \left( x_1 - x_1' \right) u_1 + ... + \left( x_n - x_n' \right) u_n 
+\end{align*}
+Siden $ \left( u_1, ..., u_n \right)  $ er lineært uavhengig, så må $ x_1=x_1', ..., x_n = x_n' $ og representasjonen $ u = x_1 u_1 + ... + x_n u_n $ er unik
+\end{proofbox}
+
+\begin{oppgavebox}{1.4.6}{}
+a) La $ \mathcal{C} = \left( e_1, ..., e_n \right) $ være standardbasisen i $ \mathbb{K}^n $. Vis at
+\[
+    \left[ x \right] _{\mathcal{C}} = x \forall x \in \mathbb{K}^n
+\]\\
+
+
+b) La U være et vektorrom over $ \mathbb{K} $ med en basis $ \mathcal{B} = \left( u_1, ..., u_n \right)  $. Vis at 
+\[
+    \left[ u_j \right] _{\mathcal{B} } = e_j \forall j=1, ..., n
+\]    
+\end{oppgavebox}
+
+
+\begin{proofbox}{1.4.6 a)}{}
+For enhver $ x \in \mathbb{K}^n $ har vi at x er på formen
+
+
+\[
+    x = \begin{bmatrix}
+        x_1 \\
+        \vdots\\
+        x_n
+    \end{bmatrix} 
+    = \begin{bmatrix}
+        x_1 \\
+        \vdots\\
+        0
+    \end{bmatrix} e_1 + ... + \begin{bmatrix}
+        0 \\
+        \vdots\\
+        x_n
+    \end{bmatrix} e_n = x_1 e_1 + ... x_n e_n 
+\]
+dermed er $ \left[ x \right] _{\mathcal{C}} = \left( x_1, ..., x_n \right) $ 
+\end{proofbox}
+
+\begin{proofbox}{1.4.6 b)}{}
+Vi har at for en vilkårlig $ u_j \in U $, så er 
+\[
+    u_j = 0 \cdot u_1 + ... + 1 \cdot u_j + ... + 0 \cdot u_n
+\] 
+
+Da er 
+\[
+    \left[ u_j \right] _{\mathcal{B}} = \left( 0, ..., 1_j, ..., 0 \right) = e_j
+\]
+ 
+\end{proofbox}
+
+\begin{lemmabox}{1.4.7}{}
+La $ \left( u_1, ..., u_n \right)  $ og $ \left( v_1, ..., v_m \right)  $ være lister av vektorer i U. Anta at $ u_1, ..., u_n $ utspenner U, og $ \left( v_1, ..., v_m \right)  $ er lineært avhengig- Da er $ m \leq n $ 
+\end{lemmabox}
+\begin{proofbox}{1.4.7}{}
+Se boken for bevis
+\end{proofbox}
+
+\begin{theorembox}{1.4.8}{}
+La U være et endeligdimensjonalt vektorrom. Da er alle basiser for U like store. dvs. de inneholder like mange vektorer
+\end{theorembox}
+
+\begin{proofbox}{1.4.8}{}
+Anta at U har to basiser $ \mathcal{C} = \left( v_1, ..., v_m \right)  $ og $ \mathcal{B} = \left( u_1, ..., u_n \right)  $. Skal vise at $ m \leq n $ og at $ m\geq n $. Anta først at $ \left( u_1, ..., u_n \right) $ utspenner U, og at $ \mathcal{C} $ er en lineært uavhengig liste i U. Da er ifølge lemmabox 1.4.7 $ m \leq n $. Anta nå motsatt at $ \left( v_1, ..., v_m  \right)  $ utspenner U og at $ \left( u_1, ..., u_n \right)  $ er lineært uavhengig. Da er $ m \leq n $. Og jeg har da vist at det eneste alternativet, er at $ m=n $  
+\end{proofbox}
+
+\begin{definitionbox}{1.4.9}{}
+La U være et vektorrom over $ \mathbb{K}$. His U er endeligdimensjonal, sier vi at \textbf{\textit{dimensjonen til U }} er antall vektorer i U. Når $ U = \left\{ 0 \right\}  $ definerer vi $ dim U := 0 $. Dimensjonen til et uendeligdimensjonalt vektorrom Y definerer vi som $ dim U := \infty $ 
+\end{definitionbox}
+
+\begin{oppgavebox}{1.4.10}{}
+a) La $ \mathbb{K} $  være en kropp og la $ n \in \mathbb{N} $. Vis at dimensjonen til $ \mathbb{K}^n $ over $ \mathbb{K} $ er n
+
+b) Som vi så i 1.1.5 d), kan ethvert vektorrom over $ \mathbb{C} $ også ses på som et vektorrom over $ \mathbb{R} $. Vis at dimensjonen til $ \mathbb{C}^n $ er 2n
+
+
+\begin{proofbox}{1.4.10 a)}{}
+Vi har at en basis for $ \mathbb{K}^n$  er $ \left( e_1, ..., e_n \right)  $. Siden denne basisen inneholder n vektorer er
+\[
+    dim \mathbb{K}^n = n
+\]
+\end{proofbox}
+
+\begin{proofbox}{1.4.10 b)}{}
+Et tall i $ \mathbb{C} $ kan skrives på formen $ a + ib $ hvor $ a, b \in \mathbb{R} $. Det vil si at enhver vektor i $ \mathbb{C} $ må besrkives med to vektorer. Siden $ dim \mathbb{R}^n = n $ er dimensjonen til $ \mathbb{R}^n $ (se forrige oppgave, hvor $ dim \mathbb{K}^n = n $ 
+\end{proofbox}
+\end{oppgavebox}
+
+\begin{propositionbox}{1.4.11}{}
+La U være et vektorrom og V et underrom av U. Da er $ dim V \leq dimU $. Om U er endeligdimensjonal er $ dim V = dim U $ hvis og bare hvis $ V=U $ 
+\end{propositionbox}
+
+\begin{corollarybox}{1.4.12}{}
+La $ n \in \mathbb{N} $, la U være et n-dim vektorrom, og la $ \mathcal{B} := \left( u_1, ..., u_n \right)  $ være en liste av n vektorer i U. Da er følgende ekvivalent
+\begin{itemize}
+    \item $ \mathcal{B}  $ er en basis for U
+    \item $ \mathcal{B} $ er lineært uavhengig
+\end{itemize} 
+\end{corollarybox}
+
+
+\section*{1.5 Polynombasiser}
+\addcontentsline{toc}{section}{1.5 Polynombasiser}
+
+Vi har at mengden av polynomer med grad høyest lik n er 
+\[
+    \mathcal{P}_n = \left\{ \text{alle reelle polynomer av grad høyest lik n} \right\} 
+\]
+
+\subsection*{1.5.1 Den kanoniske basisen}
+\addcontentsline{toc}{section}{Den kanoniske basisen}
+
+\begin{propositionbox}{1.5.1}{}
+Definer $ p_k : \mathbb{R} \rightarrow \mathbb{R} $ som
+\begin{itemize}
+    \item $ p_0(t) = 1 $
+    \item $ p_k(t) = t^k $  
+\end{itemize}
+$ \forall t \in  \mathbb{R}, k =1, ..., n $
+Da er $ \left( p_0, ..., p_n \right)  $  en basis for $ \mathcal{P}_n $ 
+\end{propositionbox}
+
+\begin{oppgavebox}{1.5.2}{}
+Vis at 
+\begin{itemize}
+    \item $ dim \mathcal{P}_n = n+1 $
+    \item $ dim \mathcal{P} = \infty $  
+    \item $ dim C^0 \left( \mathbb{R}, \mathbb{R} \right) = \infty $ 
+\end{itemize}
+
+\begin{proofbox}{1.5.2 a)}{}
+Vektorrommet $ \mathcal{P}_n $ kan representeres med basisen $ \left( p_0, p_1, ..., p_n \right)  $ som har $ n+1 $ elementer i seg. Ergo er $ dim \mathcal{P}_n = n+1$ 
+\end{proofbox}
+
+\begin{proofbox}{1.5.2 b)}{}
+Vektorrommet $ \mathcal{P} = \left\{ \text{alle reelle polynomer} \right\}  $. Vi kan begynne med å vise at $ p_{k+1} \notin span \left( p_0, ..., p_k \right)  $. La $ \left( p_0, ..., p_n \right)  $ være den kanoniske basisen, da er $ p_n $ et polynom av grad n, og $ p_{n+1} $ er et polynom av grad n+1. Dette kan ikke uttrykkes som en kombinasjon av polynomer av høyst grad n
+\[
+    p_{n+1} \notin span \left( p_0, ..., p_n \right) 
+\]
+Dette gjelder $ \forall n \geq 2 $ 
+\end{proofbox}
+
+
+\begin{proofbox}{1.5.2 c)}{}
+$ C^0 \left( \mathbb{R}, \mathbb{R} \right)  $ er rommet av alle kontinuerlige funksjoner som er på formen $ f: \mathbb{R} \rightarrow \mathbb{R} $. Vi vet at $ \mathcal{P} $ er et underrom av dette rommet, fordi alle polynomer er kontinuerlige funksjoner. bevis for dette: Velg en $ u \in C^0 \left( \mathbb{R}, \mathbb{R} \right)  $ som er slik at $ u \notin \mathcal{P} $ og det er klart at $ \mathcal{P} $ er et underrom av $ C^0 \left( \mathbb{R}, \mathbb{R} \right)  $, fordi vektoraddisjon eller skalarmultiplikasjon av to vektorer i $ \mathcal{P} $ aldri kan forlate rommet $ \mathcal{P} $ 
+\end{proofbox}
+\end{oppgavebox}
+
+\subsection*{1.5.2 Newton-basisen}
+\addcontentsline{toc}{section}{Newton-basisen}
+
+\begin{propositionbox}{1.5.3}{}
+La $ t_0, ..., t_{n-1} \in \mathbb{R} $ være n forskjellige tall, og definer $ p_k : \mathbb{R} \rightarrow \mathbb{R} $ som
+\[
+    p_0(t) = 1
+\]
+\[
+    p_k(t) := \prod_{j=0}^{k-1} \left( t - t_j \right)  \forall t \in R, k = 1, ..., n
+\]
+Da er $ \left( p_0, ..., p_n \right)  $ en basis for $ \mathcal{P}_n $ 
+\end{propositionbox}
+
+Polynomet av grad n som interpolerer en funksjon i $ n+1 $ forskjellige punkter $ t_0, ..., t_n $ er 
+\[
+    p(t) := \alpha_{0}^{} + \alpha_{1}^{} \left( t - t_1 \right) + \alpha_{2}^{} \left( t - t_1 \right) \left( t - t_2 \right) + ... + \alpha_{n}^{} \left( t- t_1 \right) ... \left( t - t_n \right) 
+\]
+
+der $ \alpha_{k}^{} = f \left[ t_0, ..., t_n \right]  $ 
+der 
+\[
+    \begin{cases}
+        f \left[ t_i \right] := f(t_i)\\
+        f \left[ t_i, ..., t_j \right] := \frac{ f \left[ t_{i+1}, ..., t_j \right] - f \left[ t_i, ..., t_{j-1} \right] }{ t_j - t_i }
+    \end{cases}
+\]
+Som et eksempel for $ n=2 $ får vi
+
+\[
+    p(t) = f(t_0) + \left( t-t_0 \right) \frac{ f(t_1) - f(t_0) }{ t_1 - t_0 } + \left( t - t_0 \right) \left( t - t_1 \right) \frac{ \frac{ f(t_2) - f(t_1) }{ t_2 - t_1 } - \frac{ f(t_1) - f(t_0) }{ t_1 - t_0 } }{ t_2 - t_0 }
+\]
+Det viktigste å trekke fra dette er at et polynom på formen $ p_n $ er et polynom av grad n. dvs. at det høyeste eksponenten vi finner er $ t^n $ 
+
+\subsection*{1.5.3 Lagrange polynomer}
+\addcontentsline{toc}{section}{Lagrange polynomer}
+
+La $ t_0, .., t_{n} $ være $ n+1 $ forskjellige reelle tall. De tilhørende lagrange polynomene er funksjonene
+\[
+    L_k(t) := \frac{ \prod_{j\neq k} \left( t - t_i \right)  }{ \prod_{j\neq k}  \left( t_k - t_j  \right) } \forall t \in \mathbb{R}, k=0, ..., n
+\]
+Merk at 
+\begin{itemize}
+    \item Siden $ t_0, ..., t_n $ er forskjellige, så vil nevneren aldri være lik 0
+    \item $ L_0, ..., L_n $ er polynomer av grad n
+    \item $ L_k(t_{ \mathcal{l}}) = \delta_{k \mathcal{l}} for k, \mathcal{l} \in \left\{ 0, ..., n \right\}  $ 
+\end{itemize}
+
+\begin{propositionbox}{1.5.4}{}
+La $ t_0, ..., t_n \in \mathbb{R} $ være $ n+1 $ forskjellige tall, og definer $ L_0, ..., L_n $. Da er $ \left( L_0, ..., L_n \right)  $ en basis for $ \mathcal{P}_n $ 
+\end{propositionbox}
+
+\begin{corollarybox}{1.5.5}{}
+For $ n+1 $ forskjllige tall $ t_0, ..., t_n \in \mathbb{R} $ og tilhørende verdier $ y_0, ..., y_n \in \mathbb{R} $ finnes et unikt polynom $ p \in \mathcal{P}_n $ slik at $p(t_k) = y_k $ for $ k=0, ..., n $ 
+
+
+
+\begin{proofbox}{1.5.5}{}
+Vi bruker 1.5.3 for eksistens, og 1.5.4 for unikhet
+
+Fra 1.5.3 for $ t_0, ..., t_n $ være $ n+1 $ forskjellige tall, så finnes det et polynom $ p_k :\mathbb{R} \rightarrow \mathbb{R} $ som er  slik at
+\[
+    p(t_k) = \prod_{j=0}^{n} \left( t_k - t_j \right) = \left( t_k - t_1 \right) ... \left( t_k - t_n \right) = y_k
+\]
+Dette danner en basis for $ \mathcal{P}_n $, og vi vet da at p eksisterer.
+
+Uttrykk 
+\[
+    p(t_k) = \sum_{ j=0 }^{ n } L_j(t_k) y_k = \sum_{ j=0 }^{ n } \delta_{jk} y_k = y_k
+\]
+Uttrykk et nytt polynom $ q(t_k) = y_k $ for $ k=0, ..., n $ , kan vi fra 1.5.4 finne skalarer $ \alpha_{}^{}, ..., \alpha_{n}^{} $ slik at 
+\[
+    q = \alpha_{0}^{} L_0 + ...  + \alpha_{n}^{} L_n
+\]. Da er
+
+\[
+    y_k = q(t_k) = \alpha_{k}^{} L_k = \alpha_{k}^{} \forall k=0, ..., n
+\]
+Altså er $ q = \sum_{ k=0 }^{ n } y_kL_k = p $ 
+
+ 
+\end{proofbox}
+\end{corollarybox}
+
+\begin{corollarybox}{1.5.6}{}
+La $ p \in  \mathcal{P}_n $ være et polynom med $ n+1 $ forskjellige røtter - det finnes $ n+1 $ forskjellige tall $ t_0, ..., t_n \in \mathbb{R}$ slik at $ p(t_0), ..., p(t_n)=0 $. Da er $ p=0 $.
+
+\begin{proofbox}{1.5.6}{}
+Nullpolynomet $ q(t) = 0 $ ligger i $ \mathcal{P}_n $ og oppfyller samtidig $ q(t_0) = ... = q(t_n) = 0 $. Av 1.5.5, så finnes det bare et polynom i $ \mathcal{P}_n $  medd denne egenskapen, så $ p=q $ 
+\end{proofbox}
+\end{corollarybox}
+
+\subsection*{1.5.4 Legendre polynomer}
+\addcontentsline{toc}{section}{Legendre polynomer}
+
+\begin{align*}
+    p_0(t) &= 1\\
+    p_1(t) &= t\\
+    p_k(t) &= \frac{ 2k -1 }{ k } t p_{k-1}(t) - \frac{ k-1 }{ k }p_{k-2}(t)
+\end{align*}
+for $ k=2, 3,.... $ for $ t \in \mathbb{R} $  
+
+\begin{oppgavebox}{1.5.7}{}
+Bis at de fire første legendre polynomene er gitt ved 
+\begin{align*}
+    p_0(t) &=1 \\
+    p_1(t) &= t\\
+    p_2(t) &= \frac{ 3 }{ 2 }t^2 - \frac{ 1 }{ 2 }\\
+    p_3(t) &= \frac{ 5 }{ 3 }t^3 - \frac{ 3 }{ 2 } t
+\end{align*}
+
+\begin{proofbox}{1.5.7}{}
+$ p_0, p_1 $ er opplagt
+\begin{align*}
+    p_2(t) &= \frac{ 2 \cdot \left( 2-1 \right)  }{ 2 } \cdot t \cdot \left( t \right) - \frac{ 1 }{ 2 } \cdot 1\\
+    &= \frac{ 3 }{ 2 }t^2 - \frac{ 1 }{ 2 }
+\end{align*}
+$ p_3(t) $ er enkel å vise og
+\end{proofbox}
+\end{oppgavebox}
+
+\begin{propositionbox}{1.5.8}{}
+For enhver $ n \in \mathbb{N}_0 $ er $ p_n $ et n-te gradspolynom og $ \left( p_0, ..., p_n \right)  $ er en basis for $ \mathcal{P}_n $ 
+\end{propositionbox}
+
+\end{document}
